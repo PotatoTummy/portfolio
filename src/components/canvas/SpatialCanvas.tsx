@@ -3,8 +3,37 @@
 import React, { useEffect, useRef } from "react";
 import * as THREE from "three";
 
-export const SpatialCanvas: React.FC = () => {
+export interface SpatialCanvasProps {
+  heroProgress?: number;
+  approachProgress?: number;
+  approachStep?: number;
+  approachStepProgress?: number;
+}
+
+export const SpatialCanvas: React.FC<SpatialCanvasProps> = ({
+  heroProgress = 0,
+  approachProgress = 0,
+  approachStep = 0,
+  approachStepProgress = 0,
+}) => {
   const mountRef = useRef<HTMLCanvasElement | null>(null);
+
+  // References to keep latest progress in animation loop without re-triggering effects
+  const progressRef = useRef({
+    hero: heroProgress,
+    approach: approachProgress,
+    step: approachStep,
+    stepProg: approachStepProgress,
+    mouseX: 0,
+    mouseY: 0,
+  });
+
+  useEffect(() => {
+    progressRef.current.hero = heroProgress;
+    progressRef.current.approach = approachProgress;
+    progressRef.current.step = approachStep;
+    progressRef.current.stepProg = approachStepProgress;
+  }, [heroProgress, approachProgress, approachStep, approachStepProgress]);
 
   useEffect(() => {
     const canvas = mountRef.current;
@@ -18,7 +47,8 @@ export const SpatialCanvas: React.FC = () => {
         alpha: true,
         powerPreference: "high-performance",
       });
-    } catch {
+    } catch (e) {
+      console.warn("WebGL initialization failed", e);
       return;
     }
 
@@ -26,335 +56,406 @@ export const SpatialCanvas: React.FC = () => {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
 
     const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x0b0b0a, 0.03);
-
-    const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 140);
+    const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
+    camera.position.set(0, 0, 9.5);
     scene.add(camera);
 
-    // Dynamic Lights
-    const accentLight = new THREE.PointLight(0xff5533, 2.5, 40);
-    accentLight.position.set(3, 2, 4);
-    camera.add(accentLight);
+    // Cinematic Lighting
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+    scene.add(ambientLight);
 
-    const dirLight1 = new THREE.DirectionalLight(0xffffff, 1.2);
-    dirLight1.position.set(-5, 8, 6);
-    const dirLight2 = new THREE.DirectionalLight(0xffeedd, 0.6);
-    dirLight2.position.set(6, -3, -5);
-    scene.add(dirLight1, dirLight2, new THREE.AmbientLight(0xffffff, 0.45));
+    const dirLight = new THREE.DirectionalLight(0xffffff, 1.25);
+    dirLight.position.set(-4, 6, 6);
+    scene.add(dirLight);
 
-    // Star Constellation Field
-    const starCount = 1400;
-    const starCoords = new Float32Array(starCount * 3);
-    for (let i = 0; i < starCount; i++) {
-      starCoords[i * 3] = (Math.random() - 0.5) * 50;
-      starCoords[i * 3 + 1] = Math.random() * -120 + 10;
-      starCoords[i * 3 + 2] = (Math.random() - 0.5) * 40 - 10;
-    }
-    const starGeo = new THREE.BufferGeometry();
-    starGeo.setAttribute("position", new THREE.BufferAttribute(starCoords, 3));
-    const starMat = new THREE.PointsMaterial({
-      size: 0.06,
-      color: 0xf3f3ee,
-      transparent: true,
-      opacity: 0.45,
-      depthWrite: false,
-    });
-    scene.add(new THREE.Points(starGeo, starMat));
+    const redRimLight = new THREE.PointLight(0xff5533, 2.4, 40);
+    redRimLight.position.set(3.5, 2, 4);
+    camera.add(redRimLight);
 
-    // Shared Materials
-    const stdMat = (color: number, metal = 0.75, rough = 0.25) =>
-      new THREE.MeshStandardMaterial({ color, metalness: metal, roughness: rough });
-    const wireMat = (color: number, opacity = 0.4) =>
-      new THREE.MeshBasicMaterial({ color, wireframe: true, transparent: true, opacity });
-    const lineMat = (color: number, opacity = 0.3) =>
-      new THREE.LineBasicMaterial({ color, transparent: true, opacity });
-
-    // Scene Chapters Groups
-    const chapters: { group: THREE.Group; update: (progress: number, t: number) => void }[] = [];
-    const SPACING = 14;
-
-    // 0. Hero: Solid knot wrapped in electric wireframe
-    {
-      const group = new THREE.Group();
-      const knotGeo = new THREE.TorusKnotGeometry(1.5, 0.42, 200, 24, 2, 3);
-      const solidMesh = new THREE.Mesh(knotGeo, stdMat(0x181816, 0.9, 0.2));
-      const wireMesh = new THREE.Mesh(knotGeo, wireMat(0xff5533, 0.65));
-      wireMesh.scale.setScalar(1.02);
-      group.add(solidMesh, wireMesh);
-      chapters.push({
-        group,
-        update: (lp, t) => {
-          group.rotation.set(t * 0.15 + lp * 2.2, t * 0.22 + lp * 1.5, 0);
-        },
+    const metalMaterial = (color = 0x222220) =>
+      new THREE.MeshStandardMaterial({
+        color,
+        metalness: 0.88,
+        roughness: 0.28,
       });
-    }
 
-    // 1. Nestys: Distributed Microservices Network Graph
-    {
-      const group = new THREE.Group();
-      const N = 14;
-      const R = 2.4;
-      const pts: THREE.Vector3[] = [];
-      for (let i = 0; i < N; i++) {
-        const y = 1 - (i / (N - 1)) * 2;
-        const r = Math.sqrt(1 - y * y);
-        const theta = i * 2.39996;
-        pts.push(new THREE.Vector3(Math.cos(theta) * r, y, Math.sin(theta) * r).multiplyScalar(R));
+    // Helper: Rounded Rectangle for 2D Canvas Textures
+    const drawRoundRect = (
+      ctx: CanvasRenderingContext2D,
+      x: number,
+      y: number,
+      w: number,
+      h: number,
+      r: number
+    ) => {
+      ctx.beginPath();
+      if (ctx.roundRect) {
+        ctx.roundRect(x, y, w, h, r);
+      } else {
+        ctx.rect(x, y, w, h);
       }
-      const nodes = pts.map((p) => {
-        const mesh = new THREE.Mesh(new THREE.SphereGeometry(0.14, 18, 18), stdMat(0xf3f3ee, 0.3, 0.4));
-        mesh.position.copy(p);
-        group.add(mesh);
-        return mesh;
-      });
-      const linePts: THREE.Vector3[] = [];
-      pts.forEach((a, i) =>
-        pts.forEach((b, j) => {
-          if (j > i && a.distanceTo(b) < 2.6) linePts.push(a, b);
-        })
-      );
-      group.add(new THREE.LineSegments(new THREE.BufferGeometry().setFromPoints(linePts), lineMat(0xf3f3ee, 0.25)));
-      const core = new THREE.Mesh(new THREE.IcosahedronGeometry(0.6, 1), stdMat(0xff5533, 0.5, 0.25));
-      group.add(core);
+    };
 
-      chapters.push({
-        group,
-        update: (lp, t) => {
-          group.rotation.y = t * 0.12 + lp * 4;
-          group.rotation.x = 0.25;
-          core.rotation.y = t * 0.8;
-          nodes.forEach((m, i) => {
-            const on = (lp * 1.5 * N) > i;
-            m.scale.setScalar(on ? 1.5 + Math.sin(t * 3 + i) * 0.2 : 1);
-            m.material.color.setHex(on ? 0xff5533 : 0xf3f3ee);
-          });
+    // Helper: Dynamic Canvas Texture
+    const makeCanvasTexture = (
+      width: number,
+      height: number,
+      roundRadius: number,
+      drawFn: (ctx: CanvasRenderingContext2D, w: number, h: number) => void
+    ) => {
+      const cv = document.createElement("canvas");
+      cv.width = width;
+      cv.height = height;
+      const ctx = cv.getContext("2d");
+      const tex = new THREE.CanvasTexture(cv);
+      tex.colorSpace = THREE.SRGBColorSpace;
+      tex.anisotropy = 4;
+
+      return {
+        tex,
+        update() {
+          if (!ctx) return;
+          ctx.clearRect(0, 0, width, height);
+          ctx.save();
+          drawRoundRect(ctx, 0, 0, width, height, roundRadius);
+          ctx.clip();
+          drawFn(ctx, width, height);
+          ctx.restore();
+          tex.needsUpdate = true;
         },
-      });
-    }
+      };
+    };
 
-    // 2. Scrollr: Ascending Film Reel Helix
-    {
+    // Modelled Phone with rounded bevels and camera lenses
+    const createPhone = (drawFn: (ctx: CanvasRenderingContext2D, w: number, h: number) => void) => {
+      const w = 1.15, h = 2.35, d = 0.1, r = 0.22;
+      const shape = new THREE.Shape();
+      shape.moveTo(-w / 2 + r, -h / 2);
+      shape.lineTo(w / 2 - r, -h / 2);
+      shape.quadraticCurveTo(w / 2, -h / 2, w / 2, -h / 2 + r);
+      shape.lineTo(w / 2, h / 2 - r);
+      shape.quadraticCurveTo(w / 2, h / 2, w / 2 - r, h / 2);
+      shape.lineTo(-w / 2 + r, h / 2);
+      shape.quadraticCurveTo(-w / 2, h / 2, -w / 2, h / 2 - r);
+      shape.lineTo(-w / 2, -h / 2 + r);
+      shape.quadraticCurveTo(-w / 2, -h / 2, -w / 2 + r, -h / 2);
+
+      const geo = new THREE.ExtrudeGeometry(shape, {
+        depth: d,
+        bevelEnabled: true,
+        bevelSegments: 4,
+        steps: 1,
+        bevelSize: 0.024,
+        bevelThickness: 0.024,
+        curveSegments: 16,
+      });
+      geo.translate(0, 0, -d / 2);
+
       const group = new THREE.Group();
-      const F = 8;
-      const frames: THREE.Mesh[] = [];
-      const pal = [0xff5533, 0x2b6cff, 0x18c38a, 0xf5b700, 0xb04dff];
-      const planeGeo = new THREE.PlaneGeometry(1.1, 1.8);
-      const edgeGeo = new THREE.EdgesGeometry(planeGeo);
-      for (let i = 0; i < F; i++) {
-        const m = new THREE.Mesh(
-          planeGeo,
-          new THREE.MeshBasicMaterial({ color: pal[i % 5], transparent: true, opacity: 0.65, side: THREE.DoubleSide })
+      group.add(new THREE.Mesh(geo, metalMaterial()));
+
+      const screenData = makeCanvasTexture(280, 580, 36, drawFn);
+      const screenMesh = new THREE.Mesh(
+        new THREE.PlaneGeometry(w - 0.1, h - 0.1),
+        new THREE.MeshBasicMaterial({ map: screenData.tex, transparent: true })
+      );
+      screenMesh.position.z = d / 2 + 0.026;
+      group.add(screenMesh);
+
+      [[-0.28, 0.88], [-0.28, 0.62]].forEach((pos) => {
+        const lens = new THREE.Mesh(
+          new THREE.CylinderGeometry(0.09, 0.09, 0.04, 24),
+          metalMaterial(0x0c0c0b)
         );
-        m.add(new THREE.LineSegments(edgeGeo, lineMat(0xf3f3ee, 0.8)));
-        group.add(m);
-        frames.push(m);
+        lens.rotation.x = Math.PI / 2;
+        lens.position.set(pos[0], pos[1], -d / 2 - 0.03);
+        group.add(lens);
+      });
+
+      return { group, screen: screenData };
+    };
+
+    // Modelled Laptop with keyboard deck, hinged display, and screen
+    const createLaptop = (drawFn: (ctx: CanvasRenderingContext2D, w: number, h: number) => void) => {
+      const group = new THREE.Group();
+
+      const baseMesh = new THREE.Mesh(new THREE.BoxGeometry(2.95, 0.09, 1.95), metalMaterial());
+      group.add(baseMesh);
+
+      const kbCanvas = document.createElement("canvas");
+      kbCanvas.width = 520;
+      kbCanvas.height = 240;
+      const kCtx = kbCanvas.getContext("2d");
+      if (kCtx) {
+        kCtx.fillStyle = "#181817";
+        kCtx.fillRect(0, 0, 520, 240);
+        kCtx.fillStyle = "#2a2a28";
+        for (let r = 0; r < 5; r++) {
+          for (let c = 0; c < 14; c++) {
+            drawRoundRect(kCtx, 8 + c * 36.5, 8 + r * 30, 32, 26, 4);
+            kCtx.fill();
+          }
+        }
+        kCtx.fillStyle = "#222220";
+        drawRoundRect(kCtx, 190, 172, 140, 60, 6);
+        kCtx.fill();
       }
-      chapters.push({
-        group,
-        update: (lp, t) => {
-          frames.forEach((m, i) => {
-            const a = i * 0.78 + lp * Math.PI * 3 + t * 0.1;
-            m.position.set(Math.cos(a) * 2.4, (i - (F - 1) / 2) * 0.65, Math.sin(a) * 2.4);
-            m.rotation.y = -a + Math.PI / 2;
-            m.rotation.z = Math.sin(a) * 0.1;
-          });
-        },
-      });
-    }
 
-    // 3. WoKataa: Dual Clashing Orbital Rings
-    {
-      const group = new THREE.Group();
-      const r1 = new THREE.Mesh(new THREE.TorusGeometry(2, 0.05, 16, 120), stdMat(0xf3f3ee, 0.6, 0.3));
-      const r2 = new THREE.Mesh(new THREE.TorusGeometry(2, 0.05, 16, 120), stdMat(0x18c38a, 0.6, 0.3));
-      const r3 = new THREE.Mesh(new THREE.TorusGeometry(1.2, 0.03, 16, 80), stdMat(0xff5533, 0.6, 0.3));
-      const t1 = new THREE.Mesh(new THREE.SphereGeometry(0.26, 24, 24), stdMat(0x18c38a, 0.4, 0.2));
-      const t2 = new THREE.Mesh(new THREE.SphereGeometry(0.26, 24, 24), stdMat(0xff5533, 0.4, 0.2));
-      group.add(r1, r2, r3, t1, t2);
-
-      chapters.push({
-        group,
-        update: (lp, t) => {
-          r1.rotation.set(lp * Math.PI * 2 + t * 0.2, 0, 0);
-          r2.rotation.set(0, lp * Math.PI * 2 + t * 0.2, Math.PI / 2);
-          r3.rotation.set(t * 0.3, t * 0.2, lp * 5);
-          const q = lp * Math.PI * 4;
-          t1.position.set(Math.cos(q) * 2, Math.sin(q) * 2, 0);
-          t2.position.set(-Math.cos(q) * 2, 0, Math.sin(q) * 2);
-        },
-      });
-    }
-
-    // 4. Earth Air: Kinetic Airflow Vortex
-    {
-      const group = new THREE.Group();
-      const nPts = 1600;
-      const pCoords = new Float32Array(nPts * 3);
-      const orbitData = Array.from({ length: nPts }, () => ({
-        a: Math.random() * Math.PI * 2,
-        r: 0.6 + Math.random() * 2.6,
-        h: (Math.random() - 0.5) * 4.2,
-        speed: 0.3 + Math.random() * 0.8,
-      }));
-      const pGeo = new THREE.BufferGeometry();
-      pGeo.setAttribute("position", new THREE.BufferAttribute(pCoords, 3));
-      group.add(
-        new THREE.Points(
-          pGeo,
-          new THREE.PointsMaterial({
-            size: 0.045,
-            color: 0xf5b700,
-            transparent: true,
-            opacity: 0.85,
-            blending: THREE.AdditiveBlending,
-            depthWrite: false,
-          })
-        )
+      const kbTexture = new THREE.CanvasTexture(kbCanvas);
+      const deck = new THREE.Mesh(
+        new THREE.PlaneGeometry(2.65, 1.2),
+        new THREE.MeshStandardMaterial({ map: kbTexture, roughness: 0.6, metalness: 0.25 })
       );
-      const turbineCore = new THREE.Mesh(new THREE.CylinderGeometry(0.35, 0.35, 0.12, 32), stdMat(0xf5b700, 0.5, 0.2));
-      turbineCore.rotation.x = Math.PI / 2;
-      group.add(turbineCore);
+      deck.rotation.x = -Math.PI / 2;
+      deck.position.set(0, 0.048, 0.25);
+      group.add(deck);
 
-      chapters.push({
+      const hinge = new THREE.Group();
+      hinge.position.set(0, 0.046, -0.96);
+      group.add(hinge);
+
+      const lidGeo = new THREE.BoxGeometry(2.95, 1.88, 0.07);
+      lidGeo.translate(0, 0.94, 0);
+      hinge.add(new THREE.Mesh(lidGeo, metalMaterial()));
+
+      const screenData = makeCanvasTexture(620, 380, 8, drawFn);
+      const screenMesh = new THREE.Mesh(
+        new THREE.PlaneGeometry(2.74, 1.66),
+        new THREE.MeshBasicMaterial({ map: screenData.tex, transparent: true })
+      );
+      screenMesh.position.set(0, 0.94, 0.038);
+      hinge.add(screenMesh);
+
+      return {
         group,
-        update: (lp, t) => {
-          const sp = 0.3 + lp * 2;
-          orbitData.forEach((o, i) => {
-            const a = o.a + t * o.speed * sp;
-            const r = o.r * (0.6 + 0.4 * Math.sin(o.h * 0.7 + t * 0.4));
-            pCoords[i * 3] = Math.cos(a) * r;
-            pCoords[i * 3 + 1] = o.h + Math.sin(a * 2) * 0.15;
-            pCoords[i * 3 + 2] = Math.sin(a) * r - o.h * 0.2;
-          });
-          pGeo.attributes.position.needsUpdate = true;
-          group.rotation.x = 0.8;
-          turbineCore.rotation.z = t * 3;
+        screen: screenData,
+        setLidOpen: (angleProgress: number) => {
+          const clamped = Math.min(1, Math.max(0, angleProgress));
+          const eased = clamped * clamped * (3 - 2 * clamped);
+          hinge.rotation.x = Math.PI / 2 + (-0.24 - Math.PI / 2) * eased;
         },
-      });
-    }
+      };
+    };
 
-    // 5. UrbanArena: 3D Multi-Tenant Venue Grid
-    {
-      const group = new THREE.Group();
-      const G = 6;
-      const boxes: THREE.Mesh[] = [];
-      const boxGeo = new THREE.BoxGeometry(0.6, 1, 0.6);
-      for (let x = 0; x < G; x++) {
-        for (let z = 0; z < G; z++) {
-          const isHot = (x * 7 + z * 3) % 9 === 0;
-          const m = new THREE.Mesh(boxGeo, stdMat(isHot ? 0xb04dff : 0x222220, isHot ? 0.4 : 0.8, 0.35));
-          m.userData = { x, z, h: 0.5 + ((x * 5 + z * 3) % 7) * 0.28 };
-          m.add(new THREE.LineSegments(new THREE.EdgesGeometry(boxGeo), lineMat(0xf3f3ee, 0.2)));
-          group.add(m);
-          boxes.push(m);
+    // Hero Rigs: Laptop + Phone
+    const heroGroup = new THREE.Group();
+    const heroLaptop = createLaptop((ctx, w, h) => {
+      ctx.fillStyle = "#0D0D0C";
+      ctx.fillRect(0, 0, w, h);
+      ctx.fillStyle = "#161615";
+      ctx.fillRect(0, 0, w * 0.18, h);
+      for (let i = 0; i < 6; i++) {
+        ctx.fillStyle = i === 1 ? "#FF5533" : "rgba(255, 255, 255, 0.15)";
+        drawRoundRect(ctx, 16, 60 + i * 32, w * 0.18 - 32, 12, 4);
+        ctx.fill();
+      }
+      ctx.fillStyle = "#F3F3EE";
+      ctx.font = "600 18px sans-serif";
+      ctx.fillText("Nestys Seller Central", w * 0.22, 38);
+    });
+    heroLaptop.group.position.set(-0.5, -0.5, 0);
+    heroLaptop.group.scale.setScalar(1.05);
+    heroLaptop.setLidOpen(1);
+    heroGroup.add(heroLaptop.group);
+
+    const heroPhone = createPhone((ctx, w, h) => {
+      ctx.fillStyle = "#080808";
+      ctx.fillRect(0, 0, w, h);
+      const grad = ctx.createLinearGradient(0, 0, w * 0.7, h);
+      grad.addColorStop(0, "#FF5533");
+      grad.addColorStop(1, "#0B0B0A");
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, w, h);
+    });
+    heroPhone.group.position.set(1.95, -0.3, 0.9);
+    heroPhone.group.rotation.y = -0.35;
+    heroPhone.group.scale.setScalar(0.85);
+    heroGroup.add(heroPhone.group);
+    scene.add(heroGroup);
+
+    // Approach Rig: Center Laptop that dollies into screen
+    const approachGroup = new THREE.Group();
+    const approachLaptop = createLaptop((ctx, w, h) => {
+      const step = progressRef.current.step;
+      const tp = progressRef.current.stepProg;
+
+      ctx.fillStyle = "#0B0B0A";
+      ctx.fillRect(0, 0, w, h);
+
+      if (step === 0) {
+        // 01 Architect
+        ctx.fillStyle = "#FF5533";
+        ctx.font = "13px monospace";
+        ctx.fillText("architecture.md", 24, 34);
+
+        const nodes = ["Client", "Gateway", "Queue", "Worker"];
+        nodes.forEach((n, idx) => {
+          const x = 36 + idx * 138;
+          const active = tp > idx / 4;
+          ctx.strokeStyle = active ? "#FF5533" : "rgba(255,255,255,0.2)";
+          ctx.lineWidth = 2;
+          drawRoundRect(ctx, x, 130, 100, 54, 8);
+          ctx.stroke();
+
+          ctx.fillStyle = active ? "#FFF" : "rgba(255,255,255,0.4)";
+          ctx.font = "600 15px sans-serif";
+          ctx.textAlign = "center";
+          ctx.fillText(n, x + 50, 163);
+          ctx.textAlign = "left";
+        });
+      } else if (step === 1) {
+        // 02 Build
+        ctx.fillStyle = "#FF5533";
+        ctx.font = "13px monospace";
+        ctx.fillText("ReelPlayer.tsx", 24, 34);
+
+        const code = [
+          "export function ReelPlayer({ feed }: Props) {",
+          "  const virtualizer = useVirtual({ size: feed.length })",
+          "  const [active, setActive] = useState(0)",
+          "  return <VirtualizedFeed rows={virtualizer.rows} targetFps={60} />",
+          "}",
+        ];
+        code.forEach((line, idx) => {
+          ctx.fillStyle = idx === 0 || idx === 3 ? "#FF5533" : "#DDD";
+          ctx.font = "15px monospace";
+          ctx.fillText(line, 24, 76 + idx * 28);
+        });
+      } else if (step === 2) {
+        // 03 Tune
+        ctx.fillStyle = "#FF5533";
+        ctx.font = "13px monospace";
+        ctx.fillText("vitals.config", 24, 34);
+
+        const cx = w / 2, cy = h / 2 + 10;
+        ctx.lineWidth = 16;
+        ctx.strokeStyle = "rgba(255, 255, 255, 0.12)";
+        ctx.beginPath();
+        ctx.arc(cx, cy, 80, 0, Math.PI * 2);
+        ctx.stroke();
+
+        ctx.strokeStyle = "#2FD27A";
+        ctx.lineCap = "round";
+        ctx.beginPath();
+        ctx.arc(cx, cy, 80, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * 0.95 * tp);
+        ctx.stroke();
+
+        ctx.fillStyle = "#2FD27A";
+        ctx.textAlign = "center";
+        ctx.font = "700 52px sans-serif";
+        ctx.fillText("95+", cx, cy + 18);
+        ctx.textAlign = "left";
+      } else {
+        // 04 Ship
+        ctx.fillStyle = "#FF5533";
+        ctx.font = "13px monospace";
+        ctx.fillText("deploy.yml", 24, 34);
+
+        if (tp > 0.7) {
+          ctx.fillStyle = "#2FD27A";
+          ctx.textAlign = "center";
+          ctx.font = "600 78px sans-serif";
+          ctx.fillText("Live.", w / 2, h / 2 + 60);
+          ctx.textAlign = "left";
         }
       }
-      chapters.push({
-        group,
-        update: (lp, t) => {
-          boxes.forEach((m) => {
-            const { x, z, h } = m.userData;
-            const s = Math.max(0.04, Math.sin(lp * 3 + (x + z) * 0.3) * h + Math.sin(t + x + z) * 0.12);
-            m.scale.y = Math.abs(s);
-            m.position.set((x - 2.5) * 0.75, Math.abs(s) / 2 - 1.2, (z - 2.5) * 0.75);
-          });
-          group.rotation.set(0.45, 0.6 + lp * 1.5, 0);
-        },
-      });
-    }
-
-    // Mount chapters along the descent
-    chapters.forEach((c, i) => {
-      c.group.position.y = -i * SPACING;
-      scene.add(c.group);
     });
 
-    let width = window.innerWidth;
-    let height = window.innerHeight;
-    let isDesktop = width > 820;
-    let mouseX = 0;
-    let mouseY = 0;
+    approachLaptop.group.position.set(0, -0.5, 0);
+    approachLaptop.group.scale.setScalar(1.22);
+    approachGroup.add(approachLaptop.group);
+    scene.add(approachGroup);
+    approachGroup.visible = false;
 
-    const onResize = () => {
-      width = window.innerWidth;
-      height = window.innerHeight;
-      isDesktop = width > 820;
+    // Pointer move listener
+    const handlePointerMove = (e: PointerEvent) => {
+      progressRef.current.mouseX = e.clientX / window.innerWidth - 0.5;
+      progressRef.current.mouseY = e.clientY / window.innerHeight - 0.5;
+    };
+    window.addEventListener("pointermove", handlePointerMove, { passive: true });
+
+    // Window Resize Handler
+    const handleResize = () => {
+      const width = window.innerWidth;
+      const height = window.innerHeight;
       renderer.setSize(width, height, false);
       camera.aspect = width / height;
       camera.updateProjectionMatrix();
-
-      chapters.forEach((c, i) => {
-        const isCenter = i === 0 || i === chapters.length - 1;
-        c.group.position.x = isDesktop && !isCenter ? 3.2 : 0;
-        c.group.scale.setScalar(isDesktop ? 1 : 0.65);
-      });
     };
+    window.addEventListener("resize", handleResize);
+    handleResize();
 
-    const onMouseMove = (e: MouseEvent) => {
-      mouseX = e.clientX / width - 0.5;
-      mouseY = e.clientY / height - 0.5;
-    };
+    // Main RAF Loop
+    let animationFrameId: number;
+    let clockTime = 0;
+    let frame = 0;
 
-    window.addEventListener("resize", onResize, { passive: true });
-    window.addEventListener("pointermove", onMouseMove, { passive: true });
-    onResize();
+    const renderLoop = () => {
+      animationFrameId = requestAnimationFrame(renderLoop);
+      clockTime += 0.016;
+      frame++;
+      const shouldDraw = frame % 2 === 0;
 
-    let targetChapter = 0;
-    let currentChapter = 0;
-    let lastTime = performance.now();
-    let totalTime = 0;
-    let animId: number;
+      const hp = progressRef.current.hero;
+      const ap = progressRef.current.approach;
+      const mx = progressRef.current.mouseX;
+      const my = progressRef.current.mouseY;
+      const isDesktop = window.innerWidth > 820;
 
-    const onScroll = () => {
-      const scrollY = window.scrollY;
-      const totalScrollable = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
-      const scrollPct = scrollY / totalScrollable;
-      targetChapter = scrollPct * (chapters.length - 1);
-    };
+      // Dolly portal camera calculation
+      const clampedDolly = Math.min(1, Math.max(0, (ap - 0.78) / 0.22));
+      const dollyEased = clampedDolly * clampedDolly * (3 - 2 * clampedDolly);
 
-    window.addEventListener("scroll", onScroll, { passive: true });
+      camera.position.x += (mx * 1.05 * (1 - dollyEased) - camera.position.x) * 0.06;
+      camera.position.y = -my * 0.45 * (1 - dollyEased) + dollyEased * 0.52;
+      camera.position.z = 9.5 * (1 - dollyEased) + 4.0 * dollyEased;
+      camera.lookAt(0, dollyEased * 0.52, 0);
 
-    const animate = (now: number) => {
-      animId = requestAnimationFrame(animate);
-      const dt = Math.min(0.05, (now - lastTime) / 1000);
-      lastTime = now;
-      totalTime += dt;
+      // Hero Rigs
+      const isHeroVis = hp < 0.99;
+      heroGroup.visible = isHeroVis;
+      if (isHeroVis) {
+        heroGroup.position.set(0, (isDesktop ? 1.2 : 1.85) + hp * 3.4, -hp * 2.8);
+        heroGroup.scale.setScalar((isDesktop ? 1 : 0.65) * (1 - hp * 0.25));
+        heroGroup.rotation.y = -0.2 + hp * 1.35 + Math.sin(clockTime * 0.6) * 0.05;
+        heroGroup.rotation.x = 0.08 + my * 0.16;
+        heroGroup.rotation.z = mx * 0.04;
+        heroGroup.position.y += Math.sin(clockTime * 0.9) * 0.06;
 
-      currentChapter += (targetChapter - currentChapter) * 0.08;
-
-      camera.position.x += (mouseX * 1.5 - camera.position.x) * 0.05;
-      camera.position.y = -currentChapter * SPACING - mouseY * 0.6 + 0.2;
-      camera.position.z = 9.5;
-      camera.lookAt(0, -currentChapter * SPACING, 0);
-
-      chapters.forEach((c, i) => {
-        const isNear = Math.abs(currentChapter - i) < 1.3;
-        c.group.visible = isNear;
-        if (isNear) {
-          c.update(Math.max(0, Math.min(1, currentChapter - i + 0.5)), totalTime);
+        if (shouldDraw) {
+          heroLaptop.screen.update();
+          heroPhone.screen.update();
         }
-      });
+      }
+
+      // Approach Rig
+      const isAppVis = ap > 0.01 && ap < 0.99;
+      approachGroup.visible = isAppVis;
+      if (isAppVis) {
+        approachGroup.position.set(0, isDesktop ? -0.1 : 0.25, 0);
+        approachGroup.scale.setScalar(isDesktop ? 1 : 0.72);
+        approachGroup.rotation.y = -0.15 + Math.sin(ap * 5) * 0.1;
+        approachGroup.rotation.x = 0.06 + my * 0.15;
+        approachGroup.rotation.z = mx * 0.03;
+        approachLaptop.setLidOpen(Math.min(1, ap * 8));
+
+        if (shouldDraw) {
+          approachLaptop.screen.update();
+        }
+      }
 
       renderer.render(scene, camera);
     };
 
-    animId = requestAnimationFrame(animate);
+    renderLoop();
 
     return () => {
-      cancelAnimationFrame(animId);
-      window.removeEventListener("resize", onResize);
-      window.removeEventListener("pointermove", onMouseMove);
-      window.removeEventListener("scroll", onScroll);
+      cancelAnimationFrame(animationFrameId);
+      window.removeEventListener("pointermove", handlePointerMove);
+      window.removeEventListener("resize", handleResize);
       renderer.dispose();
     };
   }, []);
 
-  return (
-    <canvas
-      ref={mountRef}
-      className="fixed inset-0 h-full w-full pointer-events-none -z-10 block"
-      aria-hidden="true"
-    />
-  );
+  return <canvas ref={mountRef} className="fixed inset-0 w-full h-full z-0 pointer-events-none block" aria-hidden="true" />;
 };
-

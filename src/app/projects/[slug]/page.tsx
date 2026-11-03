@@ -13,7 +13,8 @@ import {
   ScrollrScreen, 
   WoKataaScreen, 
   EarthAirScreen, 
-  UrbanArenaScreen 
+  UrbanArenaScreen,
+  ServotechScreen 
 } from "@/components/devices/RealisticScreenUI";
 import { 
   ArrowLeft, 
@@ -85,6 +86,12 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         return (
           <MacBookProMockup projectName={project.title} videoUrl={project.media?.videoUrl}>
             <EarthAirScreen />
+          </MacBookProMockup>
+        );
+      case "servotech":
+        return (
+          <MacBookProMockup projectName={project.title} videoUrl={project.media?.videoUrl}>
+            <ServotechScreen />
           </MacBookProMockup>
         );
       case "urban-arena":

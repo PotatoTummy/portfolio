@@ -1,90 +1,78 @@
 "use client";
 
-import React from "react";
-import { Terminal, Download, Search } from "lucide-react";
-import { GithubIcon } from "@/components/icons/GithubIcon";
+import React, { useState, useEffect } from "react";
+import Link from "next/link";
 import { PROFILE } from "@/data/portfolioData";
 
 interface HeaderProps {
-  onOpenCmdK: () => void;
+  activeSection?: string;
+  onOpenCmdK?: () => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({ onOpenCmdK }) => {
+export const Header: React.FC<HeaderProps> = ({ activeSection = "Intro", onOpenCmdK }) => {
+  const [timeStr, setTimeStr] = useState<string>("IST 16:00");
+
+  useEffect(() => {
+    const updateTime = () => {
+      try {
+        const time = new Date().toLocaleTimeString("en-GB", {
+          timeZone: "Asia/Kolkata",
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+        setTimeStr(`IST ${time}`);
+      } catch {
+        setTimeStr("IST 16:00");
+      }
+    };
+    updateTime();
+    const timer = setInterval(updateTime, 10000);
+    return () => clearInterval(timer);
+  }, []);
+
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-white/[0.08] bg-[#0a0a0a]/80 backdrop-blur-md transition-all">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        {/* Identity & Status */}
-        <div className="flex items-center gap-3">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-tr from-amber-500/20 to-orange-500/20 border border-amber-500/30 text-amber-400 font-mono font-bold text-sm shadow-[0_0_15px_rgba(245,158,11,0.15)]">
-            SK
-          </div>
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="font-semibold tracking-tight text-white text-sm sm:text-base">
-                {PROFILE.name}
-              </span>
-              <span className="hidden sm:inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2 py-0.5 text-[11px] font-medium text-emerald-400">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                Available for Roles
-              </span>
-            </div>
-            <p className="text-[11px] text-zinc-400 hidden md:block">
-              {PROFILE.role}
-            </p>
-          </div>
-        </div>
+    <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 sm:px-8 py-3.5 sm:py-4 font-mono text-xs text-white mix-blend-difference select-none pointer-events-none">
+      {/* Brand & Active Section */}
+      <div className="flex items-center gap-3 sm:gap-4 pointer-events-auto">
+        <Link
+          href="#hero"
+          className="font-sans font-semibold text-lg sm:text-xl tracking-tight text-white hover:opacity-80 transition-opacity"
+        >
+          {PROFILE.name}
+        </Link>
+        <span className="w-px h-4 bg-white/30 hidden xs:inline-block" />
+        <span className="inline-flex items-center gap-2 text-zinc-300">
+          <span className="inline-block w-1.5 h-1.5 bg-[#FF5533]" />
+          <span className="capitalize">{activeSection}</span>
+        </span>
+      </div>
 
-        {/* Nav Links & Shortcuts */}
-        <nav className="hidden md:flex items-center gap-6 text-xs text-zinc-400">
-          <a href="#projects" className="hover:text-white transition-colors">
-            Featured Systems
-          </a>
-          <a href="#architecture" className="hover:text-white transition-colors">
-            System Design
-          </a>
-          <a href="#skills" className="hover:text-white transition-colors">
-            Tech Arsenal
-          </a>
-          <a href="#terminal" className="hover:text-white transition-colors flex items-center gap-1 text-amber-400/90 hover:text-amber-300">
-            <Terminal className="h-3.5 w-3.5" />
-            Live API Terminal
-          </a>
-        </nav>
+      {/* Spacer */}
+      <div className="flex-1" />
 
-        {/* Action Controls */}
-        <div className="flex items-center gap-2.5">
+      {/* Clock & Action CTA */}
+      <div className="flex items-center gap-4 sm:gap-6 pointer-events-auto">
+        <span className="hidden md:inline-block text-zinc-300 font-mono tracking-wide">
+          {timeStr}
+        </span>
+
+        {onOpenCmdK && (
           <button
             onClick={onOpenCmdK}
-            className="flex items-center gap-2 rounded-lg border border-white/[0.1] bg-white/[0.04] px-2.5 py-1.5 text-xs text-zinc-300 hover:border-white/[0.2] hover:bg-white/[0.08] transition-all"
-            aria-label="Search and command palette"
+            className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded border border-white/20 text-zinc-300 hover:text-white hover:border-white/40 transition-colors"
+            title="Command Palette"
           >
-            <Search className="h-3.5 w-3.5 text-zinc-400" />
-            <span className="hidden sm:inline text-zinc-400">Cmd</span>
-            <kbd className="hidden sm:inline rounded bg-white/[0.08] px-1.5 py-0.5 text-[10px] font-mono text-zinc-300">
-              K
-            </kbd>
+            <span>Cmd</span>
+            <kbd className="px-1 py-0.2 bg-white/10 rounded text-[10px]">K</kbd>
           </button>
+        )}
 
-          <a
-            href={PROFILE.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/[0.08] bg-white/[0.03] text-zinc-400 hover:text-white hover:border-white/[0.2] transition-colors"
-            title="GitHub Profile"
-          >
-            <GithubIcon className="h-4 w-4" />
-          </a>
-
-          <a
-            href="/cv.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-1.5 rounded-lg bg-amber-500/10 border border-amber-500/30 px-3 py-1.5 text-xs font-medium text-amber-400 hover:bg-amber-500/20 hover:border-amber-500/50 transition-all shadow-[0_0_12px_rgba(245,158,11,0.1)]"
-          >
-            <Download className="h-3.5 w-3.5" />
-            <span className="hidden xs:inline">Resume</span>
-          </a>
-        </div>
+        <a
+          href="#contact"
+          className="bg-[#FF5533] text-[#0B0B0A] font-sans font-semibold px-4 py-2 text-xs rounded transition-transform hover:-translate-y-0.5 mix-blend-normal shadow-[0_0_20px_rgba(255,85,51,0.4)]"
+        >
+          Start a project
+        </a>
       </div>
     </header>
   );

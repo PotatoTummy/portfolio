@@ -555,3 +555,82 @@ export const UrbanArenaScreen: React.FC<{ scrollProgress?: number }> = ({ scroll
     </div>
   );
 };
+
+// ==========================================
+// 6. SERVOTECH: Mission-Critical Enterprise Tools
+// ==========================================
+export const ServotechScreen: React.FC<{ scrollProgress?: number }> = () => {
+  const [activeTab, setActiveTab] = useState<"pm" | "hrms" | "assets" | "ats">("pm");
+
+  return (
+    <div className="h-full w-full bg-[#0B0D0E] text-[#E2E8F0] flex flex-col font-sans select-none overflow-hidden text-[11px]">
+      {/* Top Header */}
+      <div className="h-10 border-b border-white/[0.08] bg-[#101416] px-3.5 flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <div className="h-4 w-4 rounded bg-[#10B981] flex items-center justify-center font-bold text-black text-[9px] font-mono">S</div>
+          <span className="font-bold tracking-tight text-white">Servotech Enterprise</span>
+          <span className="text-[9px] font-mono text-[#10B981] border border-[#10B981]/30 px-1.5 py-0.5 rounded bg-[#10B981]/10">
+            W3villa Technologies
+          </span>
+        </div>
+        <div className="flex items-center gap-2 font-mono text-[10px] text-zinc-400">
+          <span className="px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+            SSO Authenticated
+          </span>
+        </div>
+      </div>
+
+      {/* Tabs */}
+      <div className="flex items-center border-b border-white/[0.06] bg-[#0E1113] px-3 gap-2">
+        {(["pm", "hrms", "assets", "ats"] as const).map((tab) => (
+          <button
+            key={tab}
+            onClick={() => setActiveTab(tab)}
+            className={`px-3 py-1.5 border-b-2 font-mono text-[10px] uppercase transition-colors ${
+              activeTab === tab
+                ? "border-[#10B981] text-[#10B981] font-semibold"
+                : "border-transparent text-zinc-400 hover:text-white"
+            }`}
+          >
+            {tab === "pm" ? "PM Board" : tab === "hrms" ? "HRMS Workplace" : tab === "assets" ? "Asset Management" : "ATS Suite"}
+          </button>
+        ))}
+      </div>
+
+      {/* Main Kanban Content */}
+      <div className="flex-1 p-3 overflow-hidden">
+        <div className="grid grid-cols-4 gap-2.5 h-full">
+          {[
+            { name: "Backlog", count: 4, tasks: ["Auth Token Refresh", "Asset Export CSV", "ATS Resume Parser"] },
+            { name: "In Progress", count: 3, tasks: ["Sprint Burndown Sync", "Leave Approval Workflow"] },
+            { name: "Code Review", count: 2, tasks: ["Cucumber E2E Gate"] },
+            { name: "Done", count: 8, tasks: ["RBAC Middleware", "Asset Assignation"] }
+          ].map((col, idx) => (
+            <div key={idx} className="rounded-lg border border-white/[0.06] bg-[#111618] p-2 flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between text-[10px] font-mono text-zinc-400 mb-2">
+                  <span className="font-semibold text-white">{col.name}</span>
+                  <span className="px-1 rounded bg-white/5">{col.count}</span>
+                </div>
+                <div className="space-y-1.5">
+                  {col.tasks.map((task, tIdx) => (
+                    <div
+                      key={tIdx}
+                      className="p-1.5 rounded border border-white/[0.05] bg-[#161D20] text-[10px] text-zinc-300 shadow-sm"
+                    >
+                      <div className="font-medium text-white">{task}</div>
+                      <div className="text-[8px] font-mono text-zinc-500 mt-0.5">SERV-{idx * 10 + tIdx + 101}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="pt-1 border-t border-white/5 text-[8px] font-mono text-emerald-400/80">
+                ● 0 Dropped Frames
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};

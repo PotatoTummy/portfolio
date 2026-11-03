@@ -257,59 +257,6 @@ export const FEATURED_PROJECTS: Project[] = [
     demoType: "live-site"
   },
   {
-    id: "urban-arena",
-    slug: "urban-arena",
-    title: "UrbanArena Platform",
-    shortName: "UrbanArena",
-    tagline: "Full-Stack Multi-Tenant Sports Facility & Venue Reservation Ecosystem",
-    category: "Full-Stack Platform",
-    badge: "Architecture Showcase",
-    statusLabel: "Live Showcase",
-    role: "Architected the full-stack multi-tenant platform, slot locks & QR engine",
-    whereToSee: "Open source showcase & interactive preview",
-    timeline: "2025",
-    accentColor: "#B04DFF",
-    mockupType: "laptop",
-    overview: "A multi-tenant sports facility reservation ecosystem featuring real-time slot scheduling with Redis mutex concurrency locks, dynamic QR entry pass validation, and provider revenue settlements.",
-    metrics: [
-      { label: "Database", value: "Neon Serverless Postgres" },
-      { label: "Cache & Locks", value: "Upstash Redis" },
-      { label: "Ticket Validation", value: "Dynamic QR Codes" }
-    ],
-    features: [
-      { title: "Zero Double-Bookings", description: "Real-time venue slot scheduling guarded by Redis mutex concurrency locks to eliminate race conditions." },
-      { title: "Dynamic QR Validation", description: "Instant cryptographic QR code generation sent via Resend for instant venue turnstile and gate validation." },
-      { title: "Multi-Tenant Architecture", description: "Dedicated customer reservation flow, provider slot management portal, and platform oversight console." }
-    ],
-    keyEngineeringWins: [
-      "Engineered real-time venue slot scheduling with concurrency locks preventing double bookings.",
-      "Implemented automated provider revenue settlements and automated transactional email dispatch via Resend.",
-      "Built dynamic QR-code entry pass generation for instant venue gate validation.",
-      "Constructed a clean full-stack architecture using NestJS, Prisma ORM, Neon PostgreSQL, and Upstash Redis."
-    ],
-    architecture: {
-      overview: "Serverless PostgreSQL paired with NestJS modular architecture and edge caching.",
-      nodes: [
-        { name: "Booking Web App", role: "Customer Reservation Flow", tech: "React 18, Vite, Radix UI, TanStack Query" },
-        { name: "Provider Portal", role: "Venue & Slot Management", tech: "React 18, Tailwind, Zustand" },
-        { name: "Admin Console", role: "Platform Oversight & Settlements", tech: "React 18, Vite" },
-        { name: "Backend API", role: "Modular Micro-Architecture", tech: "NestJS, Prisma, Neon Postgres, Upstash Redis" }
-      ],
-      dataFlow: [
-        "User selects sport facility and available timeslot in real time",
-        "NestJS backend verifies slot availability with Redis mutex locks",
-        "Confirmed booking writes to Neon PostgreSQL and triggers Resend confirmation email with QR pass",
-        "Provider checks in visitor by scanning QR pass at the gate"
-      ]
-    },
-    techStack: ["NestJS", "React 18", "Prisma ORM", "Neon Postgres", "Upstash Redis", "TanStack Query", "Radix UI", "Resend", "Tailwind CSS"],
-    demoType: "dashboard-preview"
-  }
-];
-
-export const ALL_PROJECTS: Project[] = [
-  ...FEATURED_PROJECTS,
-  {
     id: "servotech-suite",
     slug: "servotech",
     title: "Servotech Enterprise Suite",
@@ -357,6 +304,59 @@ export const ALL_PROJECTS: Project[] = [
       ]
     },
     techStack: ["React.js", "React Native", "TypeScript", "Redux", "REST APIs", "Cucumber", "OAuth 2.0", "Webpack"],
+    demoType: "dashboard-preview"
+  }
+];
+
+export const ALL_PROJECTS: Project[] = [
+  ...FEATURED_PROJECTS,
+  {
+    id: "urban-arena",
+    slug: "urban-arena",
+    title: "UrbanArena Platform",
+    shortName: "UrbanArena",
+    tagline: "Full-Stack Multi-Tenant Sports Facility & Venue Reservation Ecosystem",
+    category: "Full-Stack Platform",
+    badge: "Architecture Showcase",
+    statusLabel: "Live Showcase",
+    role: "Architected the full-stack multi-tenant platform, slot locks & QR engine",
+    whereToSee: "Open source showcase & interactive preview",
+    timeline: "2025",
+    accentColor: "#B04DFF",
+    mockupType: "laptop",
+    overview: "A multi-tenant sports facility reservation ecosystem featuring real-time slot scheduling with Redis mutex concurrency locks, dynamic QR entry pass validation, and provider revenue settlements.",
+    metrics: [
+      { label: "Database", value: "Neon Serverless Postgres" },
+      { label: "Cache & Locks", value: "Upstash Redis" },
+      { label: "Ticket Validation", value: "Dynamic QR Codes" }
+    ],
+    features: [
+      { title: "Zero Double-Bookings", description: "Real-time venue slot scheduling guarded by Redis mutex concurrency locks to eliminate race conditions." },
+      { title: "Dynamic QR Validation", description: "Instant cryptographic QR code generation sent via Resend for instant venue turnstile and gate validation." },
+      { title: "Multi-Tenant Architecture", description: "Dedicated customer reservation flow, provider slot management portal, and platform oversight console." }
+    ],
+    keyEngineeringWins: [
+      "Engineered real-time venue slot scheduling with concurrency locks preventing double bookings.",
+      "Implemented automated provider revenue settlements and automated transactional email dispatch via Resend.",
+      "Built dynamic QR-code entry pass generation for instant venue gate validation.",
+      "Constructed a clean full-stack architecture using NestJS, Prisma ORM, Neon PostgreSQL, and Upstash Redis."
+    ],
+    architecture: {
+      overview: "Serverless PostgreSQL paired with NestJS modular architecture and edge caching.",
+      nodes: [
+        { name: "Booking Web App", role: "Customer Reservation Flow", tech: "React 18, Vite, Radix UI, TanStack Query" },
+        { name: "Provider Portal", role: "Venue & Slot Management", tech: "React 18, Tailwind, Zustand" },
+        { name: "Admin Console", role: "Platform Oversight & Settlements", tech: "React 18, Vite" },
+        { name: "Backend API", role: "Modular Micro-Architecture", tech: "NestJS, Prisma, Neon Postgres, Upstash Redis" }
+      ],
+      dataFlow: [
+        "User selects sport facility and available timeslot in real time",
+        "NestJS backend verifies slot availability with Redis mutex locks",
+        "Confirmed booking writes to Neon PostgreSQL and triggers Resend confirmation email with QR pass",
+        "Provider checks in visitor by scanning QR pass at the gate"
+      ]
+    },
+    techStack: ["NestJS", "React 18", "Prisma ORM", "Neon Postgres", "Upstash Redis", "TanStack Query", "Radix UI", "Resend", "Tailwind CSS"],
     demoType: "dashboard-preview"
   }
 ];

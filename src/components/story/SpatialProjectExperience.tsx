@@ -518,16 +518,19 @@ export const SpatialProjectExperience: React.FC = () => {
 
     const sceneRigs: SceneRig[] = [];
 
+    type ScreenItem = { draw: (p: number, t: number) => void; tex: THREE.CanvasTexture };
+    type DeviceItem = { group: THREE.Group; screens: ScreenItem[]; open?: (v: number) => void };
+
     const addRig = (
-      parts: Array<[{ group: THREE.Group; screens: any[]; open?: (v: number) => void }, number, number, number, number, number]>,
+      parts: Array<[DeviceItem, number, number, number, number, number]>,
       options: { isHero?: boolean; baseRotation?: number; y0?: number } = {}
     ) => {
       const outer = new THREE.Group();
       const inner = new THREE.Group();
       outer.add(inner);
 
-      const screens: any[] = [];
-      const laptops: any[] = [];
+      const screens: ScreenItem[] = [];
+      const laptops: DeviceItem[] = [];
 
       parts.forEach(([dev, x, y, z, ry, scale]) => {
         dev.group.position.set(x, y, z);
@@ -549,7 +552,7 @@ export const SpatialProjectExperience: React.FC = () => {
           inner.rotation.z = mouseX * 0.04;
           inner.position.y = Math.sin(t * 0.9) * 0.07;
 
-          laptops.forEach((l) => l.open(lp * 3.5));
+          laptops.forEach((l) => l.open?.(lp * 3.5));
           if (shouldDraw) {
             screens.forEach((s) => s.draw(lp, t));
           }
