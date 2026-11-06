@@ -101,7 +101,7 @@ export const DualPhoneStage: React.FC<DualPhoneStageProps> = ({
       {/* 360° Drag & Scroll Indicator */}
       <div className="absolute -top-10 left-1/2 -translate-x-1/2 z-40 flex items-center gap-1.5 pointer-events-auto">
         <div className="inline-flex items-center gap-1 px-3 py-1 rounded-full border border-white/10 bg-black/70 backdrop-blur-md text-[10px] font-mono text-zinc-300 shadow-lg">
-          <Move3d className="h-3 w-3 text-[#FF5533]" />
+          <Move3d className="h-3 w-3 text-[#00D4FF]" />
           <span>Drag 360° to rotate • Scroll to animate</span>
         </div>
         {hasInteracted && (

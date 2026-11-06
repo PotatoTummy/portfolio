@@ -33,9 +33,9 @@ export interface Project {
 
 export const PROFILE = {
   name: "Samad Kausar",
-  role: "Full Stack Developer (Frontend Heavy)",
-  subHeadline: "Architecting high-scale React portals, mobile video/gaming engines, and distributed NestJS microservices.",
-  bio: "Full Stack Engineer with 2+ years of production experience building multi-portal enterprise ecosystems (Nestys), real-time multiplayer gaming platforms (WoKataa), algorithm-free cinematic video players (Scrollr), and zero-downtime client infrastructure. Obsessed with sub-50ms render times, low-latency state sync, and uncompromising UI craftsmanship.",
+  role: "Frontend-Heavy Full Stack Developer",
+  subHeadline: "Crafting thoughtful, high-performance websites and web applications with clean design and robust code.",
+  bio: "Full-stack developer with 2+ years of production experience building modern web portals, fluid mobile experiences, and scalable web applications. Focused on clean aesthetics, responsive interactions, and reliable engineering.",
   location: "Gorakhpur, UP, India (Open to Remote / Hybrid)",
   email: "samadkausar786@gmail.com",
   phone: "+91 7317368358",
@@ -48,10 +48,10 @@ export const PROFILE = {
     duration: "April 2026 – Present"
   },
   stats: [
-    { label: "Items in virtualized feed holding 60fps", value: "2,500+" },
-    { label: "Core Web Vitals score on live client platform", value: "95+" },
-    { label: "Production web portals on single NestJS backend", value: "3" },
-    { label: "State sync latency in multiplayer gaming", value: "<40ms" }
+    { label: "Smooth 60fps frame rate on interactive feeds", value: "60 FPS" },
+    { label: "Core Web Vitals performance score", value: "95+" },
+    { label: "Production web applications shipped", value: "5+" },
+    { label: "Multiplayer real-time response time", value: "<40ms" }
   ]
 };
 
@@ -59,18 +59,18 @@ export const FEATURED_PROJECTS: Project[] = [
   {
     id: "nestys-ecosystem",
     slug: "nestys",
-    title: "Nestys Multi-Portal Ecosystem",
+    title: "Nestys Multi-Portal Platform",
     shortName: "Nestys",
-    tagline: "Enterprise E-Commerce & Opportunity Network Powered by 9 Distributed Microservices",
+    tagline: "Modern multi-portal e-commerce platform and seller management ecosystem",
     category: "Enterprise",
-    badge: "Production Client Ecosystem",
-    statusLabel: "Enterprise Auth-Gated",
+    badge: "Production Client Platform",
+    statusLabel: "Enterprise Platform",
     role: "Built the 3 web portals, integration layer, and shared UI system",
-    whereToSee: "Behind client enterprise login",
+    whereToSee: "Client enterprise platform",
     timeline: "2026 – Present",
-    accentColor: "#FF5533",
+    accentColor: "#00D4FF",
     mockupType: "laptop",
-    overview: "Three specialized web portals on one unified NestJS microservices backend: Seller Central for live orders and inventory matrix, Eureka for candidate listings, and a Super Admin console with HLS.js adaptive reel moderation.",
+    overview: "Three specialized web portals built for scale: Seller Central for real-time inventory and orders, candidate discovery portal, and an administrative moderation suite.",
     metrics: [
       { label: "Microservices", value: "9 Services" },
       { label: "Queue Throughput", value: "BullMQ / Redis" },
@@ -257,60 +257,6 @@ export const FEATURED_PROJECTS: Project[] = [
     demoType: "live-site"
   },
   {
-    id: "servotech-suite",
-    slug: "servotech",
-    title: "Servotech Enterprise Suite",
-    shortName: "Servotech",
-    tagline: "Mission-Critical Internal Dashboards: PM Board, HRMS, Asset Management & ATS",
-    category: "Enterprise",
-    badge: "W3villa Technologies",
-    statusLabel: "Enterprise Production",
-    role: "Frontend engineer at W3villa Technologies",
-    whereToSee: "Internal enterprise company tools",
-    timeline: "2024 – 2025",
-    accentColor: "#10B981",
-    mockupType: "laptop",
-    overview: "Delivered four mission-critical enterprise systems under the Servotech suite: Project Management Board, HRMS Workplace, Asset Management, and Applicant Tracking System (ATS).",
-    metrics: [
-      { label: "Sub-Applications", value: "4 Full Dashboards" },
-      { label: "Test Automation", value: "Cucumber BDD" },
-      { label: "Auth Standards", value: "OAuth 2.0 / JWT" }
-    ],
-    features: [
-      { title: "PM Board", description: "Sprint management boards, timeline views, and task state tracking interfaces." },
-      { title: "HRMS Workplace", description: "Employee directory, attendance workflows, and executive analytics." },
-      { title: "Asset Management", description: "High-performance inventory tracking UI featuring full-text search and multi-layer filters." },
-      { title: "ATS System", description: "Applicant tracking pipeline visualizers and recruiter workflow boards." }
-    ],
-    keyEngineeringWins: [
-      "PM Board: Built sprint management boards, timeline views, and task state tracking interfaces.",
-      "HRMS Workplace: Implemented employee directory, attendance workflows, and executive analytics.",
-      "Asset Management: Built high-performance inventory tracking UI featuring full-text search and multi-layer filters.",
-      "ATS System: Engineered applicant tracking pipeline visualizers and recruiter workflow boards.",
-      "Maintained strict quality gates with Cucumber end-to-end automation and React performance optimization."
-    ],
-    architecture: {
-      overview: "Multi-tenant enterprise frontend communicating with secure RESTful backend services.",
-      nodes: [
-        { name: "PM & HRMS UI", role: "Interactive Workspaces", tech: "React.js, Redux, Tailwind" },
-        { name: "ATS & Asset UI", role: "Recruiter & Inventory Dashboards", tech: "React.js, React Table" },
-        { name: "API Gateway", role: "Secure Enterprise Auth", tech: "OAuth 2.0, JWT" },
-        { name: "E2E Testing", role: "Regression & Quality Gate", tech: "Cucumber BDD" }
-      ],
-      dataFlow: [
-        "Single Sign-On (SSO) authentication grants scoped access across workspace apps",
-        "React frontend leverages optimistic updates for low-latency task and status changes",
-        "Automated Cucumber suites run continuous regression checks on candidate and asset pipelines"
-      ]
-    },
-    techStack: ["React.js", "React Native", "TypeScript", "Redux", "REST APIs", "Cucumber", "OAuth 2.0", "Webpack"],
-    demoType: "dashboard-preview"
-  }
-];
-
-export const ALL_PROJECTS: Project[] = [
-  ...FEATURED_PROJECTS,
-  {
     id: "urban-arena",
     slug: "urban-arena",
     title: "UrbanArena Platform",
@@ -322,7 +268,7 @@ export const ALL_PROJECTS: Project[] = [
     role: "Architected the full-stack multi-tenant platform, slot locks & QR engine",
     whereToSee: "Open source showcase & interactive preview",
     timeline: "2025",
-    accentColor: "#B04DFF",
+    accentColor: "#A855F7",
     mockupType: "laptop",
     overview: "A multi-tenant sports facility reservation ecosystem featuring real-time slot scheduling with Redis mutex concurrency locks, dynamic QR entry pass validation, and provider revenue settlements.",
     metrics: [
@@ -360,6 +306,8 @@ export const ALL_PROJECTS: Project[] = [
     demoType: "dashboard-preview"
   }
 ];
+
+export const ALL_PROJECTS: Project[] = FEATURED_PROJECTS;
 
 // For backwards compatibility
 export const PROJECTS = FEATURED_PROJECTS;

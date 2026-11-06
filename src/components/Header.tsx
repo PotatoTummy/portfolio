@@ -42,7 +42,7 @@ export const Header: React.FC<HeaderProps> = ({ activeSection = "Intro", onOpenC
         </Link>
         <span className="w-px h-4 bg-white/30 hidden xs:inline-block" />
         <span className="inline-flex items-center gap-2 text-zinc-300">
-          <span className="inline-block w-1.5 h-1.5 bg-[#FF5533]" />
+          <span className="inline-block w-1.5 h-1.5 bg-[#00D4FF]" />
           <span className="capitalize">{activeSection}</span>
         </span>
       </div>
@@ -69,7 +69,7 @@ export const Header: React.FC<HeaderProps> = ({ activeSection = "Intro", onOpenC
 
         <a
           href="#contact"
-          className="bg-[#FF5533] text-[#0B0B0A] font-sans font-semibold px-4 py-2 text-xs rounded transition-transform hover:-translate-y-0.5 mix-blend-normal shadow-[0_0_20px_rgba(255,85,51,0.4)]"
+          className="bg-[#00D4FF] text-[#0B0B0A] font-sans font-semibold px-4 py-2 text-xs rounded transition-transform hover:-translate-y-0.5 mix-blend-normal shadow-[0_0_20px_rgba(0,212,255,0.4)]"
         >
           Start a project
         </a>

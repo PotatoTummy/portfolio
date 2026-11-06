@@ -142,13 +142,13 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
                   className="w-full flex items-center justify-between rounded-lg px-3 py-2 text-left hover:bg-white/[0.06] text-zinc-300 hover:text-white transition-colors group"
                 >
                   <div className="flex items-center gap-2.5 truncate">
-                    <FolderGit2 className="h-3.5 w-3.5 text-[#FF5533] shrink-0" />
+                    <FolderGit2 className="h-3.5 w-3.5 text-[#00D4FF] shrink-0" />
                     <span className="font-semibold text-white">{p.title}</span>
                     <span className="text-zinc-500 text-[11px] truncate hidden sm:inline">
                       {p.tagline}
                     </span>
                   </div>
-                  <span className="text-[10px] text-[#FF5533] group-hover:translate-x-0.5 transition-transform flex items-center gap-1">
+                  <span className="text-[10px] text-[#00D4FF] group-hover:translate-x-0.5 transition-transform flex items-center gap-1">
                     <span>Reel Case Study</span>
                     <ArrowRight className="h-3 w-3" />
                   </span>
@@ -161,19 +161,15 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
         {/* Story Jump Navigation */}
         <div>
           <div className="px-2 py-1 text-[11px] font-semibold text-zinc-500 uppercase tracking-wider">
-            Reel Chapters Navigation
+            Quick Navigation
           </div>
           <div className="space-y-1 mt-1">
             {[
-              { id: "hero", label: "Reel 00 · Opening" },
-              { id: "premise", label: "Reel 01 · Premise Manifesto" },
-              { id: "nestys", label: "Reel 02 · Nestys Ecosystem" },
-              { id: "scrollr", label: "Reel 03 · Scrollr Reel Engine" },
-              { id: "wokataa", label: "Reel 04 · WoKataa Multiplayer Duel" },
-              { id: "earth-air", label: "Reel 05 · Earth Air Commercial Platform" },
-              { id: "urban-arena", label: "Reel 06 · UrbanArena Venue Suite" },
-              { id: "numbers", label: "Reel 07 · Verified Numbers" },
-              { id: "contact", label: "Reel 08 · Credits & Direct Channel" },
+              { id: "hero", label: "01 · Intro" },
+              { id: "studio", label: "02 · Studio & Philosophy" },
+              { id: "portal", label: "03 · Interactive Preview" },
+              { id: "work", label: "04 · Selected Work" },
+              { id: "contact", label: "05 · Contact" },
             ].map((ch) => (
               <button
                 key={ch.id}
@@ -198,10 +194,10 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
               className="w-full flex items-center justify-between rounded-lg px-3 py-2 text-left hover:bg-white/[0.06] text-zinc-300 hover:text-white"
             >
               <div className="flex items-center gap-2.5">
-                <Mail className="h-3.5 w-3.5 text-[#FF5533]" />
+                <Mail className="h-3.5 w-3.5 text-[#00D4FF]" />
                 <span>Copy Email ({PROFILE.email})</span>
               </div>
-              <span className="text-[10px] text-[#FF5533]">
+              <span className="text-[10px] text-[#00D4FF]">
                 {copied === "email" ? "Copied!" : "Press to copy"}
               </span>
             </button>
@@ -213,7 +209,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
               className="w-full flex items-center justify-between rounded-lg px-3 py-2 text-left hover:bg-white/[0.06] text-zinc-300 hover:text-white"
             >
               <div className="flex items-center gap-2.5">
-                <Download className="h-3.5 w-3.5 text-amber-400" />
+                <Download className="h-3.5 w-3.5 text-cyan-400" />
                 <span>Download Master CV / Resume (PDF)</span>
               </div>
               <ArrowRight className="h-3 w-3 text-zinc-500" />
@@ -225,7 +221,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
       {/* Footer Info */}
       <div className="flex items-center justify-between border-t border-white/[0.08] px-4 py-2 bg-black/40 text-[11px] text-zinc-500 font-mono">
         <span>Press Esc to close</span>
-        <span className="text-[#FF5533]">Samad Kausar Portfolio</span>
+        <span className="text-[#00D4FF]">Samad Kausar Portfolio</span>
       </div>
     </dialog>
   );

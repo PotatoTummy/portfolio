@@ -3,6 +3,7 @@
 import React, { useEffect, useRef } from "react";
 import Link from "next/link";
 import { FEATURED_PROJECTS, Project } from "@/data/portfolioData";
+import { THEME_TOKENS } from "@/styles/theme";
 
 interface WorkStoryProps {
   progress?: number;
@@ -36,7 +37,7 @@ export const WorkStory: React.FC<WorkStoryProps> = ({ progress = 0 }) => {
     }
   };
 
-  // Render high-res UI preview for each project canvas
+  // Render high-res colorful UI preview for each project canvas
   useEffect(() => {
     canvasRefs.current.forEach((canvas, idx) => {
       if (!canvas) return;
@@ -48,139 +49,226 @@ export const WorkStory: React.FC<WorkStoryProps> = ({ progress = 0 }) => {
       ctx.clearRect(0, 0, w, h);
 
       if (idx === 0) {
-        // Nestys UI
-        ctx.fillStyle = "#0D0D0C";
+        // 1. Nestys: Deep Sapphire & Cyan Enterprise Matrix
+        const grad = ctx.createLinearGradient(0, 0, w, h);
+        grad.addColorStop(0, "#021226");
+        grad.addColorStop(0.5, "#07294D");
+        grad.addColorStop(1, "#031730");
+        ctx.fillStyle = grad;
         ctx.fillRect(0, 0, w, h);
-        ctx.fillStyle = "#161615";
+
+        // Sidebar
+        ctx.fillStyle = "rgba(0, 212, 255, 0.08)";
         ctx.fillRect(0, 0, w * 0.18, h);
-        for (let i = 0; i < 6; i++) {
-          ctx.fillStyle = i === 1 ? "#FF5533" : "rgba(255,255,255,0.15)";
-          drawRoundRect(ctx, 16, 60 + i * 32, w * 0.18 - 32, 12, 4);
+
+        for (let i = 0; i < 5; i++) {
+          ctx.fillStyle = i === 0 ? "#00D4FF" : "rgba(255,255,255,0.2)";
+          drawRoundRect(ctx, 20, 60 + i * 36, w * 0.18 - 40, 14, 4);
           ctx.fill();
         }
-        ctx.fillStyle = "#F3F3EE";
-        ctx.font = "600 18px sans-serif";
-        ctx.fillText("Nestys Seller Central", w * 0.22, 38);
+
+        // Title & Stats
+        ctx.fillStyle = "#FFFFFF";
+        ctx.font = "bold 20px sans-serif";
+        ctx.fillText("Nestys Seller Central & Super Admin", w * 0.22, 45);
+
         for (let i = 0; i < 3; i++) {
-          const cx = w * 0.22 + i * (w * 0.25);
-          ctx.fillStyle = "#1A1A18";
-          drawRoundRect(ctx, cx, 58, w * 0.23, 64, 8);
+          const cx = w * 0.22 + i * (w * 0.24);
+          ctx.fillStyle = "rgba(0, 212, 255, 0.12)";
+          drawRoundRect(ctx, cx, 70, w * 0.22, 70, 8);
           ctx.fill();
-          ctx.fillStyle = i === 0 ? "#FF5533" : "#F3F3EE";
-          drawRoundRect(ctx, cx + 14, 92, w * 0.14, 14, 4);
+          ctx.strokeStyle = "rgba(0, 212, 255, 0.35)";
+          ctx.stroke();
+
+          ctx.fillStyle = i === 0 ? "#00D4FF" : "#FFFFFF";
+          drawRoundRect(ctx, cx + 16, 110, w * 0.12, 14, 4);
           ctx.fill();
         }
-        const barCount = 12;
-        const barWidth = (w * 0.74) / barCount;
+
+        // Live Throughput Bars
+        const barCount = 14;
+        const barWidth = (w * 0.72) / barCount;
         for (let i = 0; i < barCount; i++) {
-          const bh = 50 + 60 * Math.sin(i * 1.3);
-          ctx.fillStyle = i % 3 === 0 ? "#FF5533" : "rgba(255,85,51,0.45)";
-          drawRoundRect(ctx, w * 0.22 + i * barWidth, h - 80 - bh, barWidth - 8, bh, 4);
+          const bh = 60 + 80 * Math.sin(i * 0.9);
+          ctx.fillStyle = i % 2 === 0 ? "#00D4FF" : "rgba(0, 212, 255, 0.4)";
+          drawRoundRect(ctx, w * 0.22 + i * barWidth, h - 80 - bh, barWidth - 10, bh, 4);
           ctx.fill();
         }
       } else if (idx === 1) {
-        // Scrollr UI
-        ctx.fillStyle = "#080808";
-        ctx.fillRect(0, 0, w, h);
-        const grad = ctx.createLinearGradient(0, 0, w * 0.7, h);
-        grad.addColorStop(0, "#FF5533");
-        grad.addColorStop(1, "#0B0B0A");
+        // 2. Scrollr: Cinema Violet & Hot Magenta Reel Canvas
+        const grad = ctx.createLinearGradient(0, 0, w, h);
+        grad.addColorStop(0, "#1F0433");
+        grad.addColorStop(0.5, "#4A0E5C");
+        grad.addColorStop(1, "#8A1260");
         ctx.fillStyle = grad;
         ctx.fillRect(0, 0, w, h);
-        ctx.fillStyle = "rgba(255,255,255,0.25)";
+
+        // Ambient Reel Ring
+        ctx.fillStyle = "rgba(255, 0, 122, 0.18)";
         ctx.beginPath();
-        ctx.arc(w / 2, h * 0.46, 44, 0, Math.PI * 2);
+        ctx.arc(w / 2, h * 0.46, 130, 0, Math.PI * 2);
         ctx.fill();
-        ctx.fillStyle = "#FFF";
+
+        ctx.strokeStyle = "#FF007A";
+        ctx.lineWidth = 4;
         ctx.beginPath();
-        ctx.moveTo(w / 2 - 10, h * 0.46 - 18);
-        ctx.lineTo(w / 2 + 18, h * 0.46);
-        ctx.lineTo(w / 2 - 10, h * 0.46 + 18);
-        ctx.fill();
-      } else if (idx === 2) {
-        // WoKataa UI
-        ctx.fillStyle = "#0A0A09";
-        ctx.fillRect(0, 0, w, h);
-        ctx.fillStyle = "#FF5533";
-        drawRoundRect(ctx, 40, 36, (w - 80) * 0.68, 12, 6);
-        ctx.fill();
-        ctx.fillStyle = "#2B6CFF";
-        drawRoundRect(ctx, w / 2 - 120, h * 0.4, 110, 160, 14);
-        ctx.fill();
-        ctx.fillStyle = "#FF5533";
-        drawRoundRect(ctx, w / 2 + 10, h * 0.38, 110, 160, 14);
-        ctx.fill();
-      } else if (idx === 3) {
-        // Earth Air UI
-        ctx.fillStyle = "#090908";
-        ctx.fillRect(0, 0, w, h);
-        ctx.fillStyle = "#F3F3EE";
-        ctx.font = "600 16px sans-serif";
-        ctx.fillText("Earth Air Condition — Commercial HVAC", 24, 28);
-        ctx.strokeStyle = "#2FD27A";
-        ctx.lineWidth = 14;
-        ctx.beginPath();
-        ctx.arc(w - 140, h * 0.45, 52, 0, Math.PI * 2 * 0.98);
+        ctx.arc(w / 2, h * 0.46, 68, 0, Math.PI * 2);
         ctx.stroke();
-        ctx.fillStyle = "#2FD27A";
-        ctx.font = "700 38px sans-serif";
+
+        // Play Triangle
+        ctx.fillStyle = "#FFFFFF";
+        ctx.beginPath();
+        ctx.moveTo(w / 2 - 14, h * 0.46 - 22);
+        ctx.lineTo(w / 2 + 24, h * 0.46);
+        ctx.lineTo(w / 2 - 14, h * 0.46 + 22);
+        ctx.fill();
+
+        ctx.fillStyle = "#FF70B8";
+        ctx.font = "bold 18px monospace";
         ctx.textAlign = "center";
-        ctx.fillText("98", w - 140, h * 0.45 + 13);
+        ctx.fillText("60 FPS VIRTUALIZED • FISHER-YATES REEL", w / 2, h - 90);
+        ctx.textAlign = "left";
+      } else if (idx === 2) {
+        // 3. WoKataa: Real-Time Gaming Midnight Forest & Cyber Jade
+        const grad = ctx.createLinearGradient(0, 0, w, h);
+        grad.addColorStop(0, "#012217");
+        grad.addColorStop(0.5, "#064E3B");
+        grad.addColorStop(1, "#022F22");
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, w, h);
+
+        // Team Cards
+        ctx.fillStyle = "rgba(16, 185, 129, 0.25)";
+        drawRoundRect(ctx, w / 2 - 160, h * 0.35, 130, 190, 16);
+        ctx.fill();
+        ctx.strokeStyle = "#10B981";
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        ctx.fillStyle = "rgba(0, 212, 255, 0.25)";
+        drawRoundRect(ctx, w / 2 + 30, h * 0.32, 130, 190, 16);
+        ctx.fill();
+        ctx.strokeStyle = "#00D4FF";
+        ctx.stroke();
+
+        ctx.fillStyle = "#10B981";
+        ctx.font = "bold 16px monospace";
+        ctx.fillText("TEAM A [YOU]", w / 2 - 140, h * 0.35 + 40);
+
+        ctx.fillStyle = "#00D4FF";
+        ctx.fillText("TEAM B [RIVAL]", w / 2 + 50, h * 0.32 + 40);
+
+        ctx.fillStyle = "#34D399";
+        ctx.font = "bold 20px monospace";
+        ctx.textAlign = "center";
+        ctx.fillText("<40ms STATE SYNC • ABLY + SOCKET.IO", w / 2, h - 70);
+        ctx.textAlign = "left";
+      } else if (idx === 3) {
+        // 4. Earth Air Condition: Solar Gold & Warm Bronze Amber
+        const grad = ctx.createLinearGradient(0, 0, w, h);
+        grad.addColorStop(0, "#261102");
+        grad.addColorStop(0.5, "#5C2B04");
+        grad.addColorStop(1, "#8C4307");
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, w, h);
+
+        ctx.fillStyle = "#FBBF24";
+        ctx.font = "bold 22px sans-serif";
+        ctx.fillText("Earth Air Condition — Commercial HVAC Infrastructure", 36, 48);
+
+        // Radial Performance Gauge (98 score)
+        ctx.strokeStyle = "#F59E0B";
+        ctx.lineWidth = 16;
+        ctx.beginPath();
+        ctx.arc(w - 180, h * 0.48, 64, 0, Math.PI * 2 * 0.98);
+        ctx.stroke();
+
+        ctx.fillStyle = "#FFFFFF";
+        ctx.font = "bold 44px monospace";
+        ctx.textAlign = "center";
+        ctx.fillText("98", w - 180, h * 0.48 + 15);
+
+        ctx.font = "bold 14px monospace";
+        ctx.fillStyle = "#FBBF24";
+        ctx.fillText("CORE WEB VITALS", w - 180, h * 0.48 + 40);
         ctx.textAlign = "left";
       } else {
-        // Servotech UI
-        ctx.fillStyle = "#0B0B0A";
+        // 5. UrbanArena: Stadium Indigo & Electric Amethyst
+        const grad = ctx.createLinearGradient(0, 0, w, h);
+        grad.addColorStop(0, "#17042B");
+        grad.addColorStop(0.5, "#3B0D66");
+        grad.addColorStop(1, "#581C87");
+        ctx.fillStyle = grad;
         ctx.fillRect(0, 0, w, h);
-        ctx.fillStyle = "#F3F3EE";
-        ctx.font = "600 17px sans-serif";
-        ctx.fillText("Servotech Enterprise — PM Board & HRMS", 24, 38);
-        const colW = (w - 70) / 4;
+
+        ctx.fillStyle = "#C084FC";
+        ctx.font = "bold 22px sans-serif";
+        ctx.fillText("UrbanArena Platform — Multi-Tenant Facility Reservation", 36, 48);
+
+        // Facility Venue Slots
+        const colW = (w - 100) / 4;
         for (let i = 0; i < 4; i++) {
-          ctx.fillStyle = "rgba(255,255,255,0.06)";
-          drawRoundRect(ctx, 24 + i * (colW + 8), 58, colW, h - 80, 8);
+          ctx.fillStyle = "rgba(168, 85, 247, 0.15)";
+          drawRoundRect(ctx, 36 + i * (colW + 10), 80, colW, h - 140, 10);
           ctx.fill();
-          ctx.fillStyle = i === 1 ? "#FF5533" : "rgba(255,255,255,0.12)";
-          drawRoundRect(ctx, 34 + i * (colW + 8), 96, colW - 20, 44, 6);
+          ctx.strokeStyle = "rgba(168, 85, 247, 0.4)";
+          ctx.stroke();
+
+          ctx.fillStyle = i === 1 ? "#A855F7" : "rgba(255,255,255,0.4)";
+          drawRoundRect(ctx, 50 + i * (colW + 10), 120, colW - 28, 36, 6);
           ctx.fill();
         }
+
+        ctx.fillStyle = "#E9D5FF";
+        ctx.font = "bold 15px monospace";
+        ctx.fillText("REDIS MUTEX CONCURRENCY LOCKS • RESEND DYNAMIC QR PASSES", 36, h - 35);
       }
     });
   }, []);
 
   return (
     <>
-      {/* Work Intro Banner */}
-      <div className="bg-[#EFEAE4] text-[#121211] py-[22vh] px-4 sm:px-8 md:px-12 z-20 relative">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
-          <h2 className="font-grotesk text-[clamp(68px,12.5vw,210px)] font-medium leading-[0.88] text-[#551009]">
-            Selected work
-          </h2>
-          <p className="max-w-[260px] text-[13.5px] leading-relaxed text-[#121211]/70">
-            Five products across web, mobile, and APIs, designed and engineered end to end.
+      {/* Selected Work Title Banner */}
+      <div className="bg-[#EFEAE4] text-[#121211] py-[10vh] px-4 sm:px-8 md:px-14 z-20 relative border-t border-[#121211]/15">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 max-w-6xl mx-auto">
+          <div>
+            <span className="font-mono text-xs uppercase tracking-wider text-[#0284C7] font-bold block mb-2">
+              04 / Selected Work
+            </span>
+            <h2 className="font-grotesk text-[clamp(56px,10vw,160px)] font-medium leading-[0.88] text-[#0284C7]">
+              Selected work
+            </h2>
+          </div>
+          <p className="max-w-[360px] text-[15px] leading-relaxed text-[#121211]/80">
+            A curated collection of web applications and digital products built with clean design, fluid animations, and solid engineering.
           </p>
         </div>
       </div>
 
-      {/* Pinned Full-Bleed Duotone Slides */}
-      <section id="work" data-nav="Work" className="relative h-[650vh] w-full bg-[#0B0B0A] select-none z-20">
+      {/* Pinned Full-Bleed Thematic Slides */}
+      <section id="work" data-nav="Work" className="relative min-h-[620vh] w-full bg-[#0B0B0A] select-none z-20">
         <div className="sticky top-0 h-[100svh] overflow-hidden">
+          
           {/* Chrome Overlay: Counter and Project List */}
-          <div className="absolute inset-0 z-30 pointer-events-none text-white px-4 sm:px-8 md:px-12">
-            <div className="absolute left-4 sm:left-8 md:left-12 top-[70px] font-sans font-medium text-[clamp(28px,3.2vw,44px)] tracking-tight">
+          <div className="absolute inset-0 z-30 pointer-events-none text-white px-6 sm:px-12 md:px-16">
+            <div className="absolute left-6 sm:left-12 md:left-16 top-[92px] font-sans font-bold text-[clamp(28px,3.2vw,44px)] tracking-tight">
               0{activeIndex + 1}
-              <small className="font-mono text-xs opacity-60 ml-2">/ 0{FEATURED_PROJECTS.length}</small>
+              <small className="font-mono text-xs opacity-70 ml-2">/ 0{FEATURED_PROJECTS.length}</small>
             </div>
 
-            <ol className="hidden md:grid gap-1 absolute left-[min(34vw,440px)] top-[74px] font-mono text-xs">
+            <ol className="hidden md:grid gap-1.5 absolute left-[min(34vw,440px)] top-[94px] font-mono text-xs">
               {FEATURED_PROJECTS.map((p, idx) => (
                 <li
                   key={p.id}
-                  className={`pl-4 relative transition-opacity duration-200 ${
-                    idx === activeIndex ? "opacity-100 font-semibold" : "opacity-45"
+                  className={`pl-4 relative transition-all duration-200 ${
+                    idx === activeIndex ? "opacity-100 font-bold text-white translate-x-1" : "opacity-45 text-zinc-300"
                   }`}
                 >
                   {idx === activeIndex && (
-                    <span className="absolute left-0 top-1/2 -translate-y-1/2 w-2.5 h-px bg-[#FF5533]" />
+                    <span
+                      className="absolute left-0 top-1/2 -translate-y-1/2 w-2.5 h-px"
+                      style={{ backgroundColor: p.accentColor }}
+                    />
                   )}
                   {p.title}
                 </li>
@@ -188,9 +276,21 @@ export const WorkStory: React.FC<WorkStoryProps> = ({ progress = 0 }) => {
             </ol>
           </div>
 
-          {/* Project Slides */}
+          {/* Project Slides with Unique Thematic Backgrounds */}
           {FEATURED_PROJECTS.map((project: Project, idx: number) => {
             const reveal = Math.min(1, Math.max(0, activeSlideProgress - idx + 1));
+            const themeKey = (project.slug === "nestys"
+              ? "nestys"
+              : project.slug === "scrollr"
+              ? "scrollr"
+              : project.slug === "wokataa"
+              ? "wokataa"
+              : project.slug === "earth-air"
+              ? "earth-air"
+              : "urban-arena") as keyof typeof THEME_TOKENS.projectThemes;
+            
+            const projectTheme = THEME_TOKENS.projectThemes[themeKey];
+
             return (
               <div
                 key={project.id}
@@ -198,49 +298,63 @@ export const WorkStory: React.FC<WorkStoryProps> = ({ progress = 0 }) => {
                 style={{
                   zIndex: idx,
                   clipPath: `inset(${(1 - reveal) * 100}% 0 0 0)`,
+                  background: projectTheme.bgGradient,
                 }}
               >
-                {/* Duotone Canvas Art */}
+                {/* Thematic Ambient Glow Aura */}
+                <div
+                  className="absolute inset-0 pointer-events-none blur-[120px] opacity-40"
+                  style={{
+                    background: `radial-gradient(circle at 75% 30%, ${projectTheme.primaryAccent} 0%, transparent 60%)`,
+                  }}
+                  aria-hidden="true"
+                />
+
+                {/* UI Preview Canvas Artwork */}
                 <div
                   className="absolute inset-0 will-change-transform"
                   style={{
-                    transform: `scale(${1 + (1 - reveal) * 0.2 + (idx < activeSlideProgress ? 0.03 * (activeSlideProgress - idx) : 0)}) translateY(${idx < activeSlideProgress ? -(activeSlideProgress - idx) * 5 : 0}%)`,
+                    transform: `scale(${1 + (1 - reveal) * 0.15 + (idx < activeSlideProgress ? 0.03 * (activeSlideProgress - idx) : 0)}) translateY(${idx < activeSlideProgress ? -(activeSlideProgress - idx) * 4 : 0}%)`,
+                    opacity: 0.85,
                   }}
                 >
                   <canvas
                     ref={(el) => {
                       canvasRefs.current[idx] = el;
                     }}
-                    width={1200}
-                    height={675}
-                    className="w-full h-full object-cover filter grayscale contrast-125 brightness-75 block"
+                    width={1280}
+                    height={720}
+                    className="w-full h-full object-cover block"
                     aria-hidden="true"
                   />
                 </div>
 
-                {/* Duotone Multiply & Gradient Overlays */}
-                <div
-                  className="absolute inset-0 z-10 pointer-events-none mix-blend-multiply"
-                  style={{
-                    background: "linear-gradient(175deg, #FF5533 0%, #680E06 100%)",
-                  }}
-                />
+                {/* Subtle Readability Scrim Overlay (Preserves Rich Colors while ensuring 100% contrast) */}
                 <div
                   className="absolute inset-0 z-10 pointer-events-none"
                   style={{
-                    background: "linear-gradient(180deg, rgba(11,11,10,0.15) 0%, rgba(11,11,10,0.85) 100%)",
+                    background: "linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.78) 75%, rgba(0,0,0,0.92) 100%)",
                   }}
                 />
 
-                {/* Kind Label */}
-                <span className="absolute right-4 sm:right-8 md:right-12 top-[76px] font-mono text-xs text-white/80 z-20">
-                  {project.category}
-                </span>
+                {/* Category & Status Label */}
+                <div className="absolute right-6 sm:right-12 md:right-16 top-[92px] z-20 flex items-center gap-2">
+                  <span
+                    className="px-3 py-1 rounded-full text-xs font-mono font-semibold border backdrop-blur-md"
+                    style={{
+                      backgroundColor: projectTheme.badgeBg,
+                      color: projectTheme.badgeText,
+                      borderColor: projectTheme.cardBorder,
+                    }}
+                  >
+                    {project.category}
+                  </span>
+                </div>
 
                 {/* Giant Title (unmasking from below) */}
-                <div className="absolute left-4 sm:left-8 md:left-12 bottom-[8vh] z-20 overflow-hidden py-1 max-w-[55vw]">
+                <div className="absolute left-4 sm:left-8 md:left-14 bottom-[8vh] z-20 overflow-hidden py-1 max-w-[55vw]">
                   <h2
-                    className="font-grotesk font-medium text-[clamp(60px,11vw,190px)] leading-[0.88] text-white transition-transform duration-75"
+                    className="font-grotesk font-semibold text-[clamp(48px,9vw,140px)] leading-[0.92] text-white transition-transform duration-75"
                     style={{ transform: `translateY(${(1 - reveal) * 105}%)` }}
                   >
                     {project.title}
@@ -248,26 +362,33 @@ export const WorkStory: React.FC<WorkStoryProps> = ({ progress = 0 }) => {
                 </div>
 
                 {/* Project Details Box */}
-                <div className="absolute right-4 sm:right-8 md:right-12 bottom-[8vh] z-20 w-[min(420px,44vw)] text-[14.5px] leading-relaxed">
-                  <p className="text-white/90 mb-4">{project.overview}</p>
+                <div className="absolute right-4 sm:right-8 md:right-14 bottom-[8vh] z-20 w-[min(420px,44vw)] text-[14.5px] leading-relaxed">
+                  <p className="text-white/95 mb-4 font-sans text-sm sm:text-base leading-relaxed">
+                    {project.overview}
+                  </p>
 
-                  <dl className="grid grid-cols-2 gap-3 border-t border-white/35 pt-3 mb-4 text-[13px]">
+                  <dl className="grid grid-cols-2 gap-3 border-t border-white/20 pt-3 mb-4 text-[13px]">
                     <div>
-                      <dt className="font-mono text-[11px] text-white/60 mb-1">Role</dt>
+                      <dt className="font-mono text-[11px] text-white/70 mb-0.5">Role</dt>
                       <dd className="font-medium text-white">{project.role}</dd>
                     </div>
                     <div>
-                      <dt className="font-mono text-[11px] text-white/60 mb-1">Where to see it</dt>
+                      <dt className="font-mono text-[11px] text-white/70 mb-0.5">Where to see it</dt>
                       <dd className="font-medium text-white">{project.whereToSee}</dd>
                     </div>
                   </dl>
 
                   <Link
                     href={`/projects/${project.slug}`}
-                    className="inline-flex items-center justify-between w-full px-4 py-3 border border-white/80 text-sm font-medium bg-[#0B0B0A]/40 backdrop-blur-md rounded transition-all hover:bg-white hover:text-[#0B0B0A]"
+                    className="inline-flex items-center justify-between w-full px-4 py-3 border font-semibold text-sm rounded transition-all backdrop-blur-md hover:scale-[1.02] shadow-lg"
+                    style={{
+                      borderColor: projectTheme.primaryAccent,
+                      backgroundColor: "rgba(0,0,0,0.45)",
+                      color: "#FFFFFF",
+                    }}
                   >
                     <span>View project case study</span>
-                    <span>↗</span>
+                    <span style={{ color: projectTheme.primaryAccent }}>↗</span>
                   </Link>
                 </div>
               </div>
@@ -278,4 +399,3 @@ export const WorkStory: React.FC<WorkStoryProps> = ({ progress = 0 }) => {
     </>
   );
 };
-

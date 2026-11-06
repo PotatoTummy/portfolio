@@ -13,8 +13,7 @@ import {
   ScrollrScreen, 
   WoKataaScreen, 
   EarthAirScreen, 
-  UrbanArenaScreen,
-  ServotechScreen 
+  UrbanArenaScreen
 } from "@/components/devices/RealisticScreenUI";
 import { 
   ArrowLeft, 
@@ -88,12 +87,6 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             <EarthAirScreen />
           </MacBookProMockup>
         );
-      case "servotech":
-        return (
-          <MacBookProMockup projectName={project.title} videoUrl={project.media?.videoUrl}>
-            <ServotechScreen />
-          </MacBookProMockup>
-        );
       case "urban-arena":
       default:
         return (
@@ -105,16 +98,16 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   };
 
   return (
-    <div className="min-h-screen bg-[#0B0B0A] text-[#F3F3EE] font-sans antialiased selection:bg-[#FF5533] selection:text-[#0B0B0A]">
+    <div className="min-h-screen bg-[#0B0B0A] text-[#F3F3EE] font-sans antialiased selection:bg-[#00D4FF] selection:text-[#0B0B0A]">
       {/* Top Floating Header */}
       <header className="sticky top-0 z-50 backdrop-blur-xl bg-[#0B0B0A]/85 border-b border-white/[0.08] px-4 sm:px-8 py-3.5 transition-all">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <Link
-            href="/#projects"
+            href="/#work"
             className="inline-flex items-center gap-2 text-xs font-mono text-zinc-400 hover:text-white transition-colors group"
           >
-            <ArrowLeft className="h-3.5 w-3.5 group-hover:-translate-x-1 transition-transform text-[#FF5533]" />
-            <span>Back to Reel Story</span>
+            <ArrowLeft className="h-3.5 w-3.5 group-hover:-translate-x-1 transition-transform text-[#00D4FF]" />
+            <span>Back to Work</span>
           </Link>
 
           <div className="flex items-center gap-2">
@@ -174,7 +167,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             <span className="text-zinc-400">{project.category}</span>
           </div>
 
-          <h1 className="font-serif text-4xl sm:text-6xl lg:text-7xl font-normal tracking-tight text-white leading-[1.05]">
+          <h1 className="font-grotesk text-4xl sm:text-6xl lg:text-7xl font-normal tracking-tight text-white leading-[1.05]">
             {project.title}
           </h1>
 
@@ -194,7 +187,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             </div>
             <div className="p-4 rounded-xl border border-white/[0.08] bg-[#121211]/80 backdrop-blur-sm">
               <div className="text-xs font-mono text-zinc-400">Core Benchmark</div>
-              <div className="text-sm font-semibold text-[#FF5533] mt-1">
+              <div className="text-sm font-semibold text-[#00D4FF] mt-1">
                 {project.metrics[0].value} ({project.metrics[0].label})
               </div>
             </div>
@@ -205,11 +198,11 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         <section className="space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/[0.08] pb-4">
             <div>
-              <div className="inline-flex items-center gap-1.5 text-xs font-mono text-[#FF5533]">
+              <div className="inline-flex items-center gap-1.5 text-xs font-mono text-[#00D4FF]">
                 <Monitor className="h-3.5 w-3.5" />
                 <span>Photorealistic Hardware Simulation</span>
               </div>
-              <h2 className="text-xl sm:text-2xl font-serif text-white mt-1">
+              <h2 className="text-xl sm:text-2xl font-grotesk text-white mt-1">
                 Live Interface Execution
               </h2>
             </div>
@@ -238,7 +231,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             {/* Media Drop-in Notice */}
             <div className="mt-8 text-center">
               <p className="text-xs font-mono text-zinc-400 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/50 border border-white/5">
-                <Video className="h-3.5 w-3.5 text-[#FF5533]" />
+                <Video className="h-3.5 w-3.5 text-[#00D4FF]" />
                 <span>Custom Media Slot Ready: Drop real video recordings or screenshots anytime.</span>
               </p>
             </div>
@@ -248,8 +241,8 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         {/* Feature Breakdown Section */}
         <section className="space-y-6">
           <div className="border-b border-white/[0.08] pb-4">
-            <span className="text-xs font-mono text-[#FF5533]">System Capabilities</span>
-            <h2 className="text-2xl sm:text-3xl font-serif text-white mt-1">
+            <span className="text-xs font-mono text-[#00D4FF]">System Capabilities</span>
+            <h2 className="text-2xl sm:text-3xl font-grotesk text-white mt-1">
               What It Delivers
             </h2>
           </div>
@@ -260,7 +253,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 key={i}
                 className="p-5 rounded-2xl border border-white/[0.08] bg-[#121211] space-y-2.5 hover:border-white/[0.18] transition-colors"
               >
-                <div className="h-7 w-7 rounded-lg bg-[#FF5533]/15 text-[#FF5533] border border-[#FF5533]/30 flex items-center justify-center font-mono font-bold text-xs">
+                <div className="h-7 w-7 rounded-lg bg-[#00D4FF]/15 text-[#00D4FF] border border-[#00D4FF]/30 flex items-center justify-center font-mono font-bold text-xs">
                   0{i + 1}
                 </div>
                 <h3 className="font-semibold text-white text-base">{feature.title}</h3>
@@ -273,8 +266,8 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         {/* Step-by-Step Architecture Pipeline */}
         <section className="space-y-6">
           <div className="border-b border-white/[0.08] pb-4">
-            <span className="text-xs font-mono text-[#FF5533]">End-to-End Systems Engineering</span>
-            <h2 className="text-2xl sm:text-3xl font-serif text-white mt-1">
+            <span className="text-xs font-mono text-[#00D4FF]">End-to-End Systems Engineering</span>
+            <h2 className="text-2xl sm:text-3xl font-grotesk text-white mt-1">
               How It Fits Together
             </h2>
             <p className="mt-1 text-xs text-zinc-400 max-w-2xl font-mono">
@@ -290,7 +283,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                   key={i}
                   className="p-4 rounded-xl border border-white/[0.08] bg-[#121211] flex items-start gap-3.5 relative"
                 >
-                  <div className="h-6 w-6 rounded-full bg-[#FF5533]/20 border border-[#FF5533]/40 text-[#FF5533] flex items-center justify-center font-mono text-xs shrink-0 mt-0.5">
+                  <div className="h-6 w-6 rounded-full bg-[#00D4FF]/20 border border-[#00D4FF]/40 text-[#00D4FF] flex items-center justify-center font-mono text-xs shrink-0 mt-0.5">
                     {i + 1}
                   </div>
                   <div className="flex-1">
@@ -315,7 +308,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               <ol className="space-y-3 text-xs text-zinc-300 font-sans divide-y divide-white/[0.05]">
                 {project.architecture.dataFlow.map((step, i) => (
                   <li key={i} className="pt-2.5 first:pt-0 flex items-start gap-2.5">
-                    <span className="font-mono text-[#FF5533] font-bold text-xs shrink-0">→</span>
+                    <span className="font-mono text-[#00D4FF] font-bold text-xs shrink-0">→</span>
                     <span className="leading-relaxed">{step}</span>
                   </li>
                 ))}
@@ -327,8 +320,8 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         {/* Key Engineering Wins */}
         <section className="space-y-6">
           <div className="border-b border-white/[0.08] pb-4">
-            <span className="text-xs font-mono text-[#FF5533]">Verified Achievements</span>
-            <h2 className="text-2xl sm:text-3xl font-serif text-white mt-1">
+            <span className="text-xs font-mono text-[#00D4FF]">Verified Achievements</span>
+            <h2 className="text-2xl sm:text-3xl font-grotesk text-white mt-1">
               Engineering Breakthroughs
             </h2>
           </div>
@@ -349,8 +342,8 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         {/* Tech Stack Matrix */}
         <section className="space-y-6">
           <div className="border-b border-white/[0.08] pb-4">
-            <span className="text-xs font-mono text-[#FF5533]">Technologies & Tooling</span>
-            <h2 className="text-2xl sm:text-3xl font-serif text-white mt-1">
+            <span className="text-xs font-mono text-[#00D4FF]">Technologies & Tooling</span>
+            <h2 className="text-2xl sm:text-3xl font-grotesk text-white mt-1">
               Built With
             </h2>
           </div>
@@ -359,7 +352,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             {project.techStack.map((tech, i) => (
               <span
                 key={i}
-                className="px-3.5 py-1.5 rounded-full border border-white/[0.1] bg-white/[0.03] text-xs font-mono text-zinc-200 hover:border-[#FF5533] hover:text-white transition-colors"
+                className="px-3.5 py-1.5 rounded-full border border-white/[0.1] bg-white/[0.03] text-xs font-mono text-zinc-200 hover:border-[#00D4FF] hover:text-white transition-colors"
               >
                 {tech}
               </span>
@@ -376,7 +369,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             <span className="text-xs font-mono text-zinc-400 flex items-center gap-1 group-hover:-translate-x-1 transition-transform">
               <ArrowLeft className="h-3 w-3" /> Previous Project
             </span>
-            <span className="font-serif text-xl sm:text-2xl text-white group-hover:text-[#FF5533] transition-colors">
+            <span className="font-grotesk text-xl sm:text-2xl text-white group-hover:text-[#00D4FF] transition-colors">
               {prev.title}
             </span>
           </Link>
@@ -388,7 +381,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             <span className="text-xs font-mono text-zinc-400 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
               Next Project <ArrowRight className="h-3 w-3" />
             </span>
-            <span className="font-serif text-xl sm:text-2xl text-white group-hover:text-[#FF5533] transition-colors">
+            <span className="font-grotesk text-xl sm:text-2xl text-white group-hover:text-[#00D4FF] transition-colors">
               {next.title}
             </span>
           </Link>

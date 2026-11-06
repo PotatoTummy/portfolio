@@ -31,11 +31,11 @@ When hiring managers, founders, or senior engineering leads land on your site, t
 ## 2. Solving the "Live vs. Not Live vs. Mobile vs. Repo" Problem
 
 A major hurdle in showcasing real-world software is that **not everything has an open public URL**:
-- Some are **enterprise B2B systems** behind client auth (Nestys Admin, Servotech HRMS/ATS).
+- Some are **enterprise B2B systems** behind client auth (Nestys Admin, Seller Central).
 - Some are **native mobile applications** (Scrollr / LinkPlay, WoKataa).
 - Some are **pure backend APIs / Microservices** without a consumer frontend (LinkPlay Fastify streaming API).
 - Some are **client websites** (Earth Air Condition).
-- Some are **hobby repositories** (UrbanArena).
+- Some are **full-stack multi-tenant platforms** (UrbanArena).
 
 ### The Solution: The "Proof-of-Work" Presentation Framework
 
@@ -43,11 +43,11 @@ Never present every project in the exact same card format. Categorize and presen
 
 | Project Tier | Projects | Primary Display Modality | What Proves It Works |
 | :--- | :--- | :--- | :--- |
-| **Enterprise Portals** *(Auth Gated)* | Nestys (Seller Central, Eureka, Super Admin), Servotech Suite | **Interactive Video Walkthrough + High-Res Zoomable Mockups + System Diagrams** | Screen captures of real workflows (e.g. bulk uploads, reel moderation) with architecture callouts. |
+| **Enterprise Portals** *(Auth Gated)* | Nestys (Seller Central, Eureka, Super Admin) | **Interactive Video Walkthrough + High-Res Zoomable Mockups + System Diagrams** | Screen captures of real workflows (e.g. bulk uploads, reel moderation) with architecture callouts. |
 | **Native Mobile Apps** *(APK/TestFlight or Device)* | Scrollr (LinkPlay), WoKataa (Mobile) | **Interactive Smartphone Frame (Interactive Mockup / Frame-by-Frame Video Player)** | A CSS/Canvas phone mockup running an autoplay-on-hover video reel showing gesture-swiping, tokens, and player mechanics. |
 | **Backend & Real-Time APIs** *(Headless/Microservices)* | WoKataa Backend, LinkPlay Resolver API | **Interactive API Playground / Live Endpoint Inspector** | A mini embedded Postman/Swagger terminal where visitors can trigger a test request or view live Swagger/OpenAPI docs. |
 | **Live Client Platforms** *(Public Production)* | Earth Air Condition, Stack-IT | **Live Site Preview with Performance / Core Web Vitals HUD** | Direct link with verified PageSpeed / Lighthouse scores, schema verification, and before/after comparison. |
-| **Open Source / Hobby** *(GitHub Repos)* | UrbanArena | **GitHub Architecture Blueprint & Code Tour** | Embedded interactive directory tree, Prisma schema visualizer, and clear technical write-up. |
+| **Full-Stack Multi-Tenant Platforms** *(Production Showcase)* | UrbanArena Platform | **Architecture Blueprint, Real-Time Slot Mutex & Dynamic QR Pass** | Multi-tenant reservation engine, Redis mutex concurrency locks, dynamic QR code pass generation, and Resend notifications. |
 
 ---
 
@@ -111,9 +111,13 @@ Each project in your portfolio should follow the **STAR-E (Situation, Task, Arch
   - DevOps: GitHub Actions FTPS automated deployment pipeline.
   - Innovation: Model Context Protocol (MCP) PKCE OAuth2 bridge for AI assistant content management.
 
-### 5. Servotech Enterprise Suite (W3villa Technologies)
-- **Tagline:** Mission-Critical Internal Tooling (PM Board, HRMS, Asset Management, ATS).
-- **The Story:** High-throughput internal enterprise dashboards built for daily operational scale.
+### 5. UrbanArena Platform (Full-Stack Multi-Tenant Venue Ecosystem)
+- **Tagline:** Multi-Tenant Sports Facility & Venue Reservation Ecosystem with Redis Mutex Concurrency Locks.
+- **The Story:** Designed a resilient multi-tenant venue booking architecture preventing double-bookings with Redis mutex locks, generating instant cryptographic QR-code entry passes via Resend, and providing dedicated portals for players and facility providers.
+- **Key Artifacts to Show:**
+  - Architecture: NestJS, Prisma ORM, Neon Serverless Postgres, and Upstash Redis.
+  - Concurrency: Slot locking engine preventing race conditions during peak bookings.
+  - Portals: Customer reservation flow, provider slot manager, and admin revenue settlements.
 
 ---
 

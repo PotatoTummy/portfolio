@@ -12,6 +12,7 @@ interface MacBookProMockupProps {
   className?: string;
   scrollProgress?: number;
   floatingChips?: Array<{ text: string; position: "tl" | "tr" | "bl" | "br" }>;
+  straight?: boolean;
 }
 
 export const MacBookProMockup: React.FC<MacBookProMockupProps> = ({
@@ -22,6 +23,7 @@ export const MacBookProMockup: React.FC<MacBookProMockupProps> = ({
   className = "",
   scrollProgress = 0.5,
   floatingChips = [],
+  straight = false,
 }) => {
   const [isMuted, setIsMuted] = useState(true);
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -41,12 +43,23 @@ export const MacBookProMockup: React.FC<MacBookProMockupProps> = ({
   const [trackpadPressed, setTrackpadPressed] = useState(false);
 
   // Scroll-driven lid opening:
-  // Starts folded when entering (scrollProgress < 0.2), opens smoothly to 105° display angle
-  const lidOpenRatio = Math.min(1, Math.max(0, (scrollProgress - 0.1) / 0.38));
-  const lidHingeDeg = (1 - lidOpenRatio) * -72; // -72deg (closed) to 0deg (open)
+  // Starts folded when entering (scrollProgress < 0.2), opens smoothly to 0° display angle
+  const lidOpenRatio = Math.min(1, Math.max(0, scrollProgress / 0.5));
+  // Closed lid is folded down (-88deg), opening smoothly to 0deg (upright facing viewer)
+  const lidHingeDeg = (1 - lidOpenRatio) * -88;
 
-  const totalRotX = isDragging ? orbitRotX : 10 + hoverTiltX + (1 - lidOpenRatio) * 8;
-  const totalRotY = isDragging ? orbitRotY : -8 + hoverTiltY;
+  // When straight=true, zero permanent tilt! Perfectly straight and centered!
+  const totalRotX = isDragging
+    ? orbitRotX
+    : straight
+    ? hoverTiltX * 0.15
+    : 10 + hoverTiltX + (1 - lidOpenRatio) * 8;
+
+  const totalRotY = isDragging
+    ? orbitRotY
+    : straight
+    ? hoverTiltY * 0.15
+    : -8 + hoverTiltY;
 
   const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
     const target = e.target as HTMLElement;
@@ -117,7 +130,7 @@ export const MacBookProMockup: React.FC<MacBookProMockupProps> = ({
       {/* 360° Drag & Scroll Indicator Bar */}
       <div className="absolute -top-8 left-1/2 -translate-x-1/2 z-40 flex items-center gap-2 pointer-events-auto">
         <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-white/10 bg-black/75 backdrop-blur-md text-[10px] font-mono text-zinc-300 shadow-xl">
-          <Move3d className="h-3 w-3 text-[#FF5533]" />
+          <Move3d className="h-3 w-3 text-[#00D4FF]" />
           <span>Drag 360° to rotate • Scroll to open</span>
         </div>
         {hasInteracted && (
@@ -149,7 +162,7 @@ export const MacBookProMockup: React.FC<MacBookProMockupProps> = ({
           }}
         />
         <div
-          className="absolute -bottom-4 left-[20%] right-[20%] h-10 bg-[#FF5533]/15 blur-3xl rounded-full pointer-events-none"
+          className="absolute -bottom-4 left-[20%] right-[20%] h-10 bg-[#00D4FF]/15 blur-3xl rounded-full pointer-events-none"
           style={{ transform: "translateZ(-40px)" }}
         />
 
@@ -170,7 +183,7 @@ export const MacBookProMockup: React.FC<MacBookProMockupProps> = ({
                 transform: `translateZ(${zDepth}px)`,
               }}
             >
-              <span className="h-1.5 w-1.5 rounded-full bg-[#FF5533] inline-block mr-2 animate-pulse" />
+              <span className="h-1.5 w-1.5 rounded-full bg-[#00D4FF] inline-block mr-2 animate-pulse" />
               {chip.text}
             </div>
           );
@@ -264,7 +277,7 @@ export const MacBookProMockup: React.FC<MacBookProMockupProps> = ({
           {/* Opener Notch & Click Feedback */}
           <div
             className={`h-[4px] sm:h-[5px] w-16 sm:w-22 bg-[#0A0A09] rounded-b-md shadow-inner border-t border-black/80 transition-transform ${
-              trackpadPressed ? "scale-95 bg-[#FF5533]" : ""
+              trackpadPressed ? "scale-95 bg-[#00D4FF]" : ""
             }`}
           />
         </div>

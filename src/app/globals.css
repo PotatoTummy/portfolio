@@ -4,8 +4,9 @@
   :root {
     --bg: #0B0B0A;
     --fg: #F3F3EE;
-    --ac: #FF5533;
-    --ac-glow: rgba(255, 85, 51, 0.35);
+    --ac: #00D4FF;
+    --ac-dark: #0284C7;
+    --ac-glow: rgba(0, 212, 255, 0.35);
     --cream: #EFEAE4;
     --cream-fg: #121211;
     --mut: rgba(243, 243, 238, 0.6);

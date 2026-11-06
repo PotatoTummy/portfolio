@@ -1,13 +1,17 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { MacBookProMockup } from "@/components/devices/MacBookProMockup";
+import { NestysScreen } from "@/components/devices/RealisticScreenUI";
+import { ArrowUpRight, ArrowRight, Sparkles } from "lucide-react";
 
 interface HeroStoryProps {
   progress?: number;
 }
 
-export const HeroStory: React.FC<HeroStoryProps> = ({ progress = 0 }) => {
-  const [coords, setCoords] = useState({ x: "0.50", y: "0.50" });
+export const HeroStory: React.FC<HeroStoryProps> = () => {
+  const [coords, setCoords] = useState({ x: "0.72", y: "0.35" });
 
   useEffect(() => {
     const handleMove = (e: PointerEvent) => {
@@ -21,73 +25,149 @@ export const HeroStory: React.FC<HeroStoryProps> = ({ progress = 0 }) => {
   }, []);
 
   return (
-    <section id="hero" data-nav="Intro" className="relative h-[180vh] w-full select-none">
-      <div className="sticky top-0 h-[100svh] overflow-hidden px-4 sm:px-8 md:px-12 flex flex-col justify-between">
-        {/* Radar Crosshair with pointer coordinates */}
-        <div
-          className="absolute left-1/2 top-[30%] -translate-x-1/2 -translate-y-1/2 w-[min(44vw,520px)] aspect-square rounded-full border border-white/10 pointer-events-none transition-opacity duration-300"
-          style={{ opacity: Math.max(0, 1 - progress * 1.5) }}
-          aria-hidden="true"
+    <section
+      id="hero"
+      data-nav="Intro"
+      className="relative min-h-[100svh] w-full select-none bg-[#0B0B0A] text-[#F3F3EE] overflow-hidden flex flex-col justify-between px-6 sm:px-12 md:px-16 pt-24 pb-8"
+    >
+      {/* Ambient Radial Cyan Aura */}
+      <div
+        className="absolute right-[5vw] top-[25%] -translate-y-1/2 w-[550px] h-[450px] rounded-full pointer-events-none blur-[150px] opacity-20"
+        style={{
+          background: "radial-gradient(circle, #00D4FF 0%, #0284C7 50%, transparent 75%)",
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Main Grid: Headline & Bio on Left, Realistic Hardware Mockup on Right */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center my-auto z-10 w-full max-w-7xl mx-auto">
+        
+        {/* Left Column: Value Proposition & Action CTAs */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="lg:col-span-7 space-y-6"
         >
-          {/* Crosshair lines */}
-          <div className="absolute left-1/2 top-[-15%] bottom-[-15%] w-px bg-white/10" />
-          <div className="absolute top-1/2 left-[-15%] right-[-15%] h-px bg-white/10" />
-          {/* Coordinates readout */}
-          <span className="absolute left-[-22%] top-[48%] font-mono text-[11px] text-zinc-500">
-            y {coords.y}
-          </span>
-          <span className="absolute right-[-22%] top-[48%] font-mono text-[11px] text-zinc-500">
-            x {coords.x}
-          </span>
-        </div>
+          {/* Subtle status tag */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-zinc-300"
+          >
+            <span className="w-2 h-2 rounded-full bg-[#00D4FF] animate-pulse" />
+            <span>Frontend & Full Stack Developer</span>
+            <span className="text-zinc-600">•</span>
+            <span className="text-zinc-400">Available for projects</span>
+          </motion.div>
 
-        {/* Headline (Low-left, tight-tracked grotesk) */}
-        <h1
-          aria-label="Pixels move. Systems hold."
-          className="absolute left-4 sm:left-8 md:left-12 bottom-[18vh] font-grotesk text-[clamp(62px,10.5vw,178px)] font-medium leading-[0.88] text-[#F3F3EE] max-w-[90vw] pointer-events-none transition-transform duration-75"
-          style={{ transform: `translateY(${-progress * 70}px)` }}
+          {/* Large Grotesk Headline */}
+          <h1 className="font-grotesk text-[clamp(42px,6.2vw,96px)] font-medium leading-[0.95] tracking-tight text-[#F3F3EE]">
+            <motion.span
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+              className="block"
+            >
+              Thoughtful design.
+            </motion.span>
+            <motion.span
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+              className="block text-[#00D4FF] pt-1"
+            >
+              High-performance code.
+            </motion.span>
+          </h1>
+
+          {/* Human, Jargon-Free Bio Paragraph */}
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            className="text-base sm:text-lg text-zinc-300 max-w-xl font-sans leading-relaxed"
+          >
+            I&apos;m Samad Kausar — a frontend-leaning developer crafting responsive websites and digital products. I combine clean visual design with fluid motion and reliable, scalable engineering.
+          </motion.p>
+
+          {/* Dual Action CTAs */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
+            className="flex flex-wrap items-center gap-3.5 pt-2"
+          >
+            <a
+              href="#work"
+              className="inline-flex items-center gap-2 px-6 py-3.5 bg-[#00D4FF] text-[#0B0B0A] font-semibold text-sm rounded-lg transition-all hover:bg-[#38BDF8] hover:shadow-[0_0_28px_rgba(0,212,255,0.45)] hover:-translate-y-0.5 active:translate-y-0"
+            >
+              <span>View Selected Work</span>
+              <ArrowUpRight className="h-4 w-4" />
+            </a>
+
+            <a
+              href="#contact"
+              className="inline-flex items-center gap-2 px-6 py-3.5 border border-white/20 text-[#F3F3EE] text-sm font-medium rounded-lg transition-all hover:border-[#00D4FF] hover:text-[#00D4FF] hover:bg-white/[0.03] hover:-translate-y-0.5 active:translate-y-0"
+            >
+              <span>Start a Project</span>
+              <ArrowRight className="h-4 w-4" />
+            </a>
+          </motion.div>
+        </motion.div>
+
+        {/* Right Column: Floating 3D Laptop with Real Project Interface */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.92, y: 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 1.0, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+          className="lg:col-span-5 relative flex items-center justify-center"
         >
-          <span className="block overflow-hidden py-0.5">
-            <span className="block animate-[headlineRise_1.2s_cubic-bezier(0.16,1,0.3,1)_forwards]">
-              Pixels move.
-            </span>
-          </span>
-          <span className="block overflow-hidden py-0.5 text-right pl-[clamp(20px,8vw,140px)]">
-            <span className="block animate-[headlineRise_1.2s_cubic-bezier(0.16,1,0.3,1)_0.12s_forwards]">
-              Systems hold.
-            </span>
-          </span>
-        </h1>
+          {/* Subtle Coordinate Badge */}
+          <div className="absolute -top-7 right-2 font-mono text-[10px] text-zinc-400 hidden sm:flex items-center gap-2">
+            <span className="w-1.5 h-1.5 bg-[#00D4FF] rounded-full" />
+            <span>Interactive Preview</span>
+            <span className="text-zinc-600">|</span>
+            <span>x: {coords.x} y: {coords.y}</span>
+          </div>
 
-        {/* Bottom Right Bio & Action Stack */}
-        <div className="absolute right-4 sm:right-8 md:right-12 bottom-[18vh] w-[min(340px,44vw)] text-[14.5px] leading-relaxed flex flex-col gap-3">
-          <p className="text-zinc-400">
-            I&apos;m Samad, a frontend-heavy full stack engineer. I build the interfaces people enjoy and the resilient systems that keep them fast.
-          </p>
-
-          <a
-            href="#work"
-            className="flex items-center justify-between px-4 py-3 bg-[#FF5533] text-[#0B0B0A] font-medium text-sm rounded transition-all hover:translate-x-1 hover:bg-[#ff6a4a] shadow-[0_0_20px_rgba(255,85,51,0.35)]"
+          {/* Smooth Floating Device Container */}
+          <motion.div
+            animate={{ y: [-6, 6, -6] }}
+            transition={{
+              duration: 5,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            className="w-full max-w-[500px] drop-shadow-[0_25px_60px_rgba(0,0,0,0.85)]"
           >
-            <span>View selected work</span>
-            <span>↗</span>
-          </a>
-
-          <a
-            href="#contact"
-            className="flex items-center justify-between px-4 py-3 border border-white/25 text-[#F3F3EE] text-sm rounded transition-all hover:translate-x-1 hover:border-white/50"
-          >
-            <span>Start a project</span>
-            <span>&rarr;</span>
-          </a>
-        </div>
-
-        {/* Footer rule with Fig. 01 caption */}
-        <div className="absolute left-4 sm:left-8 md:left-12 right-4 sm:right-8 md:right-12 bottom-[4vh] flex items-center justify-between pt-3 border-t border-white/15 font-mono text-xs text-zinc-500">
-          <span>Fig. 01 · Frontend-heavy full stack</span>
-          <span>Portfolio 2026</span>
-        </div>
+            <MacBookProMockup
+              projectName="Nestys Platform"
+              scrollProgress={0.4}
+              straight={false}
+              className="origin-center"
+            >
+              <NestysScreen scrollProgress={0.25} />
+            </MacBookProMockup>
+          </motion.div>
+        </motion.div>
       </div>
+
+      {/* Bottom Editorial Hairline Strip */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8, delay: 0.6 }}
+        className="relative z-10 flex items-center justify-between pt-4 border-t border-white/10 font-mono text-xs text-zinc-500 w-full"
+      >
+        <span className="flex items-center gap-2">
+          <Sparkles className="h-3.5 w-3.5 text-[#00D4FF]" />
+          <span>Fig. 01 · Studio Portfolio</span>
+        </span>
+        <span className="hidden sm:inline-block">Built with Next.js, React 19 & Framer Motion</span>
+        <span>Portfolio 2026</span>
+      </motion.div>
     </section>
   );
 };

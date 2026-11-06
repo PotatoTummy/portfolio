@@ -19,18 +19,18 @@ export const NestysScreen: React.FC<{ scrollProgress?: number }> = ({ scrollProg
       <div className="h-10 border-b border-white/[0.08] bg-[#111315] px-3.5 flex items-center justify-between">
         <div className="flex items-center gap-2.5">
           <div className="flex items-center gap-1.5 font-bold tracking-tight text-white">
-            <span className="h-4 w-4 rounded bg-[#FF5533] flex items-center justify-center text-[9px] font-mono text-black font-extrabold">N</span>
+            <span className="h-4 w-4 rounded bg-[#00D4FF] flex items-center justify-center text-[9px] font-mono text-black font-extrabold">N</span>
             <span>Nestys Ecosystem</span>
           </div>
           <span className="hidden sm:inline-flex items-center gap-1 text-[9px] font-mono px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            9 Microservices
+            Live Platform
           </span>
         </div>
 
         <div className="flex items-center gap-2 text-zinc-400">
-          <span className="px-2 py-0.5 rounded bg-[#FF5533]/20 text-[#FF5533] font-mono text-[9px] font-semibold border border-[#FF5533]/30">
-            RBAC Authenticated
+          <span className="px-2 py-0.5 rounded bg-[#00D4FF]/20 text-[#00D4FF] font-mono text-[9px] font-semibold border border-[#00D4FF]/30">
+            Enterprise Ready
           </span>
         </div>
       </div>
@@ -44,7 +44,7 @@ export const NestysScreen: React.FC<{ scrollProgress?: number }> = ({ scrollProg
               onClick={() => setActivePortal("seller")}
               className={`w-full flex items-center gap-2 px-2 py-1.5 rounded font-mono text-[10px] transition-colors text-left ${
                 activePortal === "seller"
-                  ? "bg-[#FF5533]/15 text-[#FF5533] font-semibold"
+                  ? "bg-[#00D4FF]/15 text-[#00D4FF] font-semibold"
                   : "text-zinc-400 hover:text-white"
               }`}
             >
@@ -56,7 +56,7 @@ export const NestysScreen: React.FC<{ scrollProgress?: number }> = ({ scrollProg
               onClick={() => setActivePortal("eureka")}
               className={`w-full flex items-center gap-2 px-2 py-1.5 rounded font-mono text-[10px] transition-colors text-left ${
                 activePortal === "eureka"
-                  ? "bg-[#FF5533]/15 text-[#FF5533] font-semibold"
+                  ? "bg-[#00D4FF]/15 text-[#00D4FF] font-semibold"
                   : "text-zinc-400 hover:text-white"
               }`}
             >
@@ -68,7 +68,7 @@ export const NestysScreen: React.FC<{ scrollProgress?: number }> = ({ scrollProg
               onClick={() => setActivePortal("reels")}
               className={`w-full flex items-center gap-2 px-2 py-1.5 rounded font-mono text-[10px] transition-colors text-left ${
                 activePortal === "reels"
-                  ? "bg-[#FF5533]/15 text-[#FF5533] font-semibold"
+                  ? "bg-[#00D4FF]/15 text-[#00D4FF] font-semibold"
                   : "text-zinc-400 hover:text-white"
               }`}
             >
@@ -98,7 +98,7 @@ export const NestysScreen: React.FC<{ scrollProgress?: number }> = ({ scrollProg
                 </div>
                 <div className="p-2 sm:p-2.5 rounded-lg border border-white/[0.07] bg-[#121417]">
                   <div className="text-zinc-400 text-[9px]">Inventory SKUs</div>
-                  <div className="text-xs sm:text-base font-bold font-mono text-amber-400 mt-0.5">1,248</div>
+                  <div className="text-xs sm:text-base font-bold font-mono text-cyan-400 mt-0.5">1,248</div>
                   <div className="text-[8px] text-zinc-400 mt-0.5">Live Matrix</div>
                 </div>
                 <div className="p-2 sm:p-2.5 rounded-lg border border-white/[0.07] bg-[#121417]">
@@ -111,8 +111,8 @@ export const NestysScreen: React.FC<{ scrollProgress?: number }> = ({ scrollProg
               {/* Scroll-Driven Dynamic Chart */}
               <div className="p-2.5 rounded-lg border border-white/[0.07] bg-[#121417]">
                 <div className="text-[9px] font-mono text-zinc-400 mb-2 flex justify-between">
-                  <span>Real-Time Order Throughput (Scroll to animate)</span>
-                  <span className="text-[#FF5533]">Redis 7 Sync</span>
+                  <span>Real-Time Activity</span>
+                  <span className="text-[#00D4FF]">Live Sync</span>
                 </div>
                 <div className="h-16 flex items-end gap-1.5 border-b border-white/10 pb-1">
                   {[0.4, 0.7, 0.5, 0.9, 0.6, 0.85, 0.45, 1.0, 0.75, 0.8, 0.95, 0.65].map((h, i) => {
@@ -123,7 +123,7 @@ export const NestysScreen: React.FC<{ scrollProgress?: number }> = ({ scrollProg
                         className="flex-1 rounded-t transition-all duration-300"
                         style={{
                           height: `${h * 100 * scrollScale}%`,
-                          backgroundColor: i % 3 === 1 ? "#FF5533" : "rgba(255,85,51,0.35)",
+                          backgroundColor: i % 3 === 1 ? "#00D4FF" : "rgba(0,212,255,0.35)",
                         }}
                       />
                     );
@@ -153,7 +153,7 @@ export const NestysScreen: React.FC<{ scrollProgress?: number }> = ({ scrollProg
             <div className="p-3 rounded-lg border border-white/[0.07] bg-[#121417] space-y-2">
               <div className="flex items-center justify-between text-xs font-bold text-white">
                 <span>Super Admin Reel Content Moderation</span>
-                <span className="text-[9px] font-mono text-[#FF5533] bg-[#FF5533]/10 px-2 py-0.5 rounded">HLS.js Stream</span>
+                <span className="text-[9px] font-mono text-[#00D4FF] bg-[#00D4FF]/10 px-2 py-0.5 rounded">HLS.js Stream</span>
               </div>
               <div className="h-20 rounded bg-black/60 border border-white/10 flex items-center justify-center font-mono text-zinc-400 text-[10px]">
                 Adaptive HLS buffer synced • Zero latency playback
@@ -167,124 +167,187 @@ export const NestysScreen: React.FC<{ scrollProgress?: number }> = ({ scrollProg
 };
 
 // ==========================================
-// 2. SCROLLR: Native Mobile Video Engine
+// ==========================================
+// 2. SCROLLR: Native Mobile Video Engine (Full Reel Swipe)
 // ==========================================
 export const ScrollrScreen: React.FC<{ scrollProgress?: number }> = ({ scrollProgress = 0.5 }) => {
-  const [likes, setLikes] = useState(14820);
-  const [hasLiked, setHasLiked] = useState(false);
+  const [likes, setLikes] = useState([14820, 24390, 48120]);
+  const [hasLiked, setHasLiked] = useState([false, false, false]);
   const [isPlaying, setIsPlaying] = useState(true);
 
-  // Scroll shifts the vertical reels feed smoothly!
-  const feedTranslateY = (scrollProgress - 0.5) * -120;
+  // Map 0 -> 1 progress to a full 0% -> -200% vertical reel swipe
+  // Uses smooth interpolation between discrete reel stops
+  const pClamped = Math.min(1, Math.max(0, scrollProgress));
+  const rawIdx = pClamped * 2; // Range 0 to 2
+  const activeReel = Math.min(2, Math.round(rawIdx));
+  
+  // Smoothly swipe translateY from 0% to -200%
+  const translateYPercent = -pClamped * 200;
 
-  const toggleLike = () => {
-    if (hasLiked) {
-      setLikes((l) => l - 1);
-      setHasLiked(false);
-    } else {
-      setLikes((l) => l + 1);
-      setHasLiked(true);
-    }
+  const toggleLike = (idx: number) => {
+    setHasLiked((prev) => {
+      const next = [...prev];
+      next[idx] = !next[idx];
+      return next;
+    });
+    setLikes((prev) => {
+      const next = [...prev];
+      next[idx] += hasLiked[idx] ? -1 : 1;
+      return next;
+    });
   };
+
+  const REELS_DATA = [
+    {
+      id: 1,
+      badge: "60 FPS Virtualized",
+      subBadge: "Fisher-Yates 0-Algo",
+      bgGrad: "from-[#19052E] via-[#0D1836] to-[#1F0818]",
+      title: "Algorithmic-Free Reel Player",
+      author: "@potato_dev",
+      audio: "Hermes 60fps Native Audio",
+      desc: "Scroll down to swipe reels • Full vertical feed gesture physics",
+      accent: "#00D4FF",
+    },
+    {
+      id: 2,
+      badge: "HTTP 206 Byte-Range",
+      subBadge: "Fastify Edge Proxy",
+      bgGrad: "from-[#051E38] via-[#0A2E4C] to-[#120B2E]",
+      title: "Universal Media Streaming API",
+      author: "@linkplay_api",
+      audio: "yt-dlp Stream Proxy • 0-SSRF",
+      desc: "Fastify chunk-by-chunk caching with two-tier LRU memory buffers",
+      accent: "#38BDF8",
+    },
+    {
+      id: 3,
+      badge: "Reanimated 3 Motion",
+      subBadge: "Zero Dropped Frames",
+      bgGrad: "from-[#022419] via-[#064E3B] to-[#0A1A2F]",
+      title: "2,500+ Items FlatList Window",
+      author: "@potato_dev",
+      audio: "Synthesized UI Haptics",
+      desc: "Virtualized hardware video instances with instant release cycles",
+      accent: "#10B981",
+    },
+  ];
 
   return (
     <div className="h-full w-full bg-black text-white flex flex-col justify-between font-sans select-none overflow-hidden relative">
-      {/* Scroll-Driven Multi-Reel Feed Viewport */}
+      {/* Scroll-Driven Full-Swipe Vertical Reels Container */}
       <div
-        className="absolute inset-0 transition-transform duration-200 ease-out will-change-transform"
-        style={{ transform: `translateY(${feedTranslateY}px)` }}
+        className="absolute inset-0 transition-transform duration-300 ease-out will-change-transform flex flex-col"
+        style={{ transform: `translateY(${translateYPercent}%)` }}
       >
-        {/* Reel 1 */}
-        <div className="h-full w-full bg-gradient-to-br from-[#1C1A2E] via-[#0E2038] to-[#1F0E0E] relative flex items-center justify-center">
-          <div className="w-44 h-44 rounded-full border border-white/10 bg-gradient-to-tr from-white/5 to-white/15 backdrop-blur-sm flex items-center justify-center shadow-2xl">
-            <button
-              onClick={() => setIsPlaying(!isPlaying)}
-              className="h-24 w-24 rounded-full border border-[#2B6CFF]/40 bg-[#2B6CFF]/20 flex items-center justify-center hover:scale-105 transition-transform"
-            >
-              {isPlaying ? (
-                <Play className="h-8 w-8 text-white fill-white translate-x-0.5" />
-              ) : (
-                <Pause className="h-8 w-8 text-white fill-white" />
-              )}
-            </button>
-          </div>
-        </div>
-
-        {/* Reel 2 (Revealed on Scroll) */}
-        <div className="h-full w-full bg-gradient-to-br from-[#0F1B2B] via-[#1B1228] to-[#2B0F1A] relative flex items-center justify-center">
-          <div className="text-center font-mono text-xs text-cyan-300">
-            <div>Deterministic Clip #02</div>
-            <div className="text-[10px] text-zinc-400 mt-1">yt-dlp Byte-Range Stream</div>
-          </div>
-        </div>
-      </div>
-
-      {/* Top Header */}
-      <div className="relative z-10 pt-1 px-4 flex items-center justify-between text-[10px] font-mono">
-        <span className="px-2 py-0.5 rounded-full bg-black/60 backdrop-blur-md text-[#2B6CFF] border border-[#2B6CFF]/30 font-semibold">
-          60 FPS Virtualized
-        </span>
-        <span className="px-2 py-0.5 rounded-full bg-black/60 backdrop-blur-md text-white/80 border border-white/10">
-          Fisher-Yates 0-Algo
-        </span>
-      </div>
-
-      {/* Interactive Right Action Rail */}
-      <div className="relative z-10 self-end mr-3 flex flex-col items-center gap-3.5">
-        <div className="flex flex-col items-center">
-          <button
-            onClick={toggleLike}
-            className={`h-9 w-9 rounded-full bg-black/60 backdrop-blur-md border border-white/15 flex items-center justify-center transition-transform active:scale-125 ${
-              hasLiked ? "text-red-500 border-red-500/40" : "text-white"
-            }`}
+        {REELS_DATA.map((reel, rIdx) => (
+          <div
+            key={reel.id}
+            className={`h-full w-full shrink-0 bg-gradient-to-br ${reel.bgGrad} relative flex flex-col justify-between p-3.5`}
           >
-            <Heart className={`h-4 w-4 ${hasLiked ? "fill-red-500 text-red-500" : ""}`} />
-          </button>
-          <span className="text-[10px] font-mono mt-1 font-bold">
-            {(likes / 1000).toFixed(1)}k
-          </span>
-        </div>
+            {/* Reel Central Ambient Visualizer Art */}
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <div
+                className="w-44 h-44 rounded-full border border-white/10 flex items-center justify-center shadow-2xl transition-transform duration-500"
+                style={{
+                  background: `radial-gradient(circle, ${reel.accent}25 0%, transparent 70%)`,
+                  transform: activeReel === rIdx ? "scale(1)" : "scale(0.85)",
+                }}
+              >
+                <div className="w-28 h-28 rounded-full border border-white/15 bg-black/40 backdrop-blur-md flex items-center justify-center">
+                  <button
+                    onClick={() => setIsPlaying(!isPlaying)}
+                    className="h-16 w-16 rounded-full border border-white/20 bg-white/10 flex items-center justify-center hover:scale-105 transition-transform pointer-events-auto"
+                  >
+                    {isPlaying ? (
+                      <Play className="h-6 w-6 text-white fill-white translate-x-0.5" />
+                    ) : (
+                      <Pause className="h-6 w-6 text-white fill-white" />
+                    )}
+                  </button>
+                </div>
+              </div>
+            </div>
 
-        <div className="flex flex-col items-center">
-          <div className="h-9 w-9 rounded-full bg-black/60 backdrop-blur-md border border-white/15 flex items-center justify-center text-white">
-            <MessageCircle className="h-4 w-4" />
-          </div>
-          <span className="text-[10px] font-mono mt-1 font-bold">392</span>
-        </div>
+            {/* Reel Top Bar */}
+            <div className="relative z-10 pt-1 flex items-center justify-between text-[10px] font-mono">
+              <span
+                className="px-2 py-0.5 rounded-full bg-black/60 backdrop-blur-md font-semibold border"
+                style={{ color: reel.accent, borderColor: `${reel.accent}40` }}
+              >
+                {reel.badge}
+              </span>
+              <span className="px-2 py-0.5 rounded-full bg-black/60 backdrop-blur-md text-white/80 border border-white/10">
+                {reel.subBadge}
+              </span>
+            </div>
 
-        <div className="flex flex-col items-center">
-          <div className="h-9 w-9 rounded-full bg-black/60 backdrop-blur-md border border-white/15 flex items-center justify-center text-white">
-            <Share2 className="h-4 w-4" />
-          </div>
-          <span className="text-[10px] font-mono mt-1 font-bold">1.2k</span>
-        </div>
-      </div>
+            {/* Reel Right Action Rail */}
+            <div className="relative z-10 self-end mr-1 flex flex-col items-center gap-3">
+              <div className="flex flex-col items-center">
+                <button
+                  onClick={() => toggleLike(rIdx)}
+                  className={`h-9 w-9 rounded-full bg-black/60 backdrop-blur-md border border-white/15 flex items-center justify-center transition-transform active:scale-125 ${
+                    hasLiked[rIdx] ? "text-red-500 border-red-500/40" : "text-white"
+                  }`}
+                >
+                  <Heart className={`h-4 w-4 ${hasLiked[rIdx] ? "fill-red-500 text-red-500" : ""}`} />
+                </button>
+                <span className="text-[10px] font-mono mt-0.5 font-bold">
+                  {(likes[rIdx] / 1000).toFixed(1)}k
+                </span>
+              </div>
 
-      {/* Bottom Editorial Caption & Audio Track */}
-      <div className="relative z-10 p-3.5 bg-gradient-to-t from-black via-black/80 to-transparent space-y-1.5">
-        <div className="flex items-center gap-2">
-          <div className="h-6 w-6 rounded-full bg-gradient-to-br from-[#2B6CFF] to-[#FF5533] p-0.5">
-            <div className="h-full w-full rounded-full bg-black flex items-center justify-center text-[9px] font-bold">SK</div>
-          </div>
-          <div>
-            <div className="text-xs font-bold flex items-center gap-1">
-              <span>@potato_dev</span>
-              <span className="h-1.5 w-1.5 rounded-full bg-[#2B6CFF]" />
+              <div className="flex flex-col items-center">
+                <div className="h-9 w-9 rounded-full bg-black/60 backdrop-blur-md border border-white/15 flex items-center justify-center text-white">
+                  <MessageCircle className="h-4 w-4" />
+                </div>
+                <span className="text-[10px] font-mono mt-0.5 font-bold">428</span>
+              </div>
+
+              <div className="flex flex-col items-center">
+                <div className="h-9 w-9 rounded-full bg-black/60 backdrop-blur-md border border-white/15 flex items-center justify-center text-white">
+                  <Share2 className="h-4 w-4" />
+                </div>
+                <span className="text-[10px] font-mono mt-0.5 font-bold">1.8k</span>
+              </div>
+            </div>
+
+            {/* Reel Bottom Caption & Author Meta */}
+            <div className="relative z-10 p-2 rounded-lg bg-black/65 backdrop-blur-md border border-white/10 space-y-1">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-1.5">
+                  <div className="h-5 w-5 rounded-full bg-gradient-to-br from-[#00D4FF] to-[#2B6CFF] flex items-center justify-center text-[8px] font-bold">
+                    SK
+                  </div>
+                  <span className="text-xs font-bold text-white">{reel.author}</span>
+                </div>
+                <span className="font-mono text-[9px] text-zinc-400">Reel {rIdx + 1}/3</span>
+              </div>
+
+              <div className="text-[11px] font-semibold text-white/90 truncate">
+                {reel.title}
+              </div>
+
+              <p className="text-[10px] text-zinc-300 line-clamp-1">
+                {reel.desc}
+              </p>
+
+              <div className="flex items-center gap-1.5 pt-0.5 text-[9px] font-mono text-cyan-300">
+                <Music2 className="h-2.5 w-2.5 shrink-0 animate-pulse" />
+                <span className="truncate">{reel.audio}</span>
+              </div>
             </div>
           </div>
-        </div>
+        ))}
+      </div>
 
-        <p className="text-[11px] text-zinc-200 line-clamp-1">
-          Scroll website to browse feed • Tap heart to like
-        </p>
-
-        {/* Video Scrubber Line */}
-        <div className="w-full bg-white/20 h-1 rounded-full overflow-hidden mt-1.5">
-          <div
-            className="h-full bg-[#2B6CFF] transition-all duration-150"
-            style={{ width: `${Math.min(100, Math.max(15, scrollProgress * 100))}%` }}
-          />
-        </div>
+      {/* Persistent Bottom Video Scrub Progress Bar */}
+      <div className="absolute bottom-0 inset-x-0 z-20 h-1 bg-white/20">
+        <div
+          className="h-full bg-[#00D4FF] transition-all duration-150"
+          style={{ width: `${Math.min(100, Math.max(8, pClamped * 100))}%` }}
+        />
       </div>
     </div>
   );
@@ -315,7 +378,7 @@ export const WoKataaScreen: React.FC<{ scrollProgress?: number }> = ({ scrollPro
           <Wifi className="h-3 w-3" />
           <span>18ms Ping (Ably)</span>
         </div>
-        <span className="font-bold text-amber-400 px-2 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/20">
+        <span className="font-bold text-cyan-400 px-2 py-0.5 rounded-full bg-cyan-500/10 border border-cyan-500/20">
           Live Duel
         </span>
       </div>
@@ -327,8 +390,8 @@ export const WoKataaScreen: React.FC<{ scrollProgress?: number }> = ({ scrollPro
           <div className="text-base font-extrabold font-mono text-white mt-0.5">{score}</div>
         </div>
 
-        <div className="p-2 rounded-xl bg-gradient-to-br from-[#FF5533]/20 to-[#2A0F0A] border border-[#FF5533]/40 text-right">
-          <div className="text-[8px] font-mono text-[#FF5533] uppercase font-bold">Opponent</div>
+        <div className="p-2 rounded-xl bg-gradient-to-br from-[#00D4FF]/20 to-[#0A1A2E] border border-[#00D4FF]/40 text-right">
+          <div className="text-[8px] font-mono text-[#00D4FF] uppercase font-bold">Opponent</div>
           <div className="text-base font-extrabold font-mono text-white mt-0.5">3,920</div>
         </div>
       </div>
