@@ -139,3 +139,4 @@ export const InteractiveProjectStage: React.FC<InteractiveProjectStageProps> = (
     </div>
   );
 };
+

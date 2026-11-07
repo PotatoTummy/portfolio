@@ -50,3 +50,4 @@ export const UrbanArenaRadarBackground: React.FC = () => {
     </div>
   );
 };
+
