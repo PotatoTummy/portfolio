@@ -71,7 +71,7 @@ export const LaptopZoomPortal: React.FC<LaptopZoomPortalProps> = ({ progress = 0
             }}
           >
             <MacBookProMockup
-              projectName="Eureka Central Enterprise Suite"
+              projectName="Enterprise Core Systems"
               scrollProgress={1.0}
               straight={true}
               className="drop-shadow-[0_20px_50px_rgba(0,0,0,0.18)]"

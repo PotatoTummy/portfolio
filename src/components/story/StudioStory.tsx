@@ -25,7 +25,7 @@ interface ReelItem {
 const REELS: ReelItem[] = [
   {
     id: "01",
-    videoSrc: "/videos/reel-1.mp4",
+    videoSrc: "/videos/reel-aurora.mp4",
     fallbackImage: "/projects/screens/scrollr-white-screen.png",
     handle: "craft.design",
     tag: "Design & Craft",
@@ -37,7 +37,7 @@ const REELS: ReelItem[] = [
   },
   {
     id: "02",
-    videoSrc: "/videos/reel-2.mp4",
+    videoSrc: "/videos/reel-galaxy.mp4",
     fallbackImage: "/projects/screens/scrollr-white-screen.png",
     handle: "fluid.motion",
     tag: "Speed & Fluidity",
@@ -49,7 +49,7 @@ const REELS: ReelItem[] = [
   },
   {
     id: "03",
-    videoSrc: "/videos/reel-3.mp4",
+    videoSrc: "/videos/reel-eclipse.mp4",
     fallbackImage: "/projects/screens/scrollr-white-screen.png",
     handle: "scale.modern",
     tag: "Modern Standards",

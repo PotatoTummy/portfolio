@@ -304,19 +304,19 @@ async function ProjectDetailContent({ params }: ProjectPageProps) {
                 {/* Console 2 */}
                 <div className="rounded-2xl border border-white/[0.08] bg-[#121211] p-4 space-y-3">
                   <div className="flex items-center justify-between">
-                    <span className="font-mono text-xs font-bold text-white">02 · Eureka Central Pipeline</span>
-                    <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-purple-500/10 text-purple-400 border border-purple-500/20">Recruiter Portal</span>
+                    <span className="font-mono text-xs font-bold text-white">02 · Enterprise Pipeline Console</span>
+                    <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-purple-500/10 text-purple-400 border border-purple-500/20">Operations Portal</span>
                   </div>
                   <div className="relative aspect-[16/10] rounded-xl overflow-hidden border border-white/10 bg-white">
                     <Image
                       src="/projects/screens/nestys-eureka.png"
-                      alt="Nestys Eureka Central"
+                      alt="Enterprise Pipeline Console"
                       fill
                       className="object-cover object-top"
                     />
                   </div>
                   <p className="text-xs text-zinc-400 leading-relaxed">
-                    Applicant conversion pipeline tracking (12 offers, 7 active), stage drop-offs, and recent candidate submissions.
+                    Workflow conversion pipeline tracking (12 active streams, 7 operational), throughput stages, and real-time activity audit.
                   </p>
                 </div>
               </div>
