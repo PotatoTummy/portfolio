@@ -15,7 +15,6 @@ export const LaptopZoomPortal: React.FC<LaptopZoomPortalProps> = ({ progress = 0
   // Stage 1 (0.00 -> 0.40): Straight laptop lid opens upright facing user
   // Stage 2 (0.35 -> 0.70): Screen reveals genuine project dashboard
   // Stage 3 (0.60 -> 1.00): Smooth camera zoom into the selected work
-  const openProgress = Math.min(1, Math.max(0, progress / 0.40));
   const zoomProgress = Math.min(1, Math.max(0, (progress - 0.45) / 0.48));
   const zoomEased = zoomProgress * zoomProgress * (3 - 2 * zoomProgress);
 
@@ -72,15 +71,15 @@ export const LaptopZoomPortal: React.FC<LaptopZoomPortalProps> = ({ progress = 0
             }}
           >
             <MacBookProMockup
-              projectName="Nestys Platform"
-              scrollProgress={openProgress}
+              projectName="Nestys Eureka Central"
+              scrollProgress={1.0}
               straight={true}
               className="drop-shadow-[0_20px_50px_rgba(0,0,0,0.18)]"
             >
               <div className="relative w-full h-full bg-white select-none overflow-hidden">
                 <Image
-                  src="/projects/screens/nestys-white-screen.png"
-                  alt="Nestys Platform"
+                  src="/projects/screens/nestys-eureka.png"
+                  alt="Nestys Eureka Central"
                   fill
                   sizes="780px"
                   className="object-cover object-top"

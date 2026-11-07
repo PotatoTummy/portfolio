@@ -5,6 +5,8 @@ import Image from "next/image";
 import { motion, useSpring } from "framer-motion";
 import { MacBookProMockup } from "@/components/devices/MacBookProMockup";
 import { IPhoneMockup } from "@/components/devices/IPhoneMockup";
+import { WoKataaBattleScreen } from "@/components/story/WoKataaBattleScreen";
+import { ScrollrReelsScreen } from "@/components/story/ScrollrReelsScreen";
 import { Project } from "@/data/portfolioData";
 
 interface InteractiveProjectStageProps {
@@ -17,7 +19,7 @@ const SCREEN_IMAGES: Record<string, string> = {
   scrollr: "/projects/screens/scrollr-white-screen.png",
   wokataa: "/projects/screens/wokataa-white-screen.png",
   "earth-air": "/projects/screens/earthair-white-screen.png",
-  "urban-arena": "/projects/screens/urbanarena-white-screen.png",
+  "urban-arena": "/projects/screens/urbanarena-mobile.png",
 };
 
 export const InteractiveProjectStage: React.FC<InteractiveProjectStageProps> = ({ project }) => {
@@ -60,25 +62,35 @@ export const InteractiveProjectStage: React.FC<InteractiveProjectStageProps> = (
     return "object-cover object-top";
   };
 
-  const renderScreenContent = () => (
-    <div className="relative w-full h-full bg-white overflow-hidden select-none">
-      <Image
-        src={screenImage}
-        alt={`${project.title} Interface`}
-        fill
-        sizes={isPhone ? "320px" : "640px"}
-        className={getImageClasses(project.slug)}
-        priority
-      />
-      {/* Subtle realistic screen glass reflection */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-20"
-        style={{
-          background: "linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.05) 40%, transparent 60%)",
-        }}
-      />
-    </div>
-  );
+  const renderScreenContent = () => {
+    if (project.slug === "wokataa") {
+      return <WoKataaBattleScreen />;
+    }
+
+    if (project.slug === "scrollr") {
+      return <ScrollrReelsScreen />;
+    }
+
+    return (
+      <div className="relative w-full h-full bg-white overflow-hidden select-none">
+        <Image
+          src={screenImage}
+          alt={`${project.title} Interface`}
+          fill
+          sizes={isPhone ? "320px" : "640px"}
+          className={getImageClasses(project.slug)}
+          priority
+        />
+        {/* Subtle realistic screen glass reflection */}
+        <div
+          className="absolute inset-0 pointer-events-none opacity-20"
+          style={{
+            background: "linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.05) 40%, transparent 60%)",
+          }}
+        />
+      </div>
+    );
+  };
 
   return (
     <div

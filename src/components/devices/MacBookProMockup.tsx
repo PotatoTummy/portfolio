@@ -21,7 +21,7 @@ export const MacBookProMockup: React.FC<MacBookProMockupProps> = ({
   screenshotUrl,
   projectName = "System Preview",
   className = "",
-  scrollProgress = 0.5,
+  scrollProgress: _scrollProgress = 0.5,
   floatingChips = [],
   straight = false,
 }) => {
@@ -42,24 +42,21 @@ export const MacBookProMockup: React.FC<MacBookProMockupProps> = ({
   const [isHovered, setIsHovered] = useState(false);
   const [trackpadPressed, setTrackpadPressed] = useState(false);
 
-  // Scroll-driven lid opening:
-  // Starts folded when entering (scrollProgress < 0.2), opens smoothly to 0° display angle
-  const lidOpenRatio = Math.min(1, Math.max(0, scrollProgress / 0.5));
-  // Closed lid is folded down (-88deg), opening smoothly to 0deg (upright facing viewer)
-  const lidHingeDeg = (1 - lidOpenRatio) * -88;
+  // Laptop Display Lid: Fully opened upright facing the viewer (0° hinge angle)
+  const lidHingeDeg = 0;
 
-  // When straight=true, zero permanent tilt! Perfectly straight and centered!
+  // Fully straight, upright display facing the user directly with responsive subtle mouse hover physics
   const totalRotX = isDragging
     ? orbitRotX
     : straight
-    ? hoverTiltX * 0.15
-    : 10 + hoverTiltX + (1 - lidOpenRatio) * 8;
+    ? hoverTiltX * 0.12
+    : 2 + hoverTiltX * 0.12;
 
   const totalRotY = isDragging
     ? orbitRotY
     : straight
-    ? hoverTiltY * 0.15
-    : -8 + hoverTiltY;
+    ? hoverTiltY * 0.12
+    : -2 + hoverTiltY * 0.12;
 
   const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
     const target = e.target as HTMLElement;

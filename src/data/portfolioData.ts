@@ -265,7 +265,8 @@ export const FEATURED_PROJECTS: Project[] = [
     whereToSee: "Open source showcase & interactive preview",
     timeline: "2025",
     accentColor: "#A855F7",
-    mockupType: "laptop",
+    mockupType: "phone",
+    liveUrl: "https://urban-arena-frontend.vercel.app",
     overview: "Designed and developed an end-to-end sports facility reservation platform. Allows athletes to easily discover local courts, reserve available timeslots without double-booking conflicts, and receive instant digital QR entry passes.",
     metrics: [
       { label: "Double Bookings", value: "Zero Conflicts" },

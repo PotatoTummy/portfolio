@@ -137,8 +137,8 @@ export const HeroStory: React.FC<HeroStoryProps> = () => {
           >
             <MacBookProMockup
               projectName="Nestys Platform"
-              scrollProgress={0.4}
-              straight={false}
+              scrollProgress={1.0}
+              straight={true}
               className="origin-center"
             >
               <div className="relative w-full h-full bg-white">

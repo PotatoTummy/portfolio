@@ -9,6 +9,8 @@ import {
 } from "@/data/portfolioData";
 import { MacBookProMockup } from "@/components/devices/MacBookProMockup";
 import { IPhoneMockup } from "@/components/devices/IPhoneMockup";
+import { WoKataaBattleScreen } from "@/components/story/WoKataaBattleScreen";
+import { ScrollrReelsScreen } from "@/components/story/ScrollrReelsScreen";
 import { 
   ArrowLeft, 
   ArrowRight, 
@@ -63,7 +65,7 @@ async function ProjectDetailContent({ params }: ProjectPageProps) {
     scrollr: "/projects/screens/scrollr-white-screen.png",
     wokataa: "/projects/screens/wokataa-white-screen.png",
     "earth-air": "/projects/screens/earthair-white-screen.png",
-    "urban-arena": "/projects/screens/urbanarena-white-screen.png",
+    "urban-arena": "/projects/screens/urbanarena-mobile.png",
   };
 
   const isPhone = project.mockupType === "phone";
@@ -74,36 +76,55 @@ async function ProjectDetailContent({ params }: ProjectPageProps) {
     return "object-cover object-top";
   };
 
-  const renderScreenImage = () => (
-    <div className="relative w-full h-full bg-white select-none overflow-hidden">
-      <Image
-        src={screenImage}
-        alt={`${project.title} Interface`}
-        fill
-        sizes={isPhone ? "320px" : "800px"}
-        className={getImageClasses(project.slug)}
-        priority
-      />
-      <div
-        className="absolute inset-0 pointer-events-none opacity-15"
-        style={{
-          background: "linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.05) 40%, transparent 60%)",
-        }}
-      />
-    </div>
-  );
+  const renderScreenImage = () => {
+    if (project.slug === "wokataa") {
+      return <WoKataaBattleScreen />;
+    }
+
+    if (project.slug === "scrollr") {
+      return <ScrollrReelsScreen />;
+    }
+
+    return (
+      <div className="relative w-full h-full bg-white select-none overflow-hidden">
+        <Image
+          src={screenImage}
+          alt={`${project.title} Interface`}
+          fill
+          sizes={isPhone ? "320px" : "800px"}
+          className={getImageClasses(project.slug)}
+          priority
+        />
+        <div
+          className="absolute inset-0 pointer-events-none opacity-15"
+          style={{
+            background: "linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.05) 40%, transparent 60%)",
+          }}
+        />
+      </div>
+    );
+  };
 
   // Render the appropriate photorealistic UI mockup
   const renderDeviceMockup = () => {
     if (isPhone) {
       return (
-        <IPhoneMockup projectName={project.title} videoUrl={project.media?.videoUrl}>
+        <IPhoneMockup
+          projectName={project.title}
+          scrollProgress={1.0}
+          baseRotateY={-4}
+          baseRotateX={2}
+        >
           {renderScreenImage()}
         </IPhoneMockup>
       );
     }
     return (
-      <MacBookProMockup projectName={project.title} videoUrl={project.media?.videoUrl}>
+      <MacBookProMockup
+        projectName={project.title}
+        scrollProgress={1.0}
+        straight={true}
+      >
         {renderScreenImage()}
       </MacBookProMockup>
     );
@@ -248,6 +269,59 @@ async function ProjectDetailContent({ params }: ProjectPageProps) {
               </p>
             </div>
           </div>
+
+          {/* Multi-Portal Interface Gallery for Nestys */}
+          {project.slug === "nestys" && (
+            <div className="space-y-4 pt-2">
+              <div className="flex items-center justify-between border-b border-white/[0.08] pb-3">
+                <span className="font-mono text-xs text-[#00D4FF] uppercase tracking-wider">
+                  Enterprise Portal Breakdown
+                </span>
+                <span className="font-mono text-xs text-zinc-400">
+                  2 of 3 Web Consoles Shown
+                </span>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Console 1 */}
+                <div className="rounded-2xl border border-white/[0.08] bg-[#121211] p-4 space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-xs font-bold text-white">01 · Super Admin Overview</span>
+                    <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Live Production</span>
+                  </div>
+                  <div className="relative aspect-[16/10] rounded-xl overflow-hidden border border-white/10 bg-white">
+                    <Image
+                      src="/projects/screens/nestys-white-screen.png"
+                      alt="Nestys Admin Overview"
+                      fill
+                      className="object-cover object-top"
+                    />
+                  </div>
+                  <p className="text-xs text-zinc-400 leading-relaxed">
+                    Platform balance metrics ($34.9k), revenue pie distribution across services, and support ticket counters.
+                  </p>
+                </div>
+
+                {/* Console 2 */}
+                <div className="rounded-2xl border border-white/[0.08] bg-[#121211] p-4 space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-xs font-bold text-white">02 · Eureka Central Pipeline</span>
+                    <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-purple-500/10 text-purple-400 border border-purple-500/20">Recruiter Portal</span>
+                  </div>
+                  <div className="relative aspect-[16/10] rounded-xl overflow-hidden border border-white/10 bg-white">
+                    <Image
+                      src="/projects/screens/nestys-eureka.png"
+                      alt="Nestys Eureka Central"
+                      fill
+                      className="object-cover object-top"
+                    />
+                  </div>
+                  <p className="text-xs text-zinc-400 leading-relaxed">
+                    Applicant conversion pipeline tracking (12 offers, 7 active), stage drop-offs, and recent candidate submissions.
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
         </section>
 
         {/* Feature Breakdown Section */}
