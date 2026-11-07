@@ -1,25 +1,32 @@
 "use client";
 
 import React, { useRef, useState } from "react";
+import Image from "next/image";
 import { motion, useSpring } from "framer-motion";
 import { MacBookProMockup } from "@/components/devices/MacBookProMockup";
 import { IPhoneMockup } from "@/components/devices/IPhoneMockup";
-import { NestysScreen, ScrollrScreen, WoKataaScreen, EarthAirScreen, UrbanArenaScreen } from "@/components/devices/RealisticScreenUI";
 import { Project } from "@/data/portfolioData";
-import { Sparkles, ExternalLink } from "lucide-react";
 
 interface InteractiveProjectStageProps {
   project: Project;
   index: number;
 }
 
-export const InteractiveProjectStage: React.FC<InteractiveProjectStageProps> = ({ project, index }) => {
+const SCREEN_IMAGES: Record<string, string> = {
+  nestys: "/projects/screens/nestys-screen.png",
+  scrollr: "/projects/screens/scrollr-screen.png",
+  wokataa: "/projects/screens/wokataa-screen.png",
+  "earth-air": "/projects/screens/earthair-screen.png",
+  "urban-arena": "/projects/screens/urbanarena-screen.png",
+};
+
+export const InteractiveProjectStage: React.FC<InteractiveProjectStageProps> = ({ project }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
 
   // Smooth mouse tilt spring physics
-  const rotateX = useSpring(0, { stiffness: 200, damping: 25 });
-  const rotateY = useSpring(0, { stiffness: 200, damping: 25 });
+  const rotateX = useSpring(0, { stiffness: 220, damping: 25 });
+  const rotateY = useSpring(0, { stiffness: 220, damping: 25 });
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!containerRef.current) return;
@@ -29,9 +36,9 @@ export const InteractiveProjectStage: React.FC<InteractiveProjectStageProps> = (
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
 
-    // Subtle 3D tilt (max 8 degrees)
-    const tiltY = ((x - centerX) / centerX) * 8;
-    const tiltX = -((y - centerY) / centerY) * 8;
+    // Subtle 3D tilt (max 7 degrees)
+    const tiltY = ((x - centerX) / centerX) * 7;
+    const tiltX = -((y - centerY) / centerY) * 7;
 
     rotateX.set(tiltX);
     rotateY.set(tiltY);
@@ -43,23 +50,28 @@ export const InteractiveProjectStage: React.FC<InteractiveProjectStageProps> = (
     rotateY.set(0);
   };
 
-  const renderScreen = () => {
-    switch (project.slug) {
-      case "nestys":
-        return <NestysScreen scrollProgress={0.4} />;
-      case "scrollr":
-        return <ScrollrScreen scrollProgress={0.5} />;
-      case "wokataa":
-        return <WoKataaScreen scrollProgress={0.5} />;
-      case "earth-air":
-        return <EarthAirScreen scrollProgress={0.5} />;
-      case "urban-arena":
-      default:
-        return <UrbanArenaScreen scrollProgress={0.5} />;
-    }
-  };
-
   const isPhone = project.mockupType === "phone";
+  const screenImage = SCREEN_IMAGES[project.slug] || SCREEN_IMAGES["nestys"];
+
+  const renderScreenContent = () => (
+    <div className="relative w-full h-full bg-[#0B0D13] overflow-hidden select-none">
+      <Image
+        src={screenImage}
+        alt={`${project.title} Interface`}
+        fill
+        sizes={isPhone ? "320px" : "640px"}
+        className="object-cover object-top"
+        priority
+      />
+      {/* Subtle realistic screen glass reflection */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-40"
+        style={{
+          background: "linear-gradient(135deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.02) 40%, transparent 60%)",
+        }}
+      />
+    </div>
+  );
 
   return (
     <div
@@ -67,11 +79,11 @@ export const InteractiveProjectStage: React.FC<InteractiveProjectStageProps> = (
       onMouseEnter={() => setIsHovered(true)}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative w-full flex items-center justify-center py-6 sm:py-10 perspective-1000"
+      className="relative w-full flex items-center justify-center py-4 sm:py-6 perspective-1000"
     >
       {/* Ambient Depth Radial Spotlight behind device */}
       <div
-        className="absolute w-[450px] h-[350px] rounded-full blur-[100px] pointer-events-none opacity-25 -translate-y-6"
+        className="absolute w-[440px] h-[320px] rounded-full blur-[90px] pointer-events-none opacity-30 -translate-y-4"
         style={{
           background: `radial-gradient(circle, ${project.accentColor} 0%, transparent 70%)`,
         }}
@@ -86,19 +98,19 @@ export const InteractiveProjectStage: React.FC<InteractiveProjectStageProps> = (
           transformStyle: "preserve-3d",
         }}
         animate={{
-          y: isHovered ? -6 : [-4, 4, -4],
+          y: isHovered ? -6 : [-3, 3, -3],
         }}
         transition={{
           y: isHovered
-            ? { duration: 0.3 }
-            : { duration: 6, repeat: Infinity, ease: "easeInOut" },
+            ? { duration: 0.25 }
+            : { duration: 5, repeat: Infinity, ease: "easeInOut" },
         }}
         className={`relative z-10 w-full flex items-center justify-center ${
-          isPhone ? "max-w-[320px]" : "max-w-[640px]"
+          isPhone ? "max-w-[280px] sm:max-w-[310px]" : "max-w-[560px] sm:max-w-[620px]"
         }`}
       >
         {isPhone ? (
-          <div className="relative transform-gpu drop-shadow-[0_25px_50px_rgba(0,0,0,0.6)]">
+          <div className="relative transform-gpu drop-shadow-[0_25px_50px_rgba(0,0,0,0.65)]">
             <IPhoneMockup
               projectName={project.title}
               scrollProgress={0.4}
@@ -106,18 +118,18 @@ export const InteractiveProjectStage: React.FC<InteractiveProjectStageProps> = (
               baseRotateX={0}
               className="scale-[0.88] sm:scale-[0.95] origin-center"
             >
-              {renderScreen()}
+              {renderScreenContent()}
             </IPhoneMockup>
           </div>
         ) : (
-          <div className="relative transform-gpu drop-shadow-[0_30px_60px_rgba(0,0,0,0.7)] w-full">
+          <div className="relative transform-gpu drop-shadow-[0_30px_60px_rgba(0,0,0,0.75)] w-full">
             <MacBookProMockup
               projectName={project.title}
               scrollProgress={0.35}
               straight={true}
               className="w-full origin-center"
             >
-              {renderScreen()}
+              {renderScreenContent()}
             </MacBookProMockup>
           </div>
         )}
@@ -127,16 +139,15 @@ export const InteractiveProjectStage: React.FC<InteractiveProjectStageProps> = (
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.2 }}
-          className="absolute -bottom-4 right-2 sm:right-6 font-mono text-[10px] sm:text-[11px] px-3 py-1.5 rounded-full bg-black/75 backdrop-blur-md border border-white/20 text-white flex items-center gap-2 shadow-xl z-20 pointer-events-none"
+          className="absolute -bottom-3 right-2 sm:right-6 font-mono text-[10px] sm:text-[11px] px-3 py-1.5 rounded-full bg-black/85 backdrop-blur-md border border-white/20 text-white flex items-center gap-2 shadow-xl z-20 pointer-events-none"
         >
           <span
             className="w-2 h-2 rounded-full animate-pulse"
             style={{ backgroundColor: project.accentColor }}
           />
-          <span>Interactive Preview · 60 FPS</span>
+          <span>Interactive Preview</span>
         </motion.div>
       </motion.div>
     </div>
   );
 };
-

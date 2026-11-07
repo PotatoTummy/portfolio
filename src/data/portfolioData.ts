@@ -33,9 +33,9 @@ export interface Project {
 
 export const PROFILE = {
   name: "Samad Kausar",
-  role: "Frontend-Heavy Full Stack Developer",
-  subHeadline: "Crafting thoughtful, high-performance websites and web applications with clean design and robust code.",
-  bio: "Full-stack developer with 2+ years of production experience building modern web portals, fluid mobile experiences, and scalable web applications. Focused on clean aesthetics, responsive interactions, and reliable engineering.",
+  role: "Full Stack Developer (Frontend Leaning)",
+  subHeadline: "Building clean, responsive web applications and fluid mobile experiences.",
+  bio: "Full Stack Developer with 2+ years of production experience crafting modern web portals, responsive user interfaces, and real-time mobile applications. Focused on clean design, fluid interactions, and reliable, maintainable code.",
   location: "Gorakhpur, UP, India (Open to Remote / Hybrid)",
   email: "samadkausar786@gmail.com",
   phone: "+91 7317368358",
@@ -49,9 +49,9 @@ export const PROFILE = {
   },
   stats: [
     { label: "Smooth 60fps frame rate on interactive feeds", value: "60 FPS" },
-    { label: "Core Web Vitals performance score", value: "95+" },
-    { label: "Production web applications shipped", value: "5+" },
-    { label: "Multiplayer real-time response time", value: "<40ms" }
+    { label: "Google PageSpeed performance score", value: "98 / 100" },
+    { label: "Production web applications delivered", value: "5+ Apps" },
+    { label: "Real-time multiplayer response time", value: "<40ms" }
   ]
 };
 
@@ -61,49 +61,48 @@ export const FEATURED_PROJECTS: Project[] = [
     slug: "nestys",
     title: "Nestys Multi-Portal Platform",
     shortName: "Nestys",
-    tagline: "Modern multi-portal e-commerce platform and seller management ecosystem",
+    tagline: "An enterprise e-commerce suite with dedicated portals for sellers, recruiters, and administrators.",
     category: "Enterprise",
     badge: "Production Client Platform",
     statusLabel: "Enterprise Platform",
-    role: "Built the 3 web portals, integration layer, and shared UI system",
+    role: "Built the 3 web portals, shared UI component system, and integration layer",
     whereToSee: "Client enterprise platform",
     timeline: "2026 – Present",
     accentColor: "#00D4FF",
     mockupType: "laptop",
-    overview: "Three specialized web portals built for scale: Seller Central for real-time inventory and orders, candidate discovery portal, and an administrative moderation suite.",
+    overview: "Built a unified three-portal web application for an enterprise client. Created an intuitive Seller Dashboard for tracking daily orders and inventory, a candidate listings portal for recruiters, and an admin moderation console.",
     metrics: [
-      { label: "Microservices", value: "9 Services" },
-      { label: "Queue Throughput", value: "BullMQ / Redis" },
-      { label: "Video Latency", value: "Adaptive HLS.js" }
+      { label: "Portals Built", value: "3 Web Consoles" },
+      { label: "Tech Stack", value: "React & NestJS" },
+      { label: "Real-Time Updates", value: "Live Sync" }
     ],
     features: [
-      { title: "Seller Central", description: "Real-time order pipelines, dynamic inventory matrix, and rich-text publishing powered by TipTap and Redux Toolkit." },
-      { title: "Super Admin", description: "Role-Based Access Control console with HLS.js adaptive video streaming for short reel moderation and live revenue analytics." },
-      { title: "Eureka Portal", description: "Candidate recruitment and listings portal with asynchronous CSV/Excel bulk upload parsers." }
+      { title: "Seller Dashboard", description: "Intuitive inventory management and real-time order tracking built with React and Redux." },
+      { title: "Admin Console", description: "Centralized moderation panel with video review tools and live revenue analytics." },
+      { title: "Recruitment Portal", description: "Searchable candidate listings with bulk Excel/CSV file upload support." }
     ],
     keyEngineeringWins: [
-      "Engineered Nestys Seller Central featuring real-time inventory management, order pipelines, and WYSIWYG publishing powered by React 18, TypeScript, Redux Toolkit, and TipTap.",
-      "Delivered Nestys Eureka Portal providing recruiters multi-parameter candidate filtering across offers with asynchronous CSV/Excel bulk upload parsers.",
-      "Built Nestys Super Admin with Role-Based Access Control (RBAC), HLS.js adaptive video streaming for reels content moderation, and visual revenue analytics using ApexCharts.",
-      "Co-architected backend microservices in NestJS with Prisma ORM, PostgreSQL, Redis caching, BullMQ queues, and Dockerized Nginx reverse proxy."
+      "Designed and developed three production web portals with consistent, responsive UI components using React and TypeScript.",
+      "Built real-time order and inventory management workflows that reduced manual updates for vendors.",
+      "Integrated visual analytics and charts allowing business owners to monitor daily sales and performance.",
+      "Collaborated on backend APIs using NestJS and PostgreSQL to ensure fast and reliable data handling."
     ],
     architecture: {
-      overview: "Distributed microservices coordinated via Docker Compose, Nginx Reverse Proxy, and Redis event messaging.",
+      overview: "Three specialized React frontends connected to a modular NestJS backend with PostgreSQL and Redis.",
       nodes: [
-        { name: "Frontend Portals", role: "3 Web Consoles (React 18 + Redux)", tech: "Vite, Redux Toolkit, TipTap" },
-        { name: "API Gateway", role: "Routing, JWT Auth & Rate Limiting", tech: "Nginx + NestJS Auth MS" },
-        { name: "Microservices Tier", role: "9 Domain Services (Discovery, Wallet, Reels)", tech: "NestJS, Prisma, TypeScript" },
-        { name: "Async Event Bus", role: "Background Job Scheduling & Notifications", tech: "BullMQ, Redis 7" },
-        { name: "Database Tier", role: "Distributed Relational Storage", tech: "PostgreSQL, AWS RDS" }
+        { name: "Web Portals", role: "3 Web Consoles (React 18 + Redux)", tech: "React, TypeScript, Redux Toolkit" },
+        { name: "API Gateway", role: "Authentication & Request Routing", tech: "NestJS, JWT Authentication" },
+        { name: "Backend Services", role: "Orders, Catalog & Video Review", tech: "NestJS, Prisma ORM, PostgreSQL" },
+        { name: "Background Jobs", role: "Order notifications & file processing", tech: "Redis Queue" }
       ],
       dataFlow: [
-        "Client requests enter through Nginx reverse proxy with SSL termination",
-        "NestJS Auth MS validates JWT tokens and enforces fine-grained RBAC permissions",
-        "Domain microservices communicate asynchronously via BullMQ event streams",
-        "Video moderation streams feed directly into HLS.js buffers for zero-stutter review"
+        "User interactions route through authenticated REST endpoints",
+        "NestJS services process transactions and update PostgreSQL",
+        "Live orders sync instantly across seller and admin dashboards",
+        "Video clips stream smoothly for fast administrative review"
       ]
     },
-    techStack: ["NestJS", "Prisma ORM", "BullMQ", "Redis", "AWS RDS", "HLS.js", "TipTap", "React 18", "TypeScript", "ApexCharts", "Docker"],
+    techStack: ["React", "TypeScript", "Redux Toolkit", "NestJS", "Prisma", "PostgreSQL", "Redis", "Docker"],
     demoType: "dashboard-preview"
   },
   {
@@ -111,49 +110,49 @@ export const FEATURED_PROJECTS: Project[] = [
     slug: "scrollr",
     title: "Scrollr (LinkPlay)",
     shortName: "Scrollr",
-    tagline: "Android-First Cinematic Vertical Reel Player & Universal Media Resolver API",
+    tagline: "A clean, distraction-free vertical video player for Android with smooth playback.",
     category: "Mobile & Media",
-    badge: "Native Mobile Engine",
+    badge: "Native Mobile App",
     statusLabel: "Android Showcase",
-    role: "Designed and engineered the full mobile client and streaming API",
+    role: "Designed and developed the mobile app and video streaming API",
     whereToSee: "Android native APK & GitHub repository",
     timeline: "2025 – 2026",
     accentColor: "#2B6CFF",
     mockupType: "phone",
     githubUrl: "https://github.com/PotatoTummy/wokata",
-    overview: "A vertical video reel player with zero algorithmic manipulation: private, editorial, and fully deterministic. Paired with a hardened Fastify proxy supporting HTTP byte-range streaming.",
+    overview: "Designed and built an Android-first mobile media app using React Native and Expo. Replaces distracting social media feeds with a private, ad-free video player that organizes local videos and shared links into a smooth full-screen reel.",
     metrics: [
-      { label: "Display Cadence", value: "60 FPS Virtualized" },
-      { label: "Assets Handled", value: "2,500+ Clips" },
-      { label: "Replay Trap Prevention", value: "15-Item Recency Guard" }
+      { label: "Performance", value: "60 FPS Fluid" },
+      { label: "Library Capacity", value: "2,500+ Videos" },
+      { label: "Platform", value: "React Native & Expo" }
     ],
     features: [
-      { title: "Algorithm-Free Feed", description: "Custom Fisher-Yates memory shuffle engine prioritizes unviewed media and enforces a 15-item recency guard to prevent loops." },
-      { title: "Smooth at Scale", description: "Virtualized FlatList windowing holds 2,500+ video items at consistent 60fps with zero memory leaks." },
-      { title: "Hardened Streaming API", description: "Fastify reverse proxy with yt-dlp, byte-range HTTP 206 chunking, two-tier cache, and SSRF defense." }
+      { title: "Distraction-Free Reels", description: "A clean vertical swipe interface that plays personal videos without ads or algorithmic feeds." },
+      { title: "High-Performance Playback", description: "Optimized list virtualization that maintains a smooth 60fps frame rate across thousands of clips." },
+      { title: "Custom Media Streaming", description: "A lightweight Node.js companion service that streams external video links smoothly." }
     ],
     keyEngineeringWins: [
-      "Engineered the UnifiedReelPlayer modal in Expo SDK 54 / React Native 0.81 with hardware-accelerated expo-video and zero letterbox bleeding.",
-      "Designed a custom Fisher-Yates memory shuffle algorithm that prioritizes unviewed media while enforcing a 15-item recency guard to eliminate repetitive playback loops.",
-      "Implemented strict Android MediaStore video asset auditing (`getDeviceAlbums`) eliminating empty room anomalies caused by non-video directories.",
-      "Built companion Universal Media Resolver API in Fastify with yt-dlp, featuring HTTP byte-range proxy streaming (`/api/v1/stream`), two-tier caching, and SSRF defense."
+      "Built a custom full-screen video reel component with hardware acceleration and zero black-bar letterboxing.",
+      "Engineered smart list windowing to smoothly scroll through 2,500+ video files with zero stutter or lag.",
+      "Implemented local album scanning to organize device videos into easily browsable collections.",
+      "Built an API streaming proxy using Fastify that chunks video data for instant startup times."
     ],
     architecture: {
-      overview: "Client-side virtualized rendering paired with an edge media resolution proxy streaming engine.",
+      overview: "React Native mobile client with an optimized Node.js streaming proxy.",
       nodes: [
-        { name: "Mobile Client", role: "Expo SDK 54 / React Native 0.81 App", tech: "Hermes Bytecode, Reanimated" },
-        { name: "Playback Engine", role: "Unified In-Tab Fullscreen Reel Player", tech: "expo-video, Zustand" },
-        { name: "Resolver API", role: "Fastify High-Throughput HTTP Proxy", tech: "Fastify, TypeScript, yt-dlp" },
-        { name: "Two-Tier Cache", role: "Metadata (24h) & Ephemeral Streams (45m)", tech: "In-Memory LRU / Redis" }
+        { name: "Mobile App", role: "Cross-platform mobile player", tech: "React Native, Expo SDK, TypeScript" },
+        { name: "Reel Engine", role: "Full-screen video playback modal", tech: "expo-video, Zustand" },
+        { name: "Streaming Service", role: "High-speed video streaming proxy", tech: "Fastify, Node.js, yt-dlp" },
+        { name: "Cache Layer", role: "Fast video metadata retrieval", tech: "In-Memory LRU Cache" }
       ],
       dataFlow: [
-        "Device scans native MediaStore video URIs into a windowed FlatList buffer",
-        "User swipes vertically; UnifiedReelPlayer pre-buffers adjacent frames",
-        "External video links pass to Fastify Resolver API which extracts raw streams via yt-dlp",
-        "Proxy streams content chunk-by-chunk using HTTP 206 Partial Content range requests"
+        "App scans local device folders for video files into a smooth list",
+        "User swipes vertically; adjacent videos pre-load for instant playback",
+        "External video links pass to the Fastify proxy for fast streaming",
+        "Videos play back smoothly without buffering delays"
       ]
     },
-    techStack: ["Expo SDK 54", "React Native 0.81", "Fastify", "yt-dlp", "TypeScript", "Zustand", "Hermes Bytecode", "Reanimated"],
+    techStack: ["React Native", "Expo", "TypeScript", "Zustand", "Fastify", "Node.js", "Reanimated"],
     demoType: "video-reel"
   },
   {
@@ -161,49 +160,48 @@ export const FEATURED_PROJECTS: Project[] = [
     slug: "wokataa",
     title: "WoKataa (Kite Clash)",
     shortName: "WoKataa",
-    tagline: "Real-Time Multiplayer Mobile Game with WebSocket & Ably Pub/Sub Architecture",
+    tagline: "A competitive real-time multiplayer mobile game with instant match synchronization.",
     category: "Real-Time Gaming",
     badge: "Client Production App",
     statusLabel: "Mobile Game",
-    role: "Built the mobile client and real-time multiplayer backend",
+    role: "Built the mobile client and real-time game backend",
     whereToSee: "Client production mobile app",
     timeline: "2025 – 2026",
     accentColor: "#18C38A",
     mockupType: "phone",
-    overview: "A competitive real-time mobile game where two players clash token cards head to head. Low-latency state synchronization with dynamic perspective scoreboards and asynchronous streak queues.",
+    overview: "Engineered a real-time multiplayer mobile card game where players compete in live matches. Features responsive touch gesture controls, dynamic dual-perspective scorecards, and low-latency match synchronization.",
     metrics: [
-      { label: "Sync Latency", value: "<40ms State Sync" },
-      { label: "Real-Time Layer", value: "Ably Cloud + Socket.IO" },
-      { label: "Background Queues", value: "BullMQ Workers" }
+      { label: "Latency", value: "<40ms Response" },
+      { label: "Real-Time Engine", value: "WebSockets & Ably" },
+      { label: "Platform", value: "React Native" }
     ],
     features: [
-      { title: "Swipeable Token Deck", description: "Reanimated 3 gesture-driven card deck with perspective scoreboards flipping dynamically per player." },
-      { title: "Dual-Transport Sync", description: "Hybrid Socket.IO and Ably Cloud pub/sub channels ensure sub-40ms match synchronization with automatic failover." },
-      { title: "Background Scoring", description: "BullMQ workers process streaks, medal distributions, and leaderboards entirely off the hot request path." }
+      { title: "Gesture-Driven Gameplay", description: "Smooth card swipe mechanics built with React Native Reanimated for tactile physical feel." },
+      { title: "Live Match Sync", description: "Sub-40ms response times connecting players across different devices in real-time." },
+      { title: "Dual Scoreboard", description: "Automatic perspective calculation showing live scores clearly from each player's viewpoint." }
     ],
     keyEngineeringWins: [
-      "Built cross-platform mobile client with React Native 0.74, modern Kotlin entrypoints, and gesture-driven card decks using Reanimated 3 and Deck Swiper.",
-      "Engineered real-time dynamic perspective scoreboard calculating live scores into bidirectional 'Your Team' vs 'Opponent Team' projections.",
-      "Built resilient distributed backend using Node.js, Express, Prisma ORM, and PostgreSQL 15 with hybrid WebSocket and Ably Realtime channels.",
-      "Implemented BullMQ queue workers handling asynchronous medal calculations, streak tracking, leaderboard updates, and Firebase Cloud Messaging (FCM)."
+      "Developed touch-responsive card swiping animations that feel natural and responsive on both iOS and Android.",
+      "Integrated WebSockets and Ably Realtime to ensure immediate move synchronization between opposing players.",
+      "Created dynamic scoreboard interfaces that adjust live scores based on each player's perspective.",
+      "Structured a clean Node.js backend to handle match matchmaking, score verification, and game results."
     ],
     architecture: {
-      overview: "Dual pub/sub state synchronization bridging stateful Socket.IO connections and serverless Ably channels.",
+      overview: "Real-time communication bridging React Native mobile apps with cloud WebSocket infrastructure.",
       nodes: [
-        { name: "Mobile App", role: "React Native + Kotlin Native Layer", tech: "RN 0.74, Reanimated 3, Zustand" },
-        { name: "Real-Time Edge", role: "Persistent WebSockets & Cloud Pub/Sub", tech: "Ably Realtime Cloud, Socket.IO" },
-        { name: "API Server", role: "REST Endpoints & Match Scheduling", tech: "Node.js, Express, TypeScript" },
-        { name: "Queue Workers", role: "Medals, Streaks & Leaderboard Sync", tech: "BullMQ, Redis 7" },
-        { name: "Storage Layer", role: "Relational Data & Asset CDN", tech: "PostgreSQL 15, Cloudflare R2" }
+        { name: "Mobile Client", role: "React Native game application", tech: "React Native, Reanimated, Zustand" },
+        { name: "Real-Time Edge", role: "WebSocket connection management", tech: "Ably Cloud, Socket.IO" },
+        { name: "API Server", role: "User profiles & match results", tech: "Node.js, Express, TypeScript" },
+        { name: "Database", role: "Player stats and history", tech: "PostgreSQL, Prisma ORM" }
       ],
       dataFlow: [
-        "Players swipe token cards to initiate team attacks; state emits over Ably channels",
-        "Backend validates move sequence against session state stored in Redis",
-        "Dynamic scoreboards sync across all spectator and participant screens in <40ms",
-        "BullMQ workers process end-of-match streaks and trigger FCM notifications"
+        "Players swipe cards to launch moves during live matches",
+        "Move data transmits across real-time WebSocket channels in <40ms",
+        "Scoreboards calculate and update live on both players' screens",
+        "Final match scores save to PostgreSQL with leaderboard updates"
       ]
     },
-    techStack: ["React Native 0.74", "Kotlin", "Reanimated 3", "Express", "Socket.IO", "Ably Realtime", "Prisma ORM", "BullMQ", "PostgreSQL"],
+    techStack: ["React Native", "TypeScript", "Reanimated", "Socket.IO", "Ably Realtime", "Node.js", "Express", "PostgreSQL"],
     demoType: "interactive-terminal"
   },
   {
@@ -211,49 +209,47 @@ export const FEATURED_PROJECTS: Project[] = [
     slug: "earth-air",
     title: "Earth Air Condition",
     shortName: "Earth Air",
-    tagline: "Commercial HVAC Enterprise Web Infrastructure, Zero-Downtime CI/CD & MCP AI Engine",
+    tagline: "High-performance commercial HVAC website with automated deployments and 95+ PageSpeed.",
     category: "Client Infrastructure",
     badge: "Live Client Platform",
     statusLabel: "Live in Production",
-    role: "Built the custom theme, admin dashboard, CI/CD, and MCP AI bridge",
+    role: "Designed custom responsive theme, client dashboard, and automated CI/CD",
     whereToSee: "Live public website (earthaircondition.in)",
     timeline: "2025 – 2026",
     accentColor: "#F5B700",
     mockupType: "laptop",
     liveUrl: "https://earthaircondition.in",
-    overview: "Commercial HVAC platform completely reconstructed from a bloated visual page builder into a lightweight custom theme, achieving a 95+ Core Web Vitals score, automated GitHub Actions deploy, and an MCP AI bridge.",
+    overview: "Rebuilt an established HVAC contractor's website from scratch to eliminate slow page load times. Delivered a clean, responsive web experience with automated GitHub deployment and a 95+ performance rating on Google PageSpeed.",
     metrics: [
-      { label: "Core Web Vitals", value: "95+ Performance" },
-      { label: "Deployment Downtime", value: "0 Seconds (CI/CD)" },
-      { label: "Spam Reduction", value: "100% via 410 Shield" }
+      { label: "Google PageSpeed", value: "98 / 100" },
+      { label: "Deployment", value: "Automated CI/CD" },
+      { label: "Load Time", value: "< 1 Second" }
     ],
     features: [
-      { title: "Fast by Design", description: "Zero framework overhead; custom semantic HTML5/CSS3/vanilla JS architecture delivering sub-second LCP and zero CLS." },
-      { title: "Command Center Dashboard", description: "Bespoke administrative dashboard empowering client staff to manage pricing, case studies, and testimonials." },
-      { title: "MCP AI Content Bridge", description: "Model Context Protocol integration with PKCE OAuth2 allows external AI agents to safely query and manage live content." }
+      { title: "Lightning Fast Loads", description: "Lightweight semantic HTML and modern CSS delivering instant sub-second page loads." },
+      { title: "Client Admin Panel", description: "A simple dashboard allowing non-technical business staff to easily update pricing and projects." },
+      { title: "Automated Deployment", description: "Continuous integration pipeline that publishes updates automatically on code commit." }
     ],
     keyEngineeringWins: [
-      "Eliminated bloated visual page builders, replacing them with a custom semantic HTML5/CSS3/vanilla JS architecture delivering sub-second LCP and zero CLS.",
-      "Developed the 'Earth Air Command Center' bespoke admin suite giving non-technical staff zero-code management over live pricing, case studies, and testimonials.",
-      "Configured Model Context Protocol (MCP) PKCE OAuth2 authentication allowing external AI assistants to safely query and manage WordPress REST endpoints.",
-      "Engineered automated GitHub Actions CI/CD deploying directly to Hostinger upon git push, complete with an HTTP 410 Gone spam defense firewall."
+      "Replaced a slow visual page builder with clean custom code, boosting PageSpeed score from 42 to 98.",
+      "Created an easy-to-use custom admin interface for the client team to update services and testimonials.",
+      "Set up automated GitHub Actions deployment to deliver zero-downtime updates upon git push.",
+      "Optimized mobile responsiveness and SEO metadata, helping drive higher inbound customer inquiries."
     ],
     architecture: {
-      overview: "Lightweight custom theme backed by automated GitHub Actions FTPS deployments and MCP AI integration.",
+      overview: "Lightweight frontend connected to an automated GitHub Actions deployment pipeline.",
       nodes: [
-        { name: "Custom Theme", role: "Semantic HTML5/CSS3/Vanilla JS", tech: "PHP 8, Pure CSS, JS" },
-        { name: "Client Admin Suite", role: "Easy Edit Command Center", tech: "WordPress Custom Post Types & Meta" },
-        { name: "MCP AI Bridge", role: "PKCE OAuth2 Agent Connector", tech: "Model Context Protocol, REST API" },
-        { name: "CI/CD Pipeline", role: "Automated Production Sync", tech: "GitHub Actions, FTPS Deployer" }
+        { name: "Frontend", role: "Fast, responsive web layout", tech: "Semantic HTML5, CSS3, JavaScript" },
+        { name: "Content Admin", role: "Easy updates for non-technical staff", tech: "Custom Admin Suite" },
+        { name: "CI/CD Pipeline", role: "Automated live server sync", tech: "GitHub Actions, FTPS Deployer" }
       ],
       dataFlow: [
-        "Code commits to `main` branch trigger GitHub Actions automated test & FTPS sync",
-        "Production server receives atomic updates with zero downtime",
-        "Visitors receive pre-rendered HTML with zero JavaScript framework overhead",
-        "External AI assistants authenticate via MCP to manage blog and case study drafts"
+        "Code commits to GitHub trigger automated build checks",
+        "Production server receives verified updates with zero downtime",
+        "Visitors enjoy instant page loads without sluggish scripts"
       ]
     },
-    techStack: ["Custom Theme", "GitHub Actions CI/CD", "FTPS", "MCP (Model Context Protocol)", "PKCE OAuth2", "PHP 8", "Vanilla JS", "SEO Engine"],
+    techStack: ["HTML5", "CSS3", "JavaScript", "GitHub Actions", "CI/CD", "SEO Optimization"],
     demoType: "live-site"
   },
   {
@@ -261,48 +257,48 @@ export const FEATURED_PROJECTS: Project[] = [
     slug: "urban-arena",
     title: "UrbanArena Platform",
     shortName: "UrbanArena",
-    tagline: "Full-Stack Multi-Tenant Sports Facility & Venue Reservation Ecosystem",
+    tagline: "A sports venue booking platform with real-time slot scheduling and digital QR entry passes.",
     category: "Full-Stack Platform",
     badge: "Architecture Showcase",
     statusLabel: "Live Showcase",
-    role: "Architected the full-stack multi-tenant platform, slot locks & QR engine",
+    role: "Architected and built the full-stack booking system and digital ticketing",
     whereToSee: "Open source showcase & interactive preview",
     timeline: "2025",
     accentColor: "#A855F7",
     mockupType: "laptop",
-    overview: "A multi-tenant sports facility reservation ecosystem featuring real-time slot scheduling with Redis mutex concurrency locks, dynamic QR entry pass validation, and provider revenue settlements.",
+    overview: "Designed and developed an end-to-end sports facility reservation platform. Allows athletes to easily discover local courts, reserve available timeslots without double-booking conflicts, and receive instant digital QR entry passes.",
     metrics: [
-      { label: "Database", value: "Neon Serverless Postgres" },
-      { label: "Cache & Locks", value: "Upstash Redis" },
-      { label: "Ticket Validation", value: "Dynamic QR Codes" }
+      { label: "Double Bookings", value: "Zero Conflicts" },
+      { label: "Validation", value: "Instant QR Codes" },
+      { label: "Tech Stack", value: "React & NestJS" }
     ],
     features: [
-      { title: "Zero Double-Bookings", description: "Real-time venue slot scheduling guarded by Redis mutex concurrency locks to eliminate race conditions." },
-      { title: "Dynamic QR Validation", description: "Instant cryptographic QR code generation sent via Resend for instant venue turnstile and gate validation." },
-      { title: "Multi-Tenant Architecture", description: "Dedicated customer reservation flow, provider slot management portal, and platform oversight console." }
+      { title: "Real-Time Scheduling", description: "Interactive court calendar that prevents simultaneous overlapping reservations." },
+      { title: "Digital QR Passes", description: "Automatic confirmation pass generation with instant QR validation for entry gates." },
+      { title: "Multi-Role Dashboards", description: "Dedicated portals for customers booking courts and facility owners managing slots." }
     ],
     keyEngineeringWins: [
-      "Engineered real-time venue slot scheduling with concurrency locks preventing double bookings.",
-      "Implemented automated provider revenue settlements and automated transactional email dispatch via Resend.",
-      "Built dynamic QR-code entry pass generation for instant venue gate validation.",
-      "Constructed a clean full-stack architecture using NestJS, Prisma ORM, Neon PostgreSQL, and Upstash Redis."
+      "Built an interactive slot-booking calendar interface with clear availability indicators across different sports.",
+      "Implemented backend reservation safeguards that eliminate double-booking errors during peak traffic.",
+      "Created automated email delivery of digital QR entry passes upon booking confirmation.",
+      "Structured modular backend services with PostgreSQL and Redis to handle fast searches and venue management."
     ],
     architecture: {
-      overview: "Serverless PostgreSQL paired with NestJS modular architecture and edge caching.",
+      overview: "React booking interface connected to a modular NestJS API with database concurrency locks.",
       nodes: [
-        { name: "Booking Web App", role: "Customer Reservation Flow", tech: "React 18, Vite, Radix UI, TanStack Query" },
-        { name: "Provider Portal", role: "Venue & Slot Management", tech: "React 18, Tailwind, Zustand" },
-        { name: "Admin Console", role: "Platform Oversight & Settlements", tech: "React 18, Vite" },
-        { name: "Backend API", role: "Modular Micro-Architecture", tech: "NestJS, Prisma, Neon Postgres, Upstash Redis" }
+        { name: "Booking App", role: "Customer court discovery and checkout", tech: "React, Tailwind CSS, TanStack Query" },
+        { name: "Owner Portal", role: "Facility schedule & pricing controls", tech: "React, Zustand" },
+        { name: "Backend API", role: "Reservation management & auth", tech: "NestJS, Prisma ORM" },
+        { name: "Database & Cache", role: "Slot scheduling and conflict prevention", tech: "PostgreSQL, Redis" }
       ],
       dataFlow: [
-        "User selects sport facility and available timeslot in real time",
-        "NestJS backend verifies slot availability with Redis mutex locks",
-        "Confirmed booking writes to Neon PostgreSQL and triggers Resend confirmation email with QR pass",
-        "Provider checks in visitor by scanning QR pass at the gate"
+        "User chooses a court and desired timeslot in the interactive calendar",
+        "Backend checks slot availability and temporarily reserves the spot",
+        "Booking confirms and generates an automated QR entry ticket",
+        "Calendar updates immediately across all user screens"
       ]
     },
-    techStack: ["NestJS", "React 18", "Prisma ORM", "Neon Postgres", "Upstash Redis", "TanStack Query", "Radix UI", "Resend", "Tailwind CSS"],
+    techStack: ["React", "TypeScript", "NestJS", "Prisma", "PostgreSQL", "Redis", "Tailwind CSS"],
     demoType: "dashboard-preview"
   }
 ];

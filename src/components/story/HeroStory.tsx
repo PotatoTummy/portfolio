@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { MacBookProMockup } from "@/components/devices/MacBookProMockup";
-import { NestysScreen } from "@/components/devices/RealisticScreenUI";
 import { LiquidButton } from "@/components/ui/LiquidButton";
 import { Sparkles } from "lucide-react";
 
@@ -141,7 +141,16 @@ export const HeroStory: React.FC<HeroStoryProps> = () => {
               straight={false}
               className="origin-center"
             >
-              <NestysScreen scrollProgress={0.25} />
+              <div className="relative w-full h-full bg-[#0B0D13]">
+                <Image
+                  src="/projects/screens/nestys-screen.png"
+                  alt="Nestys Platform Preview"
+                  fill
+                  sizes="500px"
+                  className="object-cover object-top"
+                  priority
+                />
+              </div>
             </MacBookProMockup>
           </motion.div>
         </motion.div>

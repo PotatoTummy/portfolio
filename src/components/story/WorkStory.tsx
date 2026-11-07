@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
 import Image from "next/image";
 import { FEATURED_PROJECTS, Project } from "@/data/portfolioData";
 import { LiquidButton } from "@/components/ui/LiquidButton";
@@ -19,20 +19,55 @@ const PROJECT_BACKGROUNDS: Record<string, string> = {
   "urban-arena": "/projects/backgrounds/urbanarena-bg.jpg",
 };
 
+// Smooth Hermite interpolation: 0 -> 1 with smooth acceleration & deceleration
+function smoothstep(min: number, max: number, value: number): number {
+  const x = Math.max(0, Math.min(1, (value - min) / (max - min)));
+  return x * x * (3 - 2 * x);
+}
+
 export const WorkStory: React.FC<WorkStoryProps> = ({ progress = 0 }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
   const totalProjects = FEATURED_PROJECTS.length;
 
-  // Dwell and wipe calculation:
-  // Each project stays centered, then cleanly wipes to the next project
-  const rawPos = Math.min(totalProjects - 1, Math.max(0, progress * totalProjects - 0.5));
-  const floorIdx = Math.min(totalProjects - 1, Math.floor(rawPos));
-  const frac = rawPos - floorIdx;
-  const easedFrac =
-    frac < 0.5
-      ? 0
-      : ((frac - 0.5) / 0.5) * ((frac - 0.5) / 0.5) * (3 - 2 * ((frac - 0.5) / 0.5));
-  const activeSlideProgress = Math.min(totalProjects - 1, floorIdx + easedFrac);
-  const activeIndex = Math.min(totalProjects - 1, Math.round(activeSlideProgress));
+  // Transition windows with generous dwell time for all projects,
+  // especially Urban Arena which stays locked from 0.80 all the way to 1.00!
+  // Slide 0 (Nestys): Dwells from 0.00 to 0.16
+  // Slide 1 (Scrollr): Wipes in [0.16, 0.24], dwells until 0.36
+  // Slide 2 (WoKataa): Wipes in [0.36, 0.44], dwells until 0.56
+  // Slide 3 (Earth Air): Wipes in [0.56, 0.64], dwells until 0.74
+  // Slide 4 (Urban Arena): Wipes in [0.74, 0.82], dwells until 1.00 (generous locked window!)
+  const reveals = [
+    1, // Project 0 is always base
+    smoothstep(0.16, 0.24, progress),
+    smoothstep(0.36, 0.44, progress),
+    smoothstep(0.56, 0.64, progress),
+    smoothstep(0.74, 0.82, progress),
+  ];
+
+  // Active index determination for navigation highlights
+  let activeIndex = 0;
+  if (progress >= 0.78) {
+    activeIndex = 4;
+  } else if (progress >= 0.58) {
+    activeIndex = 3;
+  } else if (progress >= 0.38) {
+    activeIndex = 2;
+  } else if (progress >= 0.18) {
+    activeIndex = 1;
+  }
+
+  // Smooth jump to specific project when clicking top pill
+  const scrollToProject = (targetIdx: number) => {
+    const el = document.getElementById("work-scroll-container");
+    if (!el) return;
+    const targets = [0.08, 0.28, 0.48, 0.68, 0.88];
+    const targetProg = targets[targetIdx] ?? 0;
+    const rect = el.getBoundingClientRect();
+    const scrollTop = window.scrollY + rect.top;
+    const scrollRange = el.offsetHeight - window.innerHeight;
+    const destination = scrollTop + targetProg * scrollRange;
+    window.scrollTo({ top: destination, behavior: "smooth" });
+  };
 
   return (
     <div id="work" data-nav="Work" className="relative w-full bg-[#0B0B0A] text-[#F3F3EE] select-none">
@@ -56,35 +91,39 @@ export const WorkStory: React.FC<WorkStoryProps> = ({ progress = 0 }) => {
       </section>
 
       {/* Pinned Screen Container: Page stays pinned while content wipes in place */}
-      <div className="relative min-h-[500vh] w-full bg-[#0B0B0A]">
+      <div
+        id="work-scroll-container"
+        ref={containerRef}
+        className="relative min-h-[500vh] w-full bg-[#0B0B0A]"
+      >
         <div className="sticky top-0 h-[100svh] w-full overflow-hidden">
           
           {/* Stacked Project Slides with Vertical Wipe & Cinematic Background Artwork */}
           {FEATURED_PROJECTS.map((project: Project, idx: number) => {
-            const reveal = Math.min(1, Math.max(0, activeSlideProgress - idx + 1));
+            const reveal = reveals[idx] ?? 0;
             const bgImage = PROJECT_BACKGROUNDS[project.slug] || PROJECT_BACKGROUNDS["nestys"];
 
             return (
               <div
                 key={project.id}
-                className="absolute inset-0 overflow-hidden text-white will-change-[clip-path]"
+                className="absolute inset-0 overflow-hidden text-white will-change-[clip-path] transform-gpu"
                 style={{
                   zIndex: idx,
                   clipPath: `inset(${(1 - reveal) * 100}% 0 0 0)`,
                 }}
               >
-                {/* Generated High-Resolution Cinematic Background Wallpaper */}
+                {/* High-Resolution Cinematic Background Artwork */}
                 <div
-                  className="absolute inset-0 will-change-transform"
+                  className="absolute inset-0 will-change-transform transform-gpu"
                   style={{
-                    transform: `scale(${1 + (1 - reveal) * 0.12})`,
+                    transform: `scale(${1 + (1 - reveal) * 0.08})`,
                   }}
                 >
                   <Image
                     src={bgImage}
                     alt={`${project.title} Background`}
                     fill
-                    priority={idx === 0}
+                    priority={idx <= 1}
                     sizes="100vw"
                     className="object-cover object-center"
                   />
@@ -92,7 +131,7 @@ export const WorkStory: React.FC<WorkStoryProps> = ({ progress = 0 }) => {
 
                 {/* Thematic Ambient Glow Aura */}
                 <div
-                  className="absolute inset-0 pointer-events-none blur-[120px] opacity-40"
+                  className="absolute inset-0 pointer-events-none blur-[120px] opacity-35"
                   style={{
                     background: `radial-gradient(circle at 75% 40%, ${project.accentColor} 0%, transparent 60%)`,
                   }}
@@ -104,7 +143,7 @@ export const WorkStory: React.FC<WorkStoryProps> = ({ progress = 0 }) => {
                   className="absolute inset-0 pointer-events-none"
                   style={{
                     background:
-                      "linear-gradient(90deg, rgba(11,11,10,0.95) 0%, rgba(11,11,10,0.85) 45%, rgba(11,11,10,0.40) 100%), linear-gradient(180deg, rgba(11,11,10,0.5) 0%, transparent 20%, transparent 80%, rgba(11,11,10,0.8) 100%)",
+                      "linear-gradient(90deg, rgba(11,11,10,0.94) 0%, rgba(11,11,10,0.85) 45%, rgba(11,11,10,0.40) 100%), linear-gradient(180deg, rgba(11,11,10,0.5) 0%, transparent 20%, transparent 80%, rgba(11,11,10,0.85) 100%)",
                   }}
                 />
 
@@ -135,18 +174,20 @@ export const WorkStory: React.FC<WorkStoryProps> = ({ progress = 0 }) => {
                     </div>
 
                     {/* Quick Project Switcher Pills */}
-                    <div className="hidden md:flex items-center gap-1.5 p-1 rounded-xl bg-black/50 border border-white/10 backdrop-blur-md font-mono text-xs">
+                    <div className="hidden md:flex items-center gap-1.5 p-1 rounded-xl bg-black/60 border border-white/10 backdrop-blur-md font-mono text-xs">
                       {FEATURED_PROJECTS.map((p, pIdx) => (
-                        <span
+                        <button
                           key={p.id}
-                          className={`px-2.5 py-1 rounded-lg transition-all ${
-                            pIdx === idx
-                              ? "bg-white/20 text-white font-bold"
-                              : "text-zinc-400 opacity-60"
+                          type="button"
+                          onClick={() => scrollToProject(pIdx)}
+                          className={`px-2.5 py-1 rounded-lg transition-all cursor-pointer ${
+                            pIdx === activeIndex
+                              ? "bg-white/20 text-white font-bold shadow-xs"
+                              : "text-zinc-400 hover:text-zinc-200 opacity-70 hover:opacity-100"
                           }`}
                         >
                           {p.shortName}
-                        </span>
+                        </button>
                       ))}
                     </div>
 
@@ -163,8 +204,8 @@ export const WorkStory: React.FC<WorkStoryProps> = ({ progress = 0 }) => {
                     <div className="lg:col-span-6 space-y-4">
                       {/* Project Title */}
                       <h3
-                        className="font-grotesk text-[clamp(32px,4vw,64px)] font-medium leading-[0.96] tracking-tight text-white transition-transform duration-100"
-                        style={{ transform: `translateY(${(1 - reveal) * 40}px)` }}
+                        className="font-grotesk text-[clamp(32px,4vw,62px)] font-medium leading-[0.96] tracking-tight text-white transition-transform duration-100"
+                        style={{ transform: `translateY(${(1 - reveal) * 35}px)` }}
                       >
                         {project.title}
                       </h3>
@@ -210,7 +251,7 @@ export const WorkStory: React.FC<WorkStoryProps> = ({ progress = 0 }) => {
                         ))}
                       </div>
 
-                      {/* Action CTAs */}
+                      {/* Action CTAs with Magnetic Liquid Button */}
                       <div className="pt-2 flex items-center gap-4">
                         <LiquidButton
                           href={`/projects/${project.slug}`}
@@ -234,7 +275,7 @@ export const WorkStory: React.FC<WorkStoryProps> = ({ progress = 0 }) => {
                       </div>
                     </div>
 
-                    {/* Right Column: 3D Mouse-Tilt Hardware Device */}
+                    {/* Right Column: 3D Mouse-Tilt Hardware Device with Generated UI Screen */}
                     <div className="lg:col-span-6 flex items-center justify-center">
                       <InteractiveProjectStage project={project} index={idx} />
                     </div>
@@ -244,7 +285,7 @@ export const WorkStory: React.FC<WorkStoryProps> = ({ progress = 0 }) => {
                   <div className="flex items-center justify-between border-t border-white/10 pt-2 font-mono text-[11px] text-zinc-400">
                     <span>Role: {project.role}</span>
                     <span className="flex items-center gap-1.5 text-zinc-500">
-                      <span>Scroll to switch project</span>
+                      <span>{idx === totalProjects - 1 ? "Scroll down to contact" : "Scroll to next project"}</span>
                       <ArrowDown className="h-3 w-3 animate-bounce" />
                     </span>
                   </div>

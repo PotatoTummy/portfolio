@@ -1,9 +1,9 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { MacBookProMockup } from "@/components/devices/MacBookProMockup";
-import { NestysScreen } from "@/components/devices/RealisticScreenUI";
 import { Monitor, ArrowDown } from "lucide-react";
 
 interface LaptopZoomPortalProps {
@@ -77,9 +77,15 @@ export const LaptopZoomPortal: React.FC<LaptopZoomPortalProps> = ({ progress = 0
               straight={true}
               className="drop-shadow-[0_20px_50px_rgba(0,0,0,0.18)]"
             >
-              {/* Earlier Realistic Project UI */}
-              <div className="h-full w-full bg-[#0D0F12] text-[#ECEFF1] flex flex-col justify-between font-sans select-none overflow-hidden relative">
-                <NestysScreen scrollProgress={zoomProgress * 0.5} />
+              <div className="relative w-full h-full bg-[#0D0F12] select-none overflow-hidden">
+                <Image
+                  src="/projects/screens/nestys-screen.png"
+                  alt="Nestys Platform"
+                  fill
+                  sizes="780px"
+                  className="object-cover object-top"
+                  priority
+                />
               </div>
             </MacBookProMockup>
           </div>
