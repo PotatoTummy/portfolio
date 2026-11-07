@@ -61,7 +61,7 @@ export const NestysScreen: React.FC<{ scrollProgress?: number }> = ({ scrollProg
               }`}
             >
               <Users className="h-3.5 w-3.5 shrink-0" />
-              <span className="hidden sm:inline">Eureka Jobs</span>
+              <span className="hidden sm:inline">Recruiter Portal</span>
             </button>
 
             <button
@@ -136,7 +136,7 @@ export const NestysScreen: React.FC<{ scrollProgress?: number }> = ({ scrollProg
           {activePortal === "eureka" && (
             <div className="p-3 rounded-lg border border-white/[0.07] bg-[#121417] space-y-2">
               <div className="flex items-center justify-between text-xs font-bold text-white">
-                <span>Eureka Recruitment & Candidate Matching</span>
+                <span>Enterprise Recruitment & Candidate Matching</span>
                 <span className="text-[9px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">Async Parsers</span>
               </div>
               <p className="text-[10px] text-zinc-300">

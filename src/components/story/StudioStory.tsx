@@ -211,6 +211,7 @@ export const StudioStory: React.FC<StudioStoryProps> = ({ progress = 0 }) => {
                         loop
                         muted
                         playsInline
+                        suppressHydrationWarning
                         className="absolute inset-0 w-full h-full object-cover"
                       />
 

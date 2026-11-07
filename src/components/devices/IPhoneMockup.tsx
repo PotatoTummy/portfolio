@@ -234,6 +234,7 @@ export const IPhoneMockup: React.FC<IPhoneMockupProps> = ({
                     loop
                     muted={isMuted}
                     playsInline
+                    suppressHydrationWarning
                     className="h-full w-full object-cover"
                   />
                   <button

@@ -230,6 +230,7 @@ export const MacBookProMockup: React.FC<MacBookProMockupProps> = ({
                     loop
                     muted={isMuted}
                     playsInline
+                    suppressHydrationWarning
                     className="h-full w-full object-cover"
                   />
                   <div className="absolute bottom-3 right-3 z-30 flex items-center gap-1.5 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/10 text-[11px] text-zinc-300">

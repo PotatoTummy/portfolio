@@ -71,6 +71,7 @@ export const ScrollrReelsScreen: React.FC<ScrollrReelsScreenProps> = ({
               loop
               muted
               playsInline
+              suppressHydrationWarning
               className="absolute inset-0 w-full h-full object-cover"
             />
 
