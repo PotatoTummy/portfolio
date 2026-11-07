@@ -2,6 +2,7 @@
 
 import React, { useState, useRef } from "react";
 import Image from "next/image";
+import { useIsMounted } from "@/hooks/useIsMounted";
 import { Volume2, VolumeX, RotateCcw, Move3d } from "lucide-react";
 
 interface MacBookProMockupProps {
@@ -26,6 +27,7 @@ export const MacBookProMockup: React.FC<MacBookProMockupProps> = ({
   straight = false,
 }) => {
   const [isMuted, setIsMuted] = useState(true);
+  const mounted = useIsMounted();
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   // 360° Orbit Drag State
@@ -223,27 +225,31 @@ export const MacBookProMockup: React.FC<MacBookProMockupProps> = ({
             {/* Interactive Screen Viewport */}
             <div className="screen-content-area relative aspect-[16/10] w-full overflow-hidden bg-white pointer-events-auto">
               {videoUrl ? (
-                <div className="relative h-full w-full">
-                  <video
-                    src={videoUrl}
-                    autoPlay
-                    loop
-                    muted={isMuted}
-                    playsInline
-                    suppressHydrationWarning
-                    className="h-full w-full object-cover"
-                  />
-                  <div className="absolute bottom-3 right-3 z-30 flex items-center gap-1.5 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/10 text-[11px] text-zinc-300">
-                    <button
-                      onClick={() => setIsMuted(!isMuted)}
-                      className="p-0.5 hover:text-white transition-colors"
-                      title={isMuted ? "Unmute" : "Mute"}
-                    >
-                      {isMuted ? <VolumeX className="h-3.5 w-3.5" /> : <Volume2 className="h-3.5 w-3.5" />}
-                    </button>
-                    <span className="font-mono text-[10px] text-zinc-400">60 FPS</span>
+                mounted ? (
+                  <div className="relative h-full w-full">
+                    <video
+                      src={videoUrl}
+                      autoPlay
+                      loop
+                      muted={isMuted}
+                      playsInline
+                      suppressHydrationWarning
+                      className="h-full w-full object-cover"
+                    />
+                    <div className="absolute bottom-3 right-3 z-30 flex items-center gap-1.5 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/10 text-[11px] text-zinc-300">
+                      <button
+                        onClick={() => setIsMuted(!isMuted)}
+                        className="p-0.5 hover:text-white transition-colors"
+                        title={isMuted ? "Unmute" : "Mute"}
+                      >
+                        {isMuted ? <VolumeX className="h-3.5 w-3.5" /> : <Volume2 className="h-3.5 w-3.5" />}
+                      </button>
+                      <span className="font-mono text-[10px] text-zinc-400">60 FPS</span>
+                    </div>
                   </div>
-                </div>
+                ) : (
+                  <div className="relative h-full w-full bg-black" />
+                )
               ) : screenshotUrl ? (
                 <div className="relative h-full w-full">
                   <Image

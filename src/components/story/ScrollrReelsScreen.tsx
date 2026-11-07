@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import { useIsMounted } from "@/hooks/useIsMounted";
 import { Heart, MessageCircle, Share2, Bookmark, Music, Film, CheckCircle2 } from "lucide-react";
 
 interface ScrollrReelsScreenProps {
@@ -47,6 +48,7 @@ export const ScrollrReelsScreen: React.FC<ScrollrReelsScreenProps> = ({
   onSelectIndex,
 }) => {
   const [internalIndex, setInternalIndex] = useState(0);
+  const mounted = useIsMounted();
   const activeIdx = controlledIndex !== undefined ? controlledIndex : internalIndex;
 
   const handleSelect = (idx: number) => {
@@ -64,16 +66,20 @@ export const ScrollrReelsScreen: React.FC<ScrollrReelsScreenProps> = ({
       >
         {SCROLLR_REELS.map((reel) => (
           <div key={reel.id} className="relative w-full h-full flex-shrink-0 bg-black">
-            {/* Active Video Player */}
-            <video
-              src={reel.video}
-              autoPlay
-              loop
-              muted
-              playsInline
-              suppressHydrationWarning
-              className="absolute inset-0 w-full h-full object-cover"
-            />
+            {/* Active Video Player - Mounted only on client to prevent extension hydration mismatches */}
+            {mounted ? (
+              <video
+                src={reel.video}
+                autoPlay
+                loop
+                muted
+                playsInline
+                suppressHydrationWarning
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+            ) : (
+              <div className="absolute inset-0 bg-zinc-950" />
+            )}
 
             {/* Readability Scrim */}
             <div

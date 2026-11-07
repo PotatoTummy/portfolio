@@ -2,6 +2,7 @@
 
 import React, { useRef, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useIsMounted } from "@/hooks/useIsMounted";
 import { IPhoneMockup } from "@/components/devices/IPhoneMockup";
 import { Sparkles, Zap, ShieldCheck, Heart, MessageCircle, Share2, Bookmark, Music, CheckCircle2 } from "lucide-react";
 
@@ -92,6 +93,7 @@ export const StudioStory: React.FC<StudioStoryProps> = ({ progress = 0 }) => {
 
   // Manual reel select override or scroll-driven active step
   const [manualStep, setManualStep] = useState<number | null>(null);
+  const mounted = useIsMounted();
   const scrollStep = Math.min(2, Math.floor(progress * 2.99));
   const activeStep = manualStep !== null ? manualStep : scrollStep;
   const currentReel = REELS[activeStep] || REELS[0];
@@ -203,17 +205,21 @@ export const StudioStory: React.FC<StudioStoryProps> = ({ progress = 0 }) => {
                       transition={{ duration: 0.3, ease: "easeInOut" }}
                       className="relative w-full h-full overflow-hidden bg-black text-white"
                     >
-                      {/* Looping Ambient Video */}
-                      <video
-                        key={currentReel.videoSrc}
-                        src={currentReel.videoSrc}
-                        autoPlay
-                        loop
-                        muted
-                        playsInline
-                        suppressHydrationWarning
-                        className="absolute inset-0 w-full h-full object-cover"
-                      />
+                      {/* Looping Ambient Video - Mounted only on client to prevent extension hydration mismatches */}
+                      {mounted ? (
+                        <video
+                          key={currentReel.videoSrc}
+                          src={currentReel.videoSrc}
+                          autoPlay
+                          loop
+                          muted
+                          playsInline
+                          suppressHydrationWarning
+                          className="absolute inset-0 w-full h-full object-cover"
+                        />
+                      ) : (
+                        <div className="absolute inset-0 bg-black" />
+                      )}
 
                       {/* Gentle cinematic scrim for readability */}
                       <div

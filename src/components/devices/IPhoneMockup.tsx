@@ -2,6 +2,7 @@
 
 import React, { useState, useRef } from "react";
 import Image from "next/image";
+import { useIsMounted } from "@/hooks/useIsMounted";
 import { Wifi, BatteryMedium, Volume2, VolumeX, Move3d, RotateCcw } from "lucide-react";
 
 interface IPhoneMockupProps {
@@ -28,6 +29,7 @@ export const IPhoneMockup: React.FC<IPhoneMockupProps> = ({
   floatingChips = [],
 }) => {
   const [isMuted, setIsMuted] = useState(true);
+  const mounted = useIsMounted();
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   // 360° Drag Orbit State
@@ -227,23 +229,27 @@ export const IPhoneMockup: React.FC<IPhoneMockupProps> = ({
             {/* Interactive Screen Content Viewport */}
             <div className="screen-content-area relative flex-1 w-full overflow-hidden bg-white pointer-events-auto">
               {videoUrl ? (
-                <div className="relative h-full w-full">
-                  <video
-                    src={videoUrl}
-                    autoPlay
-                    loop
-                    muted={isMuted}
-                    playsInline
-                    suppressHydrationWarning
-                    className="h-full w-full object-cover"
-                  />
-                  <button
-                    onClick={() => setIsMuted(!isMuted)}
-                    className="absolute bottom-4 right-4 z-30 p-2 rounded-full bg-black/60 backdrop-blur-md text-white border border-white/10"
-                  >
-                    {isMuted ? <VolumeX className="h-3.5 w-3.5" /> : <Volume2 className="h-3.5 w-3.5" />}
-                  </button>
-                </div>
+                mounted ? (
+                  <div className="relative h-full w-full">
+                    <video
+                      src={videoUrl}
+                      autoPlay
+                      loop
+                      muted={isMuted}
+                      playsInline
+                      suppressHydrationWarning
+                      className="h-full w-full object-cover"
+                    />
+                    <button
+                      onClick={() => setIsMuted(!isMuted)}
+                      className="absolute bottom-4 right-4 z-30 p-2 rounded-full bg-black/60 backdrop-blur-md text-white border border-white/10"
+                    >
+                      {isMuted ? <VolumeX className="h-3.5 w-3.5" /> : <Volume2 className="h-3.5 w-3.5" />}
+                    </button>
+                  </div>
+                ) : (
+                  <div className="relative h-full w-full bg-black" />
+                )
               ) : screenshotUrl ? (
                 <div className="relative h-full w-full">
                   <Image
