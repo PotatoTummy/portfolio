@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
@@ -24,6 +24,8 @@ import {
 } from "lucide-react";
 import { GithubIcon } from "@/components/icons/GithubIcon";
 
+export const dynamic = "force-static";
+
 interface ProjectPageProps {
   params: Promise<{ slug: string }>;
 }
@@ -44,7 +46,15 @@ export async function generateMetadata({ params }: ProjectPageProps) {
   };
 }
 
-export default async function ProjectPage({ params }: ProjectPageProps) {
+export default function ProjectPage({ params }: ProjectPageProps) {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-[#0B0B0A]" />}>
+      <ProjectDetailContent params={params} />
+    </Suspense>
+  );
+}
+
+async function ProjectDetailContent({ params }: ProjectPageProps) {
   const { slug } = await params;
   const project = getProjectBySlug(slug);
 
@@ -55,23 +65,23 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   const { prev, next } = getAdjacentProjects(project.slug);
 
   const SCREEN_IMAGES: Record<string, string> = {
-    nestys: "/projects/screens/nestys-screen.png",
-    scrollr: "/projects/screens/scrollr-screen.png",
-    wokataa: "/projects/screens/wokataa-screen.png",
-    "earth-air": "/projects/screens/earthair-screen.png",
-    "urban-arena": "/projects/screens/urbanarena-screen.png",
+    nestys: "/projects/screens/nestys-white-screen.png",
+    scrollr: "/projects/screens/scrollr-white-screen.png",
+    wokataa: "/projects/screens/wokataa-white-screen.png",
+    "earth-air": "/projects/screens/earthair-white-screen.png",
+    "urban-arena": "/projects/screens/urbanarena-white-screen.png",
   };
 
   const isPhone = project.mockupType === "phone";
   const screenImage = SCREEN_IMAGES[project.slug] || SCREEN_IMAGES["nestys"];
 
   const getImageClasses = (slug: string) => {
-    if (slug === "wokataa") return "object-contain object-center scale-[0.97]";
+    if (slug === "wokataa") return "object-contain object-center scale-[0.98]";
     return "object-cover object-top";
   };
 
   const renderScreenImage = () => (
-    <div className="relative w-full h-full bg-[#0B0D13] select-none overflow-hidden">
+    <div className="relative w-full h-full bg-white select-none overflow-hidden">
       <Image
         src={screenImage}
         alt={`${project.title} Interface`}
@@ -81,9 +91,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         priority
       />
       <div
-        className="absolute inset-0 pointer-events-none opacity-25"
+        className="absolute inset-0 pointer-events-none opacity-15"
         style={{
-          background: "linear-gradient(135deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.02) 40%, transparent 60%)",
+          background: "linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.05) 40%, transparent 60%)",
         }}
       />
     </div>

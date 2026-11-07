@@ -141,9 +141,9 @@ export const HeroStory: React.FC<HeroStoryProps> = () => {
               straight={false}
               className="origin-center"
             >
-              <div className="relative w-full h-full bg-[#0B0D13]">
+              <div className="relative w-full h-full bg-white">
                 <Image
-                  src="/projects/screens/nestys-screen.png"
+                  src="/projects/screens/nestys-white-screen.png"
                   alt="Nestys Platform Preview"
                   fill
                   sizes="500px"

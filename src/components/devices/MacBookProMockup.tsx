@@ -224,7 +224,7 @@ export const MacBookProMockup: React.FC<MacBookProMockupProps> = ({
             />
 
             {/* Interactive Screen Viewport */}
-            <div className="screen-content-area relative aspect-[16/10] w-full overflow-hidden bg-[#0D0D0C] pointer-events-auto">
+            <div className="screen-content-area relative aspect-[16/10] w-full overflow-hidden bg-white pointer-events-auto">
               {videoUrl ? (
                 <div className="relative h-full w-full">
                   <video

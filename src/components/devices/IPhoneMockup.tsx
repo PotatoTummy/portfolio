@@ -225,7 +225,7 @@ export const IPhoneMockup: React.FC<IPhoneMockupProps> = ({
             />
 
             {/* Interactive Screen Content Viewport */}
-            <div className="screen-content-area relative flex-1 w-full overflow-hidden bg-[#0D0D0C] pointer-events-auto">
+            <div className="screen-content-area relative flex-1 w-full overflow-hidden bg-white pointer-events-auto">
               {videoUrl ? (
                 <div className="relative h-full w-full">
                   <video

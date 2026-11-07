@@ -77,9 +77,9 @@ export const LaptopZoomPortal: React.FC<LaptopZoomPortalProps> = ({ progress = 0
               straight={true}
               className="drop-shadow-[0_20px_50px_rgba(0,0,0,0.18)]"
             >
-              <div className="relative w-full h-full bg-[#0D0F12] select-none overflow-hidden">
+              <div className="relative w-full h-full bg-white select-none overflow-hidden">
                 <Image
-                  src="/projects/screens/nestys-screen.png"
+                  src="/projects/screens/nestys-white-screen.png"
                   alt="Nestys Platform"
                   fill
                   sizes="780px"

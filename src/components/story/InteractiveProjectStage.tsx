@@ -13,11 +13,11 @@ interface InteractiveProjectStageProps {
 }
 
 const SCREEN_IMAGES: Record<string, string> = {
-  nestys: "/projects/screens/nestys-screen.png",
-  scrollr: "/projects/screens/scrollr-screen.png",
-  wokataa: "/projects/screens/wokataa-screen.png",
-  "earth-air": "/projects/screens/earthair-screen.png",
-  "urban-arena": "/projects/screens/urbanarena-screen.png",
+  nestys: "/projects/screens/nestys-white-screen.png",
+  scrollr: "/projects/screens/scrollr-white-screen.png",
+  wokataa: "/projects/screens/wokataa-white-screen.png",
+  "earth-air": "/projects/screens/earthair-white-screen.png",
+  "urban-arena": "/projects/screens/urbanarena-white-screen.png",
 };
 
 export const InteractiveProjectStage: React.FC<InteractiveProjectStageProps> = ({ project }) => {
@@ -55,16 +55,13 @@ export const InteractiveProjectStage: React.FC<InteractiveProjectStageProps> = (
 
   const getImageClasses = (slug: string) => {
     if (slug === "wokataa") {
-      return "object-contain object-center scale-[0.97]";
-    }
-    if (slug === "scrollr") {
-      return "object-cover object-top";
+      return "object-contain object-center scale-[0.98]";
     }
     return "object-cover object-top";
   };
 
   const renderScreenContent = () => (
-    <div className="relative w-full h-full bg-[#0B0D13] overflow-hidden select-none">
+    <div className="relative w-full h-full bg-white overflow-hidden select-none">
       <Image
         src={screenImage}
         alt={`${project.title} Interface`}
@@ -75,9 +72,9 @@ export const InteractiveProjectStage: React.FC<InteractiveProjectStageProps> = (
       />
       {/* Subtle realistic screen glass reflection */}
       <div
-        className="absolute inset-0 pointer-events-none opacity-30"
+        className="absolute inset-0 pointer-events-none opacity-20"
         style={{
-          background: "linear-gradient(135deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.02) 40%, transparent 60%)",
+          background: "linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.05) 40%, transparent 60%)",
         }}
       />
     </div>
