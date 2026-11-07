@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { PROFILE } from "@/data/portfolioData";
+import { LiquidButton } from "@/components/ui/LiquidButton";
 
 interface HeaderProps {
   activeSection?: string;
@@ -67,12 +68,14 @@ export const Header: React.FC<HeaderProps> = ({ activeSection = "Intro", onOpenC
           </button>
         )}
 
-        <a
+        <LiquidButton
           href="#contact"
-          className="bg-[#00D4FF] text-[#0B0B0A] font-sans font-semibold px-4 py-2 text-xs rounded transition-transform hover:-translate-y-0.5 mix-blend-normal shadow-[0_0_20px_rgba(0,212,255,0.4)]"
+          variant="primary"
+          icon={false}
+          className="px-3.5 py-1.5 text-xs rounded-lg"
         >
           Start a project
-        </a>
+        </LiquidButton>
       </div>
     </header>
   );

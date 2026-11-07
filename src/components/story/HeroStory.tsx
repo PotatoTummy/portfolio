@@ -4,7 +4,8 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { MacBookProMockup } from "@/components/devices/MacBookProMockup";
 import { NestysScreen } from "@/components/devices/RealisticScreenUI";
-import { ArrowUpRight, ArrowRight, Sparkles } from "lucide-react";
+import { LiquidButton } from "@/components/ui/LiquidButton";
+import { Sparkles } from "lucide-react";
 
 interface HeroStoryProps {
   progress?: number;
@@ -92,28 +93,20 @@ export const HeroStory: React.FC<HeroStoryProps> = () => {
             I&apos;m Samad Kausar — a frontend-leaning developer crafting responsive websites and digital products. I combine clean visual design with fluid motion and reliable, scalable engineering.
           </motion.p>
 
-          {/* Dual Action CTAs */}
+          {/* Dual Action CTAs with Liquid Fill Animation */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
             className="flex flex-wrap items-center gap-3.5 pt-2"
           >
-            <a
-              href="#work"
-              className="inline-flex items-center gap-2 px-6 py-3.5 bg-[#00D4FF] text-[#0B0B0A] font-semibold text-sm rounded-lg transition-all hover:bg-[#38BDF8] hover:shadow-[0_0_28px_rgba(0,212,255,0.45)] hover:-translate-y-0.5 active:translate-y-0"
-            >
-              <span>View Selected Work</span>
-              <ArrowUpRight className="h-4 w-4" />
-            </a>
+            <LiquidButton href="#work" variant="primary">
+              View Selected Work
+            </LiquidButton>
 
-            <a
-              href="#contact"
-              className="inline-flex items-center gap-2 px-6 py-3.5 border border-white/20 text-[#F3F3EE] text-sm font-medium rounded-lg transition-all hover:border-[#00D4FF] hover:text-[#00D4FF] hover:bg-white/[0.03] hover:-translate-y-0.5 active:translate-y-0"
-            >
-              <span>Start a Project</span>
-              <ArrowRight className="h-4 w-4" />
-            </a>
+            <LiquidButton href="#contact" variant="outline" icon={false}>
+              Start a Project →
+            </LiquidButton>
           </motion.div>
         </motion.div>
 

@@ -9,6 +9,7 @@ import { LaptopZoomPortal } from "@/components/story/LaptopZoomPortal";
 import { WorkStory } from "@/components/story/WorkStory";
 import { ContactStory } from "@/components/story/ContactStory";
 import { CommandPalette } from "@/components/CommandPalette";
+import { CursorSpotlight } from "@/components/ui/CursorSpotlight";
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState("Intro");
@@ -77,6 +78,9 @@ export default function Home() {
         style={{ transform: `scaleX(${pageProg})` }}
         aria-hidden="true"
       />
+
+      {/* Ambient Interactive Cursor Spotlight */}
+      <CursorSpotlight />
 
       {/* Persistent HUD Navigation */}
       <Header
