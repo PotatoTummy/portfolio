@@ -1,9 +1,9 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
 import { motion } from "framer-motion";
 import { MacBookProMockup } from "@/components/devices/MacBookProMockup";
+import { PortalDashboardUI } from "@/components/devices/PortalDashboardUI";
 import { Monitor, ArrowDown } from "lucide-react";
 
 interface LaptopZoomPortalProps {
@@ -71,21 +71,12 @@ export const LaptopZoomPortal: React.FC<LaptopZoomPortalProps> = ({ progress = 0
             }}
           >
             <MacBookProMockup
-              projectName="Nestys Eureka Central"
+              projectName="Eureka Central Enterprise Suite"
               scrollProgress={1.0}
               straight={true}
               className="drop-shadow-[0_20px_50px_rgba(0,0,0,0.18)]"
             >
-              <div className="relative w-full h-full bg-white select-none overflow-hidden">
-                <Image
-                  src="/projects/screens/nestys-eureka.png"
-                  alt="Nestys Eureka Central"
-                  fill
-                  sizes="780px"
-                  className="object-cover object-top"
-                  priority
-                />
-              </div>
+              <PortalDashboardUI />
             </MacBookProMockup>
           </div>
 

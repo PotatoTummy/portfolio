@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { IPhoneMockup } from "@/components/devices/IPhoneMockup";
 import { Sparkles, Zap, ShieldCheck, Heart, MessageCircle, Share2, Bookmark, Music, CheckCircle2 } from "lucide-react";
 
@@ -94,6 +94,7 @@ export const StudioStory: React.FC<StudioStoryProps> = ({ progress = 0 }) => {
   const [manualStep, setManualStep] = useState<number | null>(null);
   const scrollStep = Math.min(2, Math.floor(progress * 2.99));
   const activeStep = manualStep !== null ? manualStep : scrollStep;
+  const currentReel = REELS[activeStep] || REELS[0];
 
   // Reset manual override when user resumes scrolling significantly
   const prevProgressRef = useRef(progress);
@@ -193,93 +194,92 @@ export const StudioStory: React.FC<StudioStoryProps> = ({ progress = 0 }) => {
               >
                 {/* Scroll-Driven Reels Carousel Viewport */}
                 <div className="relative w-full h-full bg-black overflow-hidden select-none">
-                  <motion.div
-                    className="w-full h-full flex flex-col"
-                    animate={{ y: `-${activeStep * 100}%` }}
-                    transition={{ type: "spring", stiffness: 260, damping: 28 }}
-                  >
-                    {REELS.map((reel) => (
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={currentReel.id}
+                      initial={{ opacity: 0, y: 35 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -35 }}
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                      className="relative w-full h-full overflow-hidden bg-black text-white"
+                    >
+                      {/* Looping Ambient Video */}
+                      <video
+                        key={currentReel.videoSrc}
+                        src={currentReel.videoSrc}
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        className="absolute inset-0 w-full h-full object-cover"
+                      />
+
+                      {/* Gentle cinematic scrim for readability */}
                       <div
-                        key={reel.id}
-                        className="relative w-full h-full flex-shrink-0 overflow-hidden bg-black text-white"
-                      >
-                        {/* Looping Ambient Video */}
-                        <video
-                          src={reel.videoSrc}
-                          autoPlay
-                          loop
-                          muted
-                          playsInline
-                          className="absolute inset-0 w-full h-full object-cover"
-                        />
+                        className="absolute inset-0 pointer-events-none"
+                        style={{
+                          background:
+                            "linear-gradient(180deg, rgba(0,0,0,0.35) 0%, transparent 30%, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0.85) 100%)",
+                        }}
+                      />
 
-                        {/* Gentle cinematic scrim for readability */}
-                        <div
-                          className="absolute inset-0 pointer-events-none"
-                          style={{
-                            background:
-                              "linear-gradient(180deg, rgba(0,0,0,0.35) 0%, transparent 30%, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0.85) 100%)",
-                          }}
-                        />
+                      {/* Top Reel Counter Tag */}
+                      <div className="absolute top-10 left-3 z-20 flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-black/50 backdrop-blur-md border border-white/10 text-[9px] font-mono text-white/90">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#0284C7] animate-pulse" />
+                        <span>Reel {currentReel.id}/03</span>
+                      </div>
 
-                        {/* Top Reel Counter Tag */}
-                        <div className="absolute top-10 left-3 z-20 flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-black/50 backdrop-blur-md border border-white/10 text-[9px] font-mono text-white/90">
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#0284C7] animate-pulse" />
-                          <span>Reel {reel.id}/03</span>
+                      {/* Right Social Actions Column */}
+                      <div className="absolute right-2.5 bottom-16 z-20 flex flex-col items-center gap-3">
+                        <div className="flex flex-col items-center gap-0.5">
+                          <div className="w-7 h-7 rounded-full bg-black/45 backdrop-blur-md border border-white/15 flex items-center justify-center text-white/90 hover:text-white transition-colors">
+                            <Heart className="w-3.5 h-3.5 fill-red-500 text-red-500" />
+                          </div>
+                          <span className="text-[8px] font-mono text-white/90">{currentReel.likes}</span>
                         </div>
 
-                        {/* Right Social Actions Column */}
-                        <div className="absolute right-2.5 bottom-16 z-20 flex flex-col items-center gap-3">
-                          <div className="flex flex-col items-center gap-0.5">
-                            <div className="w-7 h-7 rounded-full bg-black/45 backdrop-blur-md border border-white/15 flex items-center justify-center text-white/90 hover:text-white transition-colors">
-                              <Heart className="w-3.5 h-3.5 fill-red-500 text-red-500" />
-                            </div>
-                            <span className="text-[8px] font-mono text-white/90">{reel.likes}</span>
-                          </div>
-
-                          <div className="flex flex-col items-center gap-0.5">
-                            <div className="w-7 h-7 rounded-full bg-black/45 backdrop-blur-md border border-white/15 flex items-center justify-center text-white/90">
-                              <MessageCircle className="w-3.5 h-3.5" />
-                            </div>
-                            <span className="text-[8px] font-mono text-white/90">{reel.comments}</span>
-                          </div>
-
-                          <div className="flex flex-col items-center gap-0.5">
-                            <div className="w-7 h-7 rounded-full bg-black/45 backdrop-blur-md border border-white/15 flex items-center justify-center text-white/90">
-                              <Share2 className="w-3.5 h-3.5" />
-                            </div>
-                            <span className="text-[8px] font-mono text-white/90">{reel.shares}</span>
-                          </div>
-
+                        <div className="flex flex-col items-center gap-0.5">
                           <div className="w-7 h-7 rounded-full bg-black/45 backdrop-blur-md border border-white/15 flex items-center justify-center text-white/90">
-                            <Bookmark className="w-3.5 h-3.5" />
+                            <MessageCircle className="w-3.5 h-3.5" />
                           </div>
+                          <span className="text-[8px] font-mono text-white/90">{currentReel.comments}</span>
                         </div>
 
-                        {/* Bottom Information Overlay */}
-                        <div className="absolute left-3 right-12 bottom-4 z-20 space-y-1 text-left">
-                          <div className="flex items-center gap-1.5">
-                            <span className="text-[11px] font-bold text-white tracking-tight flex items-center gap-1">
-                              @{reel.handle}
-                              <CheckCircle2 className="w-3 h-3 text-[#0284C7] fill-[#0284C7]" />
-                            </span>
-                            <span className="text-[9px] font-mono px-1.5 py-0.2 rounded bg-white/20 text-white/90">
-                              {reel.tag}
-                            </span>
+                        <div className="flex flex-col items-center gap-0.5">
+                          <div className="w-7 h-7 rounded-full bg-black/45 backdrop-blur-md border border-white/15 flex items-center justify-center text-white/90">
+                            <Share2 className="w-3.5 h-3.5" />
                           </div>
+                          <span className="text-[8px] font-mono text-white/90">{currentReel.shares}</span>
+                        </div>
 
-                          <p className="text-[10px] text-white/90 font-sans leading-tight line-clamp-2">
-                            {reel.caption}
-                          </p>
-
-                          <div className="flex items-center gap-1.5 text-[8px] font-mono text-white/70 pt-0.5">
-                            <Music className="w-2.5 h-2.5 text-[#0284C7]" />
-                            <span className="truncate">{reel.audioTrack}</span>
-                          </div>
+                        <div className="w-7 h-7 rounded-full bg-black/45 backdrop-blur-md border border-white/15 flex items-center justify-center text-white/90">
+                          <Bookmark className="w-3.5 h-3.5" />
                         </div>
                       </div>
-                    ))}
-                  </motion.div>
+
+                      {/* Bottom Information Overlay */}
+                      <div className="absolute left-3 right-12 bottom-4 z-20 space-y-1 text-left">
+                        <div className="flex items-center gap-1.5">
+                          <span className="text-[11px] font-bold text-white tracking-tight flex items-center gap-1">
+                            @{currentReel.handle}
+                            <CheckCircle2 className="w-3 h-3 text-[#0284C7] fill-[#0284C7]" />
+                          </span>
+                          <span className="text-[9px] font-mono px-1.5 py-0.2 rounded bg-white/20 text-white/90">
+                            {currentReel.tag}
+                          </span>
+                        </div>
+
+                        <p className="text-[10px] text-white/90 font-sans leading-tight line-clamp-2">
+                          {currentReel.caption}
+                        </p>
+
+                        <div className="flex items-center gap-1.5 text-[8px] font-mono text-white/70 pt-0.5">
+                          <Music className="w-2.5 h-2.5 text-[#0284C7]" />
+                          <span className="truncate">{currentReel.audioTrack}</span>
+                        </div>
+                      </div>
+                    </motion.div>
+                  </AnimatePresence>
                 </div>
               </IPhoneMockup>
             </div>
