@@ -13,18 +13,12 @@ import {
   ArrowLeft, 
   ArrowRight, 
   ExternalLink, 
-  Cpu, 
   Network, 
-  Layers, 
   CheckCircle2, 
-  Sparkles, 
   Video, 
-  Monitor, 
-  Smartphone 
+  Monitor 
 } from "lucide-react";
 import { GithubIcon } from "@/components/icons/GithubIcon";
-
-export const dynamic = "force-static";
 
 interface ProjectPageProps {
   params: Promise<{ slug: string }>;

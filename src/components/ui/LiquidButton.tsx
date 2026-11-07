@@ -24,7 +24,7 @@ export const LiquidButton: React.FC<LiquidButtonProps> = ({
   className = "",
   icon = true,
 }) => {
-  const buttonRef = useRef<HTMLAnchorElement | HTMLButtonElement>(null);
+  const buttonRef = useRef<HTMLSpanElement>(null);
   const [isHovered, setIsHovered] = useState(false);
 
   // Magnetic spring physics
@@ -96,7 +96,7 @@ export const LiquidButton: React.FC<LiquidButtonProps> = ({
 
   const content = (
     <motion.span
-      ref={buttonRef as any}
+      ref={buttonRef}
       style={{ x, y }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseMove={handleMouseMove}

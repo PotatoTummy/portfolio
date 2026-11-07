@@ -1,8 +1,7 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
-import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { IPhoneMockup } from "@/components/devices/IPhoneMockup";
 import { Sparkles, Zap, ShieldCheck, Heart, MessageCircle, Share2, Bookmark, Music, CheckCircle2 } from "lucide-react";
 
@@ -199,7 +198,7 @@ export const StudioStory: React.FC<StudioStoryProps> = ({ progress = 0 }) => {
                     animate={{ y: `-${activeStep * 100}%` }}
                     transition={{ type: "spring", stiffness: 260, damping: 28 }}
                   >
-                    {REELS.map((reel, rIdx) => (
+                    {REELS.map((reel) => (
                       <div
                         key={reel.id}
                         className="relative w-full h-full flex-shrink-0 overflow-hidden bg-black text-white"

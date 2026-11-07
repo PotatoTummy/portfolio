@@ -5,7 +5,7 @@ import Image from "next/image";
 import { FEATURED_PROJECTS, Project } from "@/data/portfolioData";
 import { LiquidButton } from "@/components/ui/LiquidButton";
 import { InteractiveProjectStage } from "@/components/story/InteractiveProjectStage";
-import { CheckCircle2, ArrowDown } from "lucide-react";
+import { ArrowDown } from "lucide-react";
 
 interface WorkStoryProps {
   progress?: number;
