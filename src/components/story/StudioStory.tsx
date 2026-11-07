@@ -1,9 +1,9 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { IPhoneMockup } from "@/components/devices/IPhoneMockup";
-import { ScrollrScreen } from "@/components/devices/RealisticScreenUI";
 import { Sparkles, Zap, ShieldCheck } from "lucide-react";
 
 interface StudioStoryProps {
@@ -115,13 +115,22 @@ export const StudioStory: React.FC<StudioStoryProps> = ({ progress = 0 }) => {
             {/* Realistic 3D Mockup Device with full vertical reel swipe */}
             <div className="relative w-[230px] transform-gpu drop-shadow-[0_20px_45px_rgba(0,0,0,0.18)]">
               <IPhoneMockup
-                projectName="Scrollr Engine"
+                projectName="Scrollr App"
                 scrollProgress={progress}
                 baseRotateY={-6}
                 baseRotateX={4}
                 className="scale-[0.84] origin-top"
               >
-                <ScrollrScreen scrollProgress={progress} />
+                <div className="relative w-full h-full bg-[#10100F] overflow-hidden select-none">
+                  <Image
+                    src="/projects/screens/scrollr-screen.png"
+                    alt="Scrollr App Interface"
+                    fill
+                    sizes="230px"
+                    className="object-cover object-top"
+                    priority
+                  />
+                </div>
               </IPhoneMockup>
             </div>
 

@@ -200,51 +200,29 @@ export const WorkStory: React.FC<WorkStoryProps> = ({ progress = 0 }) => {
                   {/* Main Two-Column Stage */}
                   <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center my-auto">
                     
-                    {/* Left Column: Project Narrative & Actions */}
+                    {/* Left Column: Minimal Project Story & Action */}
                     <div className="lg:col-span-6 space-y-4">
                       {/* Project Title */}
                       <h3
-                        className="font-grotesk text-[clamp(32px,4vw,62px)] font-medium leading-[0.96] tracking-tight text-white transition-transform duration-100"
-                        style={{ transform: `translateY(${(1 - reveal) * 35}px)` }}
+                        className="font-grotesk text-[clamp(34px,4.2vw,64px)] font-medium leading-[0.96] tracking-tight text-white transition-transform duration-100"
+                        style={{ transform: `translateY(${(1 - reveal) * 30}px)` }}
                       >
                         {project.title}
                       </h3>
 
-                      {/* Tagline */}
+                      {/* Minimal 1-Sentence Summary */}
                       <p
-                        className="text-sm sm:text-base font-sans font-medium leading-relaxed"
-                        style={{ color: project.accentColor }}
+                        className="text-base sm:text-lg font-sans font-normal leading-relaxed text-zinc-300 max-w-lg"
                       >
                         {project.tagline}
                       </p>
 
-                      {/* Overview */}
-                      <p className="text-xs sm:text-sm text-zinc-300 font-sans leading-relaxed max-w-xl">
-                        {project.overview}
-                      </p>
-
-                      {/* Key Feature Wins */}
-                      <div className="space-y-1.5 pt-1">
-                        {project.features?.slice(0, 2).map((feat, fIdx) => (
-                          <div key={fIdx} className="flex items-start gap-2 text-xs sm:text-sm text-zinc-300">
-                            <CheckCircle2
-                              className="h-4 w-4 shrink-0 mt-0.5"
-                              style={{ color: project.accentColor }}
-                            />
-                            <span>
-                              <strong className="text-white font-semibold">{feat.title}:</strong>{" "}
-                              {feat.description}
-                            </span>
-                          </div>
-                        ))}
-                      </div>
-
                       {/* Tech Stack Badges */}
-                      <div className="flex flex-wrap gap-1.5 pt-1">
-                        {project.techStack.slice(0, 5).map((tech, tIdx) => (
+                      <div className="flex flex-wrap gap-2 pt-1 pb-2">
+                        {project.techStack.slice(0, 4).map((tech, tIdx) => (
                           <span
                             key={tIdx}
-                            className="px-2.5 py-0.5 rounded-md bg-white/[0.08] border border-white/10 text-[11px] font-mono text-zinc-300"
+                            className="px-3 py-1 rounded-md bg-white/[0.08] border border-white/10 text-xs font-mono text-zinc-300"
                           >
                             {tech}
                           </span>
@@ -257,7 +235,7 @@ export const WorkStory: React.FC<WorkStoryProps> = ({ progress = 0 }) => {
                           href={`/projects/${project.slug}`}
                           variant="accent"
                           accentColor={project.accentColor}
-                          className="px-5 py-2.5 text-xs sm:text-sm"
+                          className="px-6 py-3 text-sm"
                         >
                           View Project Case Study
                         </LiquidButton>

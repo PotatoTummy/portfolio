@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { 
   getProjectBySlug, 
@@ -8,13 +9,6 @@ import {
 } from "@/data/portfolioData";
 import { MacBookProMockup } from "@/components/devices/MacBookProMockup";
 import { IPhoneMockup } from "@/components/devices/IPhoneMockup";
-import { 
-  NestysScreen, 
-  ScrollrScreen, 
-  WoKataaScreen, 
-  EarthAirScreen, 
-  UrbanArenaScreen
-} from "@/components/devices/RealisticScreenUI";
 import { 
   ArrowLeft, 
   ArrowRight, 
@@ -60,41 +54,55 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
   const { prev, next } = getAdjacentProjects(project.slug);
 
+  const SCREEN_IMAGES: Record<string, string> = {
+    nestys: "/projects/screens/nestys-screen.png",
+    scrollr: "/projects/screens/scrollr-screen.png",
+    wokataa: "/projects/screens/wokataa-screen.png",
+    "earth-air": "/projects/screens/earthair-screen.png",
+    "urban-arena": "/projects/screens/urbanarena-screen.png",
+  };
+
+  const isPhone = project.mockupType === "phone";
+  const screenImage = SCREEN_IMAGES[project.slug] || SCREEN_IMAGES["nestys"];
+
+  const getImageClasses = (slug: string) => {
+    if (slug === "wokataa") return "object-contain object-center scale-[0.97]";
+    return "object-cover object-top";
+  };
+
+  const renderScreenImage = () => (
+    <div className="relative w-full h-full bg-[#0B0D13] select-none overflow-hidden">
+      <Image
+        src={screenImage}
+        alt={`${project.title} Interface`}
+        fill
+        sizes={isPhone ? "320px" : "800px"}
+        className={getImageClasses(project.slug)}
+        priority
+      />
+      <div
+        className="absolute inset-0 pointer-events-none opacity-25"
+        style={{
+          background: "linear-gradient(135deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.02) 40%, transparent 60%)",
+        }}
+      />
+    </div>
+  );
+
   // Render the appropriate photorealistic UI mockup
   const renderDeviceMockup = () => {
-    switch (project.slug) {
-      case "nestys":
-        return (
-          <MacBookProMockup projectName={project.title} videoUrl={project.media?.videoUrl}>
-            <NestysScreen />
-          </MacBookProMockup>
-        );
-      case "scrollr":
-        return (
-          <IPhoneMockup projectName={project.title} videoUrl={project.media?.videoUrl}>
-            <ScrollrScreen />
-          </IPhoneMockup>
-        );
-      case "wokataa":
-        return (
-          <IPhoneMockup projectName={project.title} videoUrl={project.media?.videoUrl}>
-            <WoKataaScreen />
-          </IPhoneMockup>
-        );
-      case "earth-air":
-        return (
-          <MacBookProMockup projectName={project.title} videoUrl={project.media?.videoUrl}>
-            <EarthAirScreen />
-          </MacBookProMockup>
-        );
-      case "urban-arena":
-      default:
-        return (
-          <MacBookProMockup projectName={project.title} videoUrl={project.media?.videoUrl}>
-            <UrbanArenaScreen />
-          </MacBookProMockup>
-        );
+    if (isPhone) {
+      return (
+        <IPhoneMockup projectName={project.title} videoUrl={project.media?.videoUrl}>
+          {renderScreenImage()}
+        </IPhoneMockup>
+      );
     }
+    return (
+      <MacBookProMockup projectName={project.title} videoUrl={project.media?.videoUrl}>
+        {renderScreenImage()}
+      </MacBookProMockup>
+    );
   };
 
   return (

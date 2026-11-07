@@ -53,6 +53,16 @@ export const InteractiveProjectStage: React.FC<InteractiveProjectStageProps> = (
   const isPhone = project.mockupType === "phone";
   const screenImage = SCREEN_IMAGES[project.slug] || SCREEN_IMAGES["nestys"];
 
+  const getImageClasses = (slug: string) => {
+    if (slug === "wokataa") {
+      return "object-contain object-center scale-[0.97]";
+    }
+    if (slug === "scrollr") {
+      return "object-cover object-top";
+    }
+    return "object-cover object-top";
+  };
+
   const renderScreenContent = () => (
     <div className="relative w-full h-full bg-[#0B0D13] overflow-hidden select-none">
       <Image
@@ -60,12 +70,12 @@ export const InteractiveProjectStage: React.FC<InteractiveProjectStageProps> = (
         alt={`${project.title} Interface`}
         fill
         sizes={isPhone ? "320px" : "640px"}
-        className="object-cover object-top"
+        className={getImageClasses(project.slug)}
         priority
       />
       {/* Subtle realistic screen glass reflection */}
       <div
-        className="absolute inset-0 pointer-events-none opacity-40"
+        className="absolute inset-0 pointer-events-none opacity-30"
         style={{
           background: "linear-gradient(135deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.02) 40%, transparent 60%)",
         }}
