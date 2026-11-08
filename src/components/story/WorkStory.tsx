@@ -4,6 +4,7 @@ import React, { useRef } from "react";
 import { FEATURED_PROJECTS, Project } from "@/data/portfolioData";
 import { LiquidButton } from "@/components/ui/LiquidButton";
 import { InteractiveProjectStage } from "@/components/story/InteractiveProjectStage";
+import { ProjectArtworkBackdrop } from "@/components/story/backgrounds/ProjectArtworkBackdrop";
 import { ArrowDown } from "lucide-react";
 
 interface WorkStoryProps {
@@ -214,6 +215,9 @@ export const WorkStory: React.FC<WorkStoryProps> = ({ progress = 0 }) => {
                   aria-hidden="true"
                 />
 
+                {/* Bespoke Project Vector Artwork & Blueprint Guides */}
+                <ProjectArtworkBackdrop slug={project.slug} />
+
                 {/* Soft Readability Scrim for High Typography Contrast */}
                 <div
                   className="absolute inset-0 pointer-events-none"
@@ -336,7 +340,7 @@ export const WorkStory: React.FC<WorkStoryProps> = ({ progress = 0 }) => {
                             href={project.liveUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="font-mono text-xs font-medium text-slate-600 hover:text-slate-900 transition-colors underline decoration-slate-400/40 underline-offset-4"
+                            className="font-mono text-xs font-semibold text-slate-800 hover:text-black transition-colors underline decoration-slate-400 underline-offset-4"
                           >
                             Live Site ↗
                           </a>

@@ -63,12 +63,12 @@ export const LiquidButton: React.FC<LiquidButtonProps> = ({
     }
     if (variant === "accent") {
       return {
-        border: "border-white/20",
-        bg: "bg-white/[0.04]",
-        text: "text-[#F3F3EE]",
+        border: "border-slate-900/10",
+        bg: "bg-[#0F172A]",
+        text: "text-white font-medium",
         liquid: accentColor,
         textHover: "text-[#0B0B0A]",
-        shadow: "",
+        shadow: "shadow-[0_4px_14px_rgba(0,0,0,0.12)]",
       };
     }
     if (variant === "secondary") {

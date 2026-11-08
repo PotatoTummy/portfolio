@@ -7,6 +7,7 @@ import { HeroStory } from "@/components/story/HeroStory";
 import { StudioStory } from "@/components/story/StudioStory";
 import { LaptopZoomPortal } from "@/components/story/LaptopZoomPortal";
 import { WorkStory } from "@/components/story/WorkStory";
+import { CraftStatementStory } from "@/components/story/CraftStatementStory";
 import { ContactStory } from "@/components/story/ContactStory";
 import { CommandPalette } from "@/components/CommandPalette";
 import { CursorSpotlight } from "@/components/ui/CursorSpotlight";
@@ -108,7 +109,10 @@ export default function Home() {
         {/* 4. Selected Work: High-impact portfolio showcase */}
         <WorkStory progress={workProg} />
 
-        {/* 5. Contact: Clean, high-contrast, effortless contact section */}
+        {/* 5. Craft Statement: Minimal, high-impact Webdrift kinetic typography transition */}
+        <CraftStatementStory />
+
+        {/* 6. Contact: Clean, high-contrast, effortless contact section */}
         <ContactStory />
       </main>
 
