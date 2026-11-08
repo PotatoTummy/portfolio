@@ -3,7 +3,7 @@
 import React, { useState, useRef } from "react";
 import Image from "next/image";
 import { useIsMounted } from "@/hooks/useIsMounted";
-import { Volume2, VolumeX, RotateCcw, Move3d } from "lucide-react";
+import { Volume2, VolumeX, RotateCcw } from "lucide-react";
 
 interface MacBookProMockupProps {
   children?: React.ReactNode;
@@ -126,22 +126,18 @@ export const MacBookProMockup: React.FC<MacBookProMockupProps> = ({
       } ${className}`}
       style={{ transformStyle: "preserve-3d" }}
     >
-      {/* 360° Drag & Scroll Indicator Bar */}
-      <div className="absolute -top-8 left-1/2 -translate-x-1/2 z-40 flex items-center gap-2 pointer-events-auto">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-white/10 bg-black/75 backdrop-blur-md text-[10px] font-mono text-zinc-300 shadow-xl">
-          <Move3d className="h-3 w-3 text-[#00D4FF]" />
-          <span>Drag 360° to rotate • Scroll to open</span>
-        </div>
-        {hasInteracted && (
+      {/* 3D Reset Button (only visible after user interaction) */}
+      {hasInteracted && (
+        <div className="absolute -top-8 left-1/2 -translate-x-1/2 z-40 flex items-center gap-2 pointer-events-auto">
           <button
             onClick={reset3DView}
-            className="p-1 rounded-full border border-white/10 bg-black/80 hover:bg-white/10 text-zinc-300 transition-colors"
+            className="p-1.5 rounded-full border border-white/10 bg-black/80 hover:bg-white/10 text-zinc-300 transition-colors shadow-lg"
             title="Reset 3D Angle"
           >
             <RotateCcw className="h-3 w-3" />
           </button>
-        )}
-      </div>
+        </div>
+      )}
 
       {/* 3D Floating Rig (Apple 16" MacBook Pro Specifications) */}
       <div

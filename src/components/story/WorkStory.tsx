@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useRef } from "react";
-import Image from "next/image";
 import { FEATURED_PROJECTS, Project } from "@/data/portfolioData";
 import { LiquidButton } from "@/components/ui/LiquidButton";
 import { InteractiveProjectStage } from "@/components/story/InteractiveProjectStage";
@@ -11,12 +10,88 @@ interface WorkStoryProps {
   progress?: number;
 }
 
-const PROJECT_BACKGROUNDS: Record<string, string> = {
-  nestys: "/projects/backgrounds/nestys-bg.jpg",
-  scrollr: "/projects/backgrounds/scrollr-bg.jpg",
-  wokataa: "/projects/backgrounds/wokataa-bg.jpg",
-  "earth-air": "/projects/backgrounds/earthair-bg.jpg",
-  "urban-arena": "/projects/backgrounds/urbanarena-bg.jpg",
+// Lively, light-toned studio aesthetic themes for each project in the gallery
+const PROJECT_THEMES: Record<
+  string,
+  {
+    bgBase: string;
+    glowPrimary: string;
+    glowSecondary: string;
+    titleColor: string;
+    taglineColor: string;
+    badgeBg: string;
+    badgeBorder: string;
+    badgeText: string;
+    switcherActiveBg: string;
+    dividerColor: string;
+    footerText: string;
+  }
+> = {
+  nestys: {
+    bgBase: "#F1F7FC",
+    glowPrimary: "rgba(0, 212, 255, 0.38)",
+    glowSecondary: "rgba(37, 99, 235, 0.16)",
+    titleColor: "#0A192F",
+    taglineColor: "#334155",
+    badgeBg: "rgba(0, 212, 255, 0.12)",
+    badgeBorder: "rgba(0, 212, 255, 0.35)",
+    badgeText: "#0284C7",
+    switcherActiveBg: "rgba(2, 132, 199, 0.15)",
+    dividerColor: "rgba(10, 25, 47, 0.12)",
+    footerText: "#475569",
+  },
+  scrollr: {
+    bgBase: "#FFF8F2",
+    glowPrimary: "rgba(245, 158, 11, 0.40)",
+    glowSecondary: "rgba(244, 63, 94, 0.18)",
+    titleColor: "#1C1917",
+    taglineColor: "#44403C",
+    badgeBg: "rgba(245, 158, 11, 0.14)",
+    badgeBorder: "rgba(245, 158, 11, 0.35)",
+    badgeText: "#B45309",
+    switcherActiveBg: "rgba(245, 158, 11, 0.18)",
+    dividerColor: "rgba(28, 25, 23, 0.12)",
+    footerText: "#57534E",
+  },
+  wokataa: {
+    bgBase: "#F0FAF5",
+    glowPrimary: "rgba(16, 185, 129, 0.38)",
+    glowSecondary: "rgba(20, 184, 166, 0.18)",
+    titleColor: "#06281E",
+    taglineColor: "#1E3A2F",
+    badgeBg: "rgba(16, 185, 129, 0.14)",
+    badgeBorder: "rgba(16, 185, 129, 0.35)",
+    badgeText: "#059669",
+    switcherActiveBg: "rgba(16, 185, 129, 0.16)",
+    dividerColor: "rgba(6, 40, 30, 0.12)",
+    footerText: "#335C4D",
+  },
+  "earth-air": {
+    bgBase: "#F2F9FD",
+    glowPrimary: "rgba(2, 132, 199, 0.36)",
+    glowSecondary: "rgba(234, 179, 8, 0.22)",
+    titleColor: "#082F49",
+    taglineColor: "#1E293B",
+    badgeBg: "rgba(2, 132, 199, 0.12)",
+    badgeBorder: "rgba(2, 132, 199, 0.35)",
+    badgeText: "#0369A1",
+    switcherActiveBg: "rgba(2, 132, 199, 0.15)",
+    dividerColor: "rgba(8, 47, 73, 0.12)",
+    footerText: "#475569",
+  },
+  "urban-arena": {
+    bgBase: "#F2FAF4",
+    glowPrimary: "rgba(34, 197, 94, 0.38)",
+    glowSecondary: "rgba(132, 204, 22, 0.20)",
+    titleColor: "#052E16",
+    taglineColor: "#14532D",
+    badgeBg: "rgba(34, 197, 94, 0.14)",
+    badgeBorder: "rgba(34, 197, 94, 0.35)",
+    badgeText: "#15803D",
+    switcherActiveBg: "rgba(34, 197, 94, 0.16)",
+    dividerColor: "rgba(5, 46, 22, 0.12)",
+    footerText: "#2B5E3C",
+  },
 };
 
 // Smooth Hermite interpolation: 0 -> 1 with smooth acceleration & deceleration
@@ -94,56 +169,56 @@ export const WorkStory: React.FC<WorkStoryProps> = ({ progress = 0 }) => {
       <div
         id="work-scroll-container"
         ref={containerRef}
-        className="relative min-h-[500vh] w-full bg-[#0B0B0A]"
+        className="relative min-h-[500vh] w-full bg-[#EFEAE4]"
       >
         <div className="sticky top-0 h-[100svh] w-full overflow-hidden">
           
-          {/* Stacked Project Slides with Vertical Wipe & Cinematic Background Artwork */}
+          {/* Stacked Project Slides with Vertical Wipe & Lively Luminous Studio Backdrops */}
           {FEATURED_PROJECTS.map((project: Project, idx: number) => {
             const reveal = reveals[idx] ?? 0;
-            const bgImage = PROJECT_BACKGROUNDS[project.slug] || PROJECT_BACKGROUNDS["nestys"];
+            const theme = PROJECT_THEMES[project.slug] || PROJECT_THEMES["nestys"];
 
             return (
               <div
                 key={project.id}
-                className="absolute inset-0 overflow-hidden text-white will-change-[clip-path] transform-gpu"
+                className="absolute inset-0 overflow-hidden will-change-[clip-path] transform-gpu transition-colors"
                 style={{
                   zIndex: idx,
                   clipPath: `inset(${(1 - reveal) * 100}% 0 0 0)`,
+                  backgroundColor: theme.bgBase,
                 }}
               >
-                {/* High-Resolution Cinematic Background Artwork */}
+                {/* Lively Luminous Ambient Studio Lighting Backdrops */}
                 <div
-                  className="absolute inset-0 will-change-transform transform-gpu"
+                  className="absolute inset-0 pointer-events-none"
                   style={{
-                    transform: `scale(${1 + (1 - reveal) * 0.08})`,
-                  }}
-                >
-                  <Image
-                    src={bgImage}
-                    alt={`${project.title} Background`}
-                    fill
-                    priority={idx <= 1}
-                    sizes="100vw"
-                    className="object-cover object-center"
-                  />
-                </div>
-
-                {/* Thematic Ambient Glow Aura */}
-                <div
-                  className="absolute inset-0 pointer-events-none blur-[120px] opacity-35"
-                  style={{
-                    background: `radial-gradient(circle at 75% 40%, ${project.accentColor} 0%, transparent 60%)`,
+                    background: `
+                      radial-gradient(ellipse 70% 65% at 75% 42%, ${theme.glowPrimary} 0%, transparent 60%),
+                      radial-gradient(ellipse 55% 50% at 20% 65%, ${theme.glowSecondary} 0%, transparent 55%),
+                      radial-gradient(circle at 50% 10%, rgba(255,255,255,0.85) 0%, transparent 60%)
+                    `,
                   }}
                   aria-hidden="true"
                 />
 
-                {/* Readability Scrim: Heavy dark gradient preserving 100% contrast for typography */}
+                {/* Subtle Modern Studio Micro-Grid & Architectural Texture */}
+                <div
+                  className="absolute inset-0 pointer-events-none opacity-40"
+                  style={{
+                    backgroundImage: `
+                      linear-gradient(to right, ${theme.dividerColor} 1px, transparent 1px),
+                      linear-gradient(to bottom, ${theme.dividerColor} 1px, transparent 1px)
+                    `,
+                    backgroundSize: "64px 64px",
+                  }}
+                  aria-hidden="true"
+                />
+
+                {/* Soft Readability Scrim for High Typography Contrast */}
                 <div
                   className="absolute inset-0 pointer-events-none"
                   style={{
-                    background:
-                      "linear-gradient(90deg, rgba(11,11,10,0.94) 0%, rgba(11,11,10,0.85) 45%, rgba(11,11,10,0.40) 100%), linear-gradient(180deg, rgba(11,11,10,0.5) 0%, transparent 20%, transparent 80%, rgba(11,11,10,0.85) 100%)",
+                    background: `linear-gradient(90deg, ${theme.bgBase} 0%, ${theme.bgBase}D9 45%, transparent 100%)`,
                   }}
                 />
 
@@ -151,22 +226,31 @@ export const WorkStory: React.FC<WorkStoryProps> = ({ progress = 0 }) => {
                 <div className="relative z-10 h-full w-full max-w-7xl mx-auto px-6 sm:px-12 md:px-16 pt-20 pb-6 flex flex-col justify-between">
                   
                   {/* Top Editorial Status Strip */}
-                  <div className="flex items-center justify-between border-b border-white/10 pb-3">
+                  <div
+                    className="flex items-center justify-between pb-3 border-b"
+                    style={{ borderColor: theme.dividerColor }}
+                  >
                     {/* Project Counter */}
                     <div className="flex items-center gap-3">
-                      <span className="font-mono text-base font-bold text-white tracking-wider">
+                      <span
+                        className="font-mono text-base font-bold tracking-wider"
+                        style={{ color: theme.titleColor }}
+                      >
                         0{idx + 1}
-                        <span className="text-zinc-500 font-normal"> / 0{totalProjects}</span>
+                        <span className="font-normal opacity-50"> / 0{totalProjects}</span>
                       </span>
 
-                      <span className="w-px h-3.5 bg-white/20" />
+                      <span
+                        className="w-px h-3.5"
+                        style={{ backgroundColor: theme.dividerColor }}
+                      />
 
                       <span
                         className="px-3 py-0.5 rounded-full text-xs font-mono font-semibold border backdrop-blur-md"
                         style={{
-                          borderColor: `${project.accentColor}50`,
-                          backgroundColor: `${project.accentColor}20`,
-                          color: project.accentColor,
+                          borderColor: theme.badgeBorder,
+                          backgroundColor: theme.badgeBg,
+                          color: theme.badgeText,
                         }}
                       >
                         {project.category}
@@ -174,7 +258,7 @@ export const WorkStory: React.FC<WorkStoryProps> = ({ progress = 0 }) => {
                     </div>
 
                     {/* Quick Project Switcher Pills */}
-                    <div className="hidden md:flex items-center gap-1.5 p-1 rounded-xl bg-black/60 border border-white/10 backdrop-blur-md font-mono text-xs">
+                    <div className="hidden md:flex items-center gap-1.5 p-1 rounded-xl bg-white/70 border border-slate-200/80 shadow-xs backdrop-blur-md font-mono text-xs">
                       {FEATURED_PROJECTS.map((p, pIdx) => (
                         <button
                           key={p.id}
@@ -182,8 +266,8 @@ export const WorkStory: React.FC<WorkStoryProps> = ({ progress = 0 }) => {
                           onClick={() => scrollToProject(pIdx)}
                           className={`px-2.5 py-1 rounded-lg transition-all cursor-pointer ${
                             pIdx === activeIndex
-                              ? "bg-white/20 text-white font-bold shadow-xs"
-                              : "text-zinc-400 hover:text-zinc-200 opacity-70 hover:opacity-100"
+                              ? "bg-slate-900 text-white font-bold shadow-xs"
+                              : "text-slate-600 hover:text-slate-900 hover:bg-slate-100/70"
                           }`}
                         >
                           {p.shortName}
@@ -192,7 +276,10 @@ export const WorkStory: React.FC<WorkStoryProps> = ({ progress = 0 }) => {
                     </div>
 
                     {/* Timeline */}
-                    <span className="hidden sm:inline-block font-mono text-xs text-zinc-400">
+                    <span
+                      className="hidden sm:inline-block font-mono text-xs font-medium"
+                      style={{ color: theme.footerText }}
+                    >
                       {project.timeline}
                     </span>
                   </div>
@@ -204,15 +291,19 @@ export const WorkStory: React.FC<WorkStoryProps> = ({ progress = 0 }) => {
                     <div className="lg:col-span-6 space-y-4">
                       {/* Project Title */}
                       <h3
-                        className="font-grotesk text-[clamp(34px,4.2vw,64px)] font-medium leading-[0.96] tracking-tight text-white transition-transform duration-100"
-                        style={{ transform: `translateY(${(1 - reveal) * 30}px)` }}
+                        className="font-grotesk text-[clamp(34px,4.2vw,64px)] font-medium leading-[0.96] tracking-tight transition-transform duration-100"
+                        style={{
+                          color: theme.titleColor,
+                          transform: `translateY(${(1 - reveal) * 30}px)`,
+                        }}
                       >
                         {project.title}
                       </h3>
 
                       {/* Minimal 1-Sentence Summary */}
                       <p
-                        className="text-base sm:text-lg font-sans font-normal leading-relaxed text-zinc-300 max-w-lg"
+                        className="text-base sm:text-lg font-sans font-normal leading-relaxed max-w-lg"
+                        style={{ color: theme.taglineColor }}
                       >
                         {project.tagline}
                       </p>
@@ -222,7 +313,7 @@ export const WorkStory: React.FC<WorkStoryProps> = ({ progress = 0 }) => {
                         {project.techStack.slice(0, 4).map((tech, tIdx) => (
                           <span
                             key={tIdx}
-                            className="px-3 py-1 rounded-md bg-white/[0.08] border border-white/10 text-xs font-mono text-zinc-300"
+                            className="px-3 py-1 rounded-md bg-white/80 border border-slate-200/90 text-xs font-mono font-medium text-slate-800 shadow-xs"
                           >
                             {tech}
                           </span>
@@ -235,7 +326,7 @@ export const WorkStory: React.FC<WorkStoryProps> = ({ progress = 0 }) => {
                           href={`/projects/${project.slug}`}
                           variant="accent"
                           accentColor={project.accentColor}
-                          className="px-6 py-3 text-sm"
+                          className="px-6 py-3 text-sm shadow-md"
                         >
                           View Project Case Study
                         </LiquidButton>
@@ -245,7 +336,7 @@ export const WorkStory: React.FC<WorkStoryProps> = ({ progress = 0 }) => {
                             href={project.liveUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="font-mono text-xs text-zinc-400 hover:text-white transition-colors underline decoration-white/20 underline-offset-4"
+                            className="font-mono text-xs font-medium text-slate-600 hover:text-slate-900 transition-colors underline decoration-slate-400/40 underline-offset-4"
                           >
                             Live Site ↗
                           </a>
@@ -260,9 +351,12 @@ export const WorkStory: React.FC<WorkStoryProps> = ({ progress = 0 }) => {
                   </div>
 
                   {/* Bottom Strip: Role & Scroll Cue */}
-                  <div className="flex items-center justify-between border-t border-white/10 pt-2 font-mono text-[11px] text-zinc-400">
+                  <div
+                    className="flex items-center justify-between border-t pt-2 font-mono text-[11px]"
+                    style={{ borderColor: theme.dividerColor, color: theme.footerText }}
+                  >
                     <span>Role: {project.role}</span>
-                    <span className="flex items-center gap-1.5 text-zinc-500">
+                    <span className="flex items-center gap-1.5 opacity-80">
                       <span>{idx === totalProjects - 1 ? "Scroll down to contact" : "Scroll to next project"}</span>
                       <ArrowDown className="h-3 w-3 animate-bounce" />
                     </span>

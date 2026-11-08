@@ -40,7 +40,7 @@ export const PROFILE = {
   email: "samadkausar786@gmail.com",
   phone: "+91 7317368358",
   github: "https://github.com/PotatoTummy",
-  linkedin: "https://linkedin.com",
+  linkedin: "https://www.linkedin.com/in/samad-kausar-762b2419b/",
   currentCompany: {
     name: "Stack-IT Technologies",
     url: "https://stack-it.tech/",
@@ -70,6 +70,7 @@ export const FEATURED_PROJECTS: Project[] = [
     timeline: "2026 – Present",
     accentColor: "#00D4FF",
     mockupType: "laptop",
+    liveUrl: "https://staging.nestys.com/admin/login",
     overview: "Built a unified three-portal web application for an enterprise client. Created an intuitive Seller Dashboard for tracking daily orders and inventory, a candidate listings portal for recruiters, and an admin moderation console.",
     metrics: [
       { label: "Portals Built", value: "3 Web Consoles" },

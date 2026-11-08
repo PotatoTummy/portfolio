@@ -3,7 +3,7 @@
 import React, { useState, useRef } from "react";
 import Image from "next/image";
 import { useIsMounted } from "@/hooks/useIsMounted";
-import { Wifi, BatteryMedium, Volume2, VolumeX, Move3d, RotateCcw } from "lucide-react";
+import { Wifi, BatteryMedium, Volume2, VolumeX, RotateCcw } from "lucide-react";
 
 interface IPhoneMockupProps {
   children?: React.ReactNode;
@@ -117,22 +117,18 @@ export const IPhoneMockup: React.FC<IPhoneMockupProps> = ({
       } ${className}`}
       style={{ transformStyle: "preserve-3d" }}
     >
-      {/* 360° Drag Hint & Reset */}
-      <div className="absolute -top-8 left-1/2 -translate-x-1/2 z-40 flex items-center gap-1.5 pointer-events-auto">
-        <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full border border-white/10 bg-black/70 backdrop-blur-md text-[9px] font-mono text-zinc-300 shadow-lg">
-          <Move3d className="h-2.5 w-2.5 text-[#2B6CFF]" />
-          <span>Drag 360°</span>
-        </div>
-        {hasInteracted && (
+      {/* 3D Reset (only visible after user interaction) */}
+      {hasInteracted && (
+        <div className="absolute -top-8 left-1/2 -translate-x-1/2 z-40 flex items-center gap-1.5 pointer-events-auto">
           <button
             onClick={reset3DView}
-            className="p-1 rounded-full border border-white/10 bg-black/80 hover:bg-white/10 text-zinc-300 transition-colors"
+            className="p-1.5 rounded-full border border-white/10 bg-black/80 hover:bg-white/10 text-zinc-300 transition-colors shadow-lg"
             title="Reset"
           >
-            <RotateCcw className="h-2.5 w-2.5" />
+            <RotateCcw className="h-3 w-3" />
           </button>
-        )}
-      </div>
+        </div>
+      )}
 
       {/* 3D Floating Rig */}
       <div

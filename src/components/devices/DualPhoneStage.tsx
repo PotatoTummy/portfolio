@@ -2,7 +2,7 @@
 
 import React, { useState, useRef } from "react";
 import { IPhoneMockup } from "./IPhoneMockup";
-import { Move3d, RotateCcw } from "lucide-react";
+import { RotateCcw } from "lucide-react";
 
 interface DualPhoneStageProps {
   primaryChild: React.ReactNode;
@@ -98,22 +98,18 @@ export const DualPhoneStage: React.FC<DualPhoneStageProps> = ({
       } ${className}`}
       style={{ transformStyle: "preserve-3d" }}
     >
-      {/* 360° Drag & Scroll Indicator */}
-      <div className="absolute -top-10 left-1/2 -translate-x-1/2 z-40 flex items-center gap-1.5 pointer-events-auto">
-        <div className="inline-flex items-center gap-1 px-3 py-1 rounded-full border border-white/10 bg-black/70 backdrop-blur-md text-[10px] font-mono text-zinc-300 shadow-lg">
-          <Move3d className="h-3 w-3 text-[#00D4FF]" />
-          <span>Drag 360° to rotate • Scroll to animate</span>
-        </div>
-        {hasInteracted && (
+      {/* 3D Reset (only visible after user interaction) */}
+      {hasInteracted && (
+        <div className="absolute -top-10 left-1/2 -translate-x-1/2 z-40 flex items-center gap-1.5 pointer-events-auto">
           <button
             onClick={reset3D}
-            className="p-1 rounded-full border border-white/10 bg-black/80 hover:bg-white/10 text-zinc-300 transition-colors"
+            className="p-1.5 rounded-full border border-white/10 bg-black/80 hover:bg-white/10 text-zinc-300 transition-colors shadow-lg"
             title="Reset"
           >
             <RotateCcw className="h-3 w-3" />
           </button>
-        )}
-      </div>
+        </div>
+      )}
 
       {mode === "clash" ? (
         // WoKataa Clashing Duel Phones
