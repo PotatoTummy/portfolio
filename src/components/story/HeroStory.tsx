@@ -29,11 +29,11 @@ export const HeroStory: React.FC<HeroStoryProps> = () => {
     <section
       id="hero"
       data-nav="Intro"
-      className="relative min-h-[100svh] w-full select-none bg-[#0B0B0A] text-[#F3F3EE] overflow-hidden flex flex-col justify-between px-6 sm:px-12 md:px-16 pt-24 pb-8"
+      className="relative min-h-[100svh] w-full select-none bg-[#0B0B0A] text-[#F3F3EE] overflow-x-clip flex flex-col justify-between px-4 sm:px-12 md:px-16 pt-20 sm:pt-24 pb-6 sm:pb-8"
     >
       {/* Ambient Radial Cyan Aura */}
       <div
-        className="absolute right-[5vw] top-[25%] -translate-y-1/2 w-[550px] h-[450px] rounded-full pointer-events-none blur-[150px] opacity-20"
+        className="absolute right-[5vw] top-[25%] -translate-y-1/2 w-[320px] sm:w-[550px] h-[300px] sm:h-[450px] rounded-full pointer-events-none blur-[120px] sm:blur-[150px] opacity-20"
         style={{
           background: "radial-gradient(circle, #00D4FF 0%, #0284C7 50%, transparent 75%)",
         }}
@@ -41,30 +41,32 @@ export const HeroStory: React.FC<HeroStoryProps> = () => {
       />
 
       {/* Main Grid: Headline & Bio on Left, Realistic Hardware Mockup on Right */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center my-auto z-10 w-full max-w-7xl mx-auto">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center my-auto z-10 w-full max-w-7xl mx-auto py-4 sm:py-0">
         
         {/* Left Column: Value Proposition & Action CTAs */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="lg:col-span-7 space-y-6"
+          className="lg:col-span-7 space-y-4 sm:space-y-6"
         >
           {/* Subtle status tag */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-zinc-300"
+            className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[11px] sm:text-xs font-mono text-zinc-300 max-w-full truncate"
           >
-            <span className="w-2 h-2 rounded-full bg-[#00D4FF] animate-pulse" />
-            <span>Frontend & Full Stack Developer</span>
-            <span className="text-zinc-600">•</span>
-            <span className="text-zinc-400">Available for projects</span>
+            <span className="w-2 h-2 rounded-full bg-[#00D4FF] animate-pulse shrink-0" />
+            <span className="truncate">
+              <span className="hidden sm:inline">Frontend & </span>Full Stack Developer
+            </span>
+            <span className="text-zinc-600 shrink-0">•</span>
+            <span className="text-zinc-400 shrink-0">Available for hire</span>
           </motion.div>
 
           {/* Large Grotesk Headline */}
-          <h1 className="font-grotesk text-[clamp(42px,6.2vw,96px)] font-medium leading-[0.95] tracking-tight text-[#F3F3EE]">
+          <h1 className="font-grotesk text-[clamp(34px,7.5vw,96px)] font-medium leading-[0.95] tracking-tight text-[#F3F3EE]">
             <motion.span
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -88,7 +90,7 @@ export const HeroStory: React.FC<HeroStoryProps> = () => {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            className="text-base sm:text-lg text-zinc-300 max-w-xl font-sans leading-relaxed"
+            className="text-sm sm:text-lg text-zinc-300 max-w-xl font-sans leading-relaxed"
           >
             I&apos;m Samad Kausar — a frontend-leaning developer crafting responsive websites and digital products. I combine clean visual design with fluid motion and reliable, scalable engineering.
           </motion.p>
@@ -98,13 +100,13 @@ export const HeroStory: React.FC<HeroStoryProps> = () => {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
-            className="flex flex-wrap items-center gap-3.5 pt-2"
+            className="flex flex-wrap items-center gap-3 pt-2"
           >
-            <LiquidButton href="#work" variant="primary">
+            <LiquidButton href="#work" variant="primary" className="px-4 sm:px-5 py-2.5 sm:py-3 text-xs sm:text-sm">
               View Selected Work
             </LiquidButton>
 
-            <LiquidButton href="#contact" variant="outline" icon={false}>
+            <LiquidButton href="#contact" variant="outline" icon={false} className="px-4 sm:px-5 py-2.5 sm:py-3 text-xs sm:text-sm">
               Start a Project →
             </LiquidButton>
           </motion.div>
@@ -115,7 +117,7 @@ export const HeroStory: React.FC<HeroStoryProps> = () => {
           initial={{ opacity: 0, scale: 0.92, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 1.0, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-          className="lg:col-span-5 relative flex items-center justify-center"
+          className="lg:col-span-5 relative flex items-center justify-center mt-4 sm:mt-6 lg:mt-0"
         >
           {/* Subtle Coordinate Badge */}
           <div className="absolute -top-7 right-2 font-mono text-[10px] text-zinc-400 hidden sm:flex items-center gap-2">
@@ -133,7 +135,7 @@ export const HeroStory: React.FC<HeroStoryProps> = () => {
               repeat: Infinity,
               ease: "easeInOut",
             }}
-            className="w-full max-w-[500px] drop-shadow-[0_25px_60px_rgba(0,0,0,0.85)]"
+            className="w-full max-w-[340px] xs:max-w-[420px] sm:max-w-[480px] lg:max-w-[500px] drop-shadow-[0_20px_50px_rgba(0,0,0,0.85)]"
           >
             <MacBookProMockup
               projectName="Pulse Analytics Dashboard"

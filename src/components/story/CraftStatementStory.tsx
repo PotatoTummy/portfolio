@@ -46,16 +46,16 @@ export const CraftStatementStory: React.FC = () => {
   const current = STATEMENTS[activeIndex];
 
   return (
-    <section className="relative w-full bg-[#EFEAE4] text-[#121211] py-24 sm:py-32 px-6 sm:px-12 md:px-16 border-t border-[#121211]/12 select-none overflow-hidden">
-      <div className="max-w-7xl mx-auto flex flex-col justify-between min-h-[50vh] sm:min-h-[58vh]">
+    <section className="relative w-full bg-[#EFEAE4] text-[#121211] py-14 sm:py-32 px-4 sm:px-12 md:px-16 border-t border-[#121211]/12 select-none overflow-hidden">
+      <div className="max-w-7xl mx-auto flex flex-col justify-between min-h-[44vh] sm:min-h-[58vh]">
         {/* Top Editorial Status Strip */}
-        <div className="flex items-center justify-between border-b border-[#121211]/12 pb-4 font-mono text-xs">
+        <div className="flex items-center justify-between border-b border-[#121211]/12 pb-3 sm:pb-4 font-mono text-[11px] sm:text-xs">
           <div className="flex items-center gap-2 font-medium">
             <span className="w-2 h-2 rounded-xs bg-[#0F172A]" />
             <span className="uppercase tracking-wider text-[#121211]/70">Full-Stack Craft</span>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3 sm:gap-4">
             <div className="flex items-center gap-1.5">
               {STATEMENTS.map((s, idx) => (
                 <button
@@ -63,7 +63,7 @@ export const CraftStatementStory: React.FC = () => {
                   type="button"
                   onClick={() => setActiveIndex(idx)}
                   className={`h-1.5 rounded-full transition-all cursor-pointer ${
-                    idx === activeIndex ? "w-8 bg-[#0F172A]" : "w-2 bg-[#121211]/20 hover:bg-[#121211]/40"
+                    idx === activeIndex ? "w-6 sm:w-8 bg-[#0F172A]" : "w-1.5 sm:w-2 bg-[#121211]/20 hover:bg-[#121211]/40"
                   }`}
                   aria-label={`Statement ${idx + 1}`}
                 />
@@ -74,16 +74,16 @@ export const CraftStatementStory: React.FC = () => {
         </div>
 
         {/* Center: Massive Kinetic Typography */}
-        <div className="my-auto py-12 sm:py-16">
-          <div className="overflow-hidden min-h-[120px] sm:min-h-[180px] md:min-h-[220px] flex items-center">
+        <div className="my-auto py-8 sm:py-16">
+          <div className="overflow-hidden min-h-[70px] sm:min-h-[180px] md:min-h-[220px] flex items-center">
             <AnimatePresence mode="wait">
               <motion.h2
                 key={current.word}
-                initial={{ y: 80, opacity: 0 }}
+                initial={{ y: 60, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                exit={{ y: -80, opacity: 0 }}
+                exit={{ y: -60, opacity: 0 }}
                 transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                className="font-grotesk text-[clamp(48px,9vw,130px)] font-bold tracking-tight leading-[0.92]"
+                className="font-grotesk text-[clamp(34px,8.5vw,130px)] font-bold tracking-tight leading-[0.92] break-words"
                 style={{ color: current.color }}
               >
                 {current.word}
@@ -93,7 +93,7 @@ export const CraftStatementStory: React.FC = () => {
         </div>
 
         {/* Bottom Strip: Description & Action Link */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 border-t border-[#121211]/12 pt-6">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 sm:gap-6 border-t border-[#121211]/12 pt-4 sm:pt-6">
           <div className="max-w-xl">
             <AnimatePresence mode="wait">
               <motion.p
@@ -102,17 +102,17 @@ export const CraftStatementStory: React.FC = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.3 }}
-                className="text-base sm:text-xl font-sans font-normal text-[#121211]/80 leading-relaxed"
+                className="text-sm sm:text-xl font-sans font-normal text-[#121211]/80 leading-relaxed"
               >
                 {current.lead}
               </motion.p>
             </AnimatePresence>
           </div>
 
-          <div className="flex items-center gap-4 shrink-0">
+          <div className="flex flex-wrap items-center gap-3.5 sm:gap-4 shrink-0">
             <Link
               href="#contact"
-              className="inline-flex items-center gap-2 font-mono text-xs font-semibold text-[#121211] hover:text-[#0284C7] transition-colors border-b border-[#121211] pb-0.5 hover:border-[#0284C7]"
+              className="inline-flex items-center gap-1.5 sm:gap-2 font-mono text-xs font-semibold text-[#121211] hover:text-[#0284C7] transition-colors border-b border-[#121211] pb-0.5 hover:border-[#0284C7]"
             >
               <span>Start a project</span>
               <ArrowUpRight className="h-3.5 w-3.5" />
@@ -120,7 +120,7 @@ export const CraftStatementStory: React.FC = () => {
 
             <Link
               href="/projects"
-              className="inline-flex items-center gap-2 font-mono text-xs font-medium text-[#121211]/60 hover:text-[#121211] transition-colors"
+              className="inline-flex items-center gap-1.5 sm:gap-2 font-mono text-xs font-medium text-[#121211]/60 hover:text-[#121211] transition-colors"
             >
               <span>View all projects</span>
               <ArrowUpRight className="h-3 w-3" />

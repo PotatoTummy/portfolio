@@ -61,6 +61,8 @@ export const MacBookProMockup: React.FC<MacBookProMockupProps> = ({
     : -2 + hoverTiltY * 0.12;
 
   const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    // Preserve natural mobile scroll gestures by skipping pointer capture on touch
+    if (e.pointerType === "touch") return;
     const target = e.target as HTMLElement;
     if (target.closest(".screen-content-area")) return;
 
@@ -202,7 +204,7 @@ export const MacBookProMockup: React.FC<MacBookProMockupProps> = ({
             style={{ transform: "translateZ(15px)" }}
           >
             {/* Apple Camera Notch & Green LED */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 z-30 h-[14px] w-[96px] sm:h-[16px] sm:w-[124px] bg-[#000000] rounded-b-[9px] flex items-center justify-center gap-2 border-b border-black">
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 z-30 h-[12px] w-[80px] sm:h-[16px] sm:w-[124px] bg-[#000000] rounded-b-[7px] sm:rounded-b-[9px] flex items-center justify-center gap-1.5 sm:gap-2 border-b border-black">
               <span className="h-1.5 w-1.5 rounded-full bg-[#0F141C] ring-1 ring-[#1E2330] relative">
                 <span className="absolute inset-0.5 rounded-full bg-[#1A3A5A]/60" />
               </span>
@@ -266,7 +268,7 @@ export const MacBookProMockup: React.FC<MacBookProMockupProps> = ({
 
         {/* Apple MacBook Pro Aluminum Bottom Base with Recessed Well & Speaker Grills */}
         <div
-          className="relative -mt-1 mx-auto w-[106%] -left-[3%] h-[18px] sm:h-[22px] bg-gradient-to-b from-[#343432] via-[#20201E] to-[#141413] rounded-b-[22px] border-t border-[#464644] shadow-[0_16px_32px_rgba(0,0,0,0.95),inset_0_1px_1.5px_rgba(255,255,255,0.18)] flex items-start justify-center cursor-pointer"
+          className="relative -mt-1 mx-auto w-[103%] -left-[1.5%] sm:w-[106%] sm:-left-[3%] h-[15px] sm:h-[22px] bg-gradient-to-b from-[#343432] via-[#20201E] to-[#141413] rounded-b-[18px] sm:rounded-b-[22px] border-t border-[#464644] shadow-[0_16px_32px_rgba(0,0,0,0.95),inset_0_1px_1.5px_rgba(255,255,255,0.18)] flex items-start justify-center cursor-pointer"
           style={{ transform: "translateZ(5px)" }}
           onClick={() => {
             setTrackpadPressed(true);

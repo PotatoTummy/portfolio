@@ -52,6 +52,8 @@ export const IPhoneMockup: React.FC<IPhoneMockupProps> = ({
   const totalRotY = isDragging ? orbitRotY : baseRotateY + hoverTiltY;
 
   const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    // Preserve natural mobile scroll gestures by skipping pointer capture on touch
+    if (e.pointerType === "touch") return;
     const target = e.target as HTMLElement;
     if (target.closest(".screen-content-area")) return;
 
@@ -112,7 +114,7 @@ export const IPhoneMockup: React.FC<IPhoneMockupProps> = ({
         setHoverTiltY(0);
         setGlarePos({ x: 50, y: 30, opacity: 0.12 });
       }}
-      className={`relative mx-auto w-[275px] sm:w-[310px] select-none [perspective:1400px] ${
+      className={`relative mx-auto w-[240px] xs:w-[275px] sm:w-[310px] select-none [perspective:1400px] ${
         isDragging ? "cursor-grabbing" : "cursor-grab"
       } ${className}`}
       style={{ transformStyle: "preserve-3d" }}

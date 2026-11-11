@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Search, X, FolderGit2, Mail, Phone, Download, ArrowRight, Sparkles } from "lucide-react";
+import { Search, X, FolderGit2, Mail, Download, ArrowRight } from "lucide-react";
 import { FEATURED_PROJECTS, PROFILE } from "@/data/portfolioData";
 
 interface CommandPaletteProps {
@@ -14,7 +14,6 @@ interface CommandPaletteProps {
 export const CommandPalette: React.FC<CommandPaletteProps> = ({
   isOpen,
   onClose,
-  onSelectProject,
 }) => {
   const router = useRouter();
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -103,17 +102,17 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
     <dialog
       ref={dialogRef}
       aria-labelledby="cmd-palette-title"
-      className="backdrop:bg-black/80 backdrop:backdrop-blur-md fixed inset-0 z-50 m-auto w-full max-w-xl rounded-2xl border border-white/[0.15] bg-[#121211] p-0 text-white shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-150"
+      className="backdrop:bg-black/80 backdrop:backdrop-blur-md fixed inset-0 z-50 m-auto w-[calc(100%-2rem)] max-w-xl max-h-[85vh] rounded-2xl border border-white/[0.15] bg-[#121211] p-0 text-white shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-150"
     >
       {/* Search Input Bar */}
-      <div className="flex items-center border-b border-white/[0.1] px-4 py-3 bg-white/[0.02]">
+      <div className="flex items-center border-b border-white/[0.1] px-3.5 sm:px-4 py-3 bg-white/[0.02]">
         <Search className="h-4 w-4 text-zinc-400 mr-2.5 shrink-0" />
         <input
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search project reels, tech stack, shortcuts..."
-          className="w-full bg-transparent text-sm text-white placeholder-zinc-500 focus:outline-none font-sans"
+          className="w-full bg-transparent text-base sm:text-sm text-white placeholder-zinc-500 focus:outline-none font-sans"
           autoFocus
         />
         <button

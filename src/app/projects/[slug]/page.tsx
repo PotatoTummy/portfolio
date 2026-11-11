@@ -133,7 +133,7 @@ async function ProjectDetailContent({ params }: ProjectPageProps) {
   return (
     <div className="min-h-screen bg-[#0B0B0A] text-[#F3F3EE] font-sans antialiased selection:bg-[#00D4FF] selection:text-[#0B0B0A]">
       {/* Top Floating Header */}
-      <header className="sticky top-0 z-50 backdrop-blur-xl bg-[#0B0B0A]/85 border-b border-white/[0.08] px-4 sm:px-8 py-3.5 transition-all">
+      <header className="sticky top-0 z-50 backdrop-blur-xl bg-[#0B0B0A]/85 border-b border-white/[0.08] px-3.5 sm:px-8 py-3 sm:py-3.5 transition-all">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <Link
             href="/#work"
@@ -143,7 +143,7 @@ async function ProjectDetailContent({ params }: ProjectPageProps) {
             <span>Back to Work</span>
           </Link>
 
-          <div className="flex items-center gap-2">
+          <div className="hidden sm:flex items-center gap-2">
             <span
               className="h-2 w-2 rounded-full animate-pulse"
               style={{ backgroundColor: project.accentColor }}
@@ -159,7 +159,7 @@ async function ProjectDetailContent({ params }: ProjectPageProps) {
                 href={project.liveUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white transition-colors"
+                className="hidden xs:inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white transition-colors"
               >
                 <span>Live Site</span>
                 <ExternalLink className="h-3 w-3" />
@@ -170,7 +170,7 @@ async function ProjectDetailContent({ params }: ProjectPageProps) {
                 href={project.githubUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white transition-colors"
+                className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white transition-colors"
               >
                 <GithubIcon className="h-3 w-3" />
                 <span className="hidden sm:inline">Source</span>
@@ -181,12 +181,12 @@ async function ProjectDetailContent({ params }: ProjectPageProps) {
       </header>
 
       {/* Main Container */}
-      <main className="max-w-6xl mx-auto px-4 sm:px-8 pt-10 sm:pt-16 pb-28 space-y-16 sm:space-y-24">
+      <main className="max-w-6xl mx-auto px-4 sm:px-8 pt-6 sm:pt-16 pb-20 sm:pb-28 space-y-12 sm:space-y-24">
         {/* Project Hero Header */}
-        <section className="space-y-6">
-          <div className="flex flex-wrap items-center gap-3 font-mono text-xs">
+        <section className="space-y-4 sm:space-y-6">
+          <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 font-mono text-xs">
             <span
-              className="px-3 py-1 rounded-full border font-semibold"
+              className="px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full border font-semibold text-[11px] sm:text-xs"
               style={{
                 borderColor: `${project.accentColor}40`,
                 backgroundColor: `${project.accentColor}15`,
@@ -200,26 +200,26 @@ async function ProjectDetailContent({ params }: ProjectPageProps) {
             <span className="text-zinc-400">{project.category}</span>
           </div>
 
-          <h1 className="font-grotesk text-4xl sm:text-6xl lg:text-7xl font-normal tracking-tight text-white leading-[1.05]">
+          <h1 className="font-grotesk text-3xl sm:text-6xl lg:text-7xl font-normal tracking-tight text-white leading-[1.05]">
             {project.title}
           </h1>
 
-          <p className="text-base sm:text-xl text-zinc-300 max-w-3xl leading-relaxed font-sans font-normal">
+          <p className="text-sm sm:text-xl text-zinc-300 max-w-3xl leading-relaxed font-sans font-normal">
             {project.tagline}
           </p>
 
           {/* Metadata Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-4">
-            <div className="p-4 rounded-xl border border-white/[0.08] bg-[#121211]/80 backdrop-blur-sm">
-              <div className="text-xs font-mono text-zinc-400">Engineering Role</div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3 pt-2 sm:pt-4">
+            <div className="p-3.5 sm:p-4 rounded-xl border border-white/[0.08] bg-[#121211]/80 backdrop-blur-sm">
+              <div className="text-[11px] sm:text-xs font-mono text-zinc-400">Engineering Role</div>
               <div className="text-sm font-semibold text-white mt-1">{project.role}</div>
             </div>
-            <div className="p-4 rounded-xl border border-white/[0.08] bg-[#121211]/80 backdrop-blur-sm">
-              <div className="text-xs font-mono text-zinc-400">Deployment Status</div>
+            <div className="p-3.5 sm:p-4 rounded-xl border border-white/[0.08] bg-[#121211]/80 backdrop-blur-sm">
+              <div className="text-[11px] sm:text-xs font-mono text-zinc-400">Deployment Status</div>
               <div className="text-sm font-semibold text-white mt-1">{project.whereToSee}</div>
             </div>
-            <div className="p-4 rounded-xl border border-white/[0.08] bg-[#121211]/80 backdrop-blur-sm">
-              <div className="text-xs font-mono text-zinc-400">Core Benchmark</div>
+            <div className="p-3.5 sm:p-4 rounded-xl border border-white/[0.08] bg-[#121211]/80 backdrop-blur-sm">
+              <div className="text-[11px] sm:text-xs font-mono text-zinc-400">Core Benchmark</div>
               <div className="text-sm font-semibold text-[#00D4FF] mt-1">
                 {project.metrics[0].value} ({project.metrics[0].label})
               </div>
@@ -228,30 +228,30 @@ async function ProjectDetailContent({ params }: ProjectPageProps) {
         </section>
 
         {/* Photorealistic Device Showcase Section */}
-        <section className="space-y-6">
+        <section className="space-y-4 sm:space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/[0.08] pb-4">
             <div>
               <div className="inline-flex items-center gap-1.5 text-xs font-mono text-[#00D4FF]">
                 <Monitor className="h-3.5 w-3.5" />
                 <span>Photorealistic Hardware Simulation</span>
               </div>
-              <h2 className="text-xl sm:text-2xl font-grotesk text-white mt-1">
+              <h2 className="text-lg sm:text-2xl font-grotesk text-white mt-1">
                 Live Interface Execution
               </h2>
             </div>
 
             <div className="flex items-center gap-2 text-xs font-mono text-zinc-400">
-              <span className="px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/[0.08]">
+              <span className="px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/[0.08] text-[11px] sm:text-xs">
                 {project.mockupType === "phone" ? "iPhone 16 Pro Frame" : "MacBook Pro Liquid Retina XDR"}
               </span>
-              <span className="px-2.5 py-1 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+              <span className="px-2.5 py-1 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[11px] sm:text-xs">
                 Pixel-Perfect UI
               </span>
             </div>
           </div>
 
           {/* Device Mockup Stage */}
-          <div className="py-6 sm:py-10 px-2 sm:px-8 rounded-3xl border border-white/[0.08] bg-gradient-to-b from-[#141413]/70 to-[#0C0C0B]/90 shadow-2xl relative overflow-hidden">
+          <div className="py-4 sm:py-10 px-1 sm:px-8 rounded-2xl sm:rounded-3xl border border-white/[0.08] bg-gradient-to-b from-[#141413]/70 to-[#0C0C0B]/90 shadow-2xl relative overflow-hidden">
             {/* Ambient Lighting Gradients */}
             <div
               className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] rounded-full blur-[120px] pointer-events-none opacity-25"
@@ -447,7 +447,7 @@ async function ProjectDetailContent({ params }: ProjectPageProps) {
         </section>
 
         {/* Next / Previous Project Navigation */}
-        <nav className="border-t border-white/[0.1] pt-12 flex flex-col sm:flex-row items-center justify-between gap-6">
+        <nav className="border-t border-white/[0.1] pt-8 sm:pt-12 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-6">
           <Link
             href={`/projects/${prev.slug}`}
             className="group flex flex-col items-start gap-1 p-4 rounded-xl border border-white/5 hover:border-white/15 bg-white/[0.02] w-full sm:w-1/2 transition-colors"

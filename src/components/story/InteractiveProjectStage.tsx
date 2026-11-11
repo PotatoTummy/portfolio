@@ -98,11 +98,11 @@ export const InteractiveProjectStage: React.FC<InteractiveProjectStageProps> = (
       onMouseEnter={() => setIsHovered(true)}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative w-full flex items-center justify-center py-4 sm:py-6 perspective-1000"
+      className="relative w-full flex items-center justify-center py-1 sm:py-6 perspective-1000"
     >
       {/* Ambient Depth Radial Spotlight behind device */}
       <div
-        className="absolute w-[440px] h-[320px] rounded-full blur-[90px] pointer-events-none opacity-30 -translate-y-4"
+        className="absolute w-[260px] sm:w-[440px] h-[180px] sm:h-[320px] rounded-full blur-[70px] sm:blur-[90px] pointer-events-none opacity-30 -translate-y-4"
         style={{
           background: `radial-gradient(circle, ${project.accentColor} 0%, transparent 70%)`,
         }}
@@ -125,28 +125,28 @@ export const InteractiveProjectStage: React.FC<InteractiveProjectStageProps> = (
             : { duration: 5, repeat: Infinity, ease: "easeInOut" },
         }}
         className={`relative z-10 w-full flex items-center justify-center ${
-          isPhone ? "max-w-[280px] sm:max-w-[310px]" : "max-w-[560px] sm:max-w-[620px]"
+          isPhone ? "max-w-[210px] xs:max-w-[260px] sm:max-w-[310px]" : "max-w-[320px] xs:max-w-[440px] sm:max-w-[620px]"
         }`}
       >
         {isPhone ? (
-          <div className="relative transform-gpu drop-shadow-[0_25px_50px_rgba(0,0,0,0.65)]">
+          <div className="relative transform-gpu drop-shadow-[0_20px_45px_rgba(0,0,0,0.65)]">
             <IPhoneMockup
               projectName={project.title}
               scrollProgress={0.4}
               baseRotateY={0}
               baseRotateX={0}
-              className="scale-[0.88] sm:scale-[0.95] origin-center"
+              className="scale-[0.80] xs:scale-[0.88] sm:scale-[0.95] origin-center"
             >
               {renderScreenContent()}
             </IPhoneMockup>
           </div>
         ) : (
-          <div className="relative transform-gpu drop-shadow-[0_30px_60px_rgba(0,0,0,0.75)] w-full">
+          <div className="relative transform-gpu drop-shadow-[0_25px_50px_rgba(0,0,0,0.75)] w-full">
             <MacBookProMockup
               projectName={project.title}
               scrollProgress={0.35}
               straight={true}
-              className="w-full origin-center"
+              className="w-full scale-[0.85] xs:scale-[0.92] sm:scale-100 origin-center"
             >
               {renderScreenContent()}
             </MacBookProMockup>
@@ -158,10 +158,10 @@ export const InteractiveProjectStage: React.FC<InteractiveProjectStageProps> = (
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.2 }}
-          className="absolute -bottom-3 right-2 sm:right-6 font-mono text-[10px] sm:text-[11px] px-3 py-1.5 rounded-full bg-black/85 backdrop-blur-md border border-white/20 text-white flex items-center gap-2 shadow-xl z-20 pointer-events-none"
+          className="absolute -bottom-2 sm:-bottom-3 right-0.5 sm:right-6 font-mono text-[9px] sm:text-[11px] px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full bg-black/85 backdrop-blur-md border border-white/20 text-white flex items-center gap-1.5 sm:gap-2 shadow-xl z-20 pointer-events-none"
         >
           <span
-            className="w-2 h-2 rounded-full animate-pulse"
+            className="w-1.5 sm:w-2 h-1.5 sm:h-2 rounded-full animate-pulse"
             style={{ backgroundColor: project.accentColor }}
           />
           <span>Interactive Preview</span>

@@ -44,14 +44,14 @@ export const ContactStory: React.FC = () => {
     <section
       id="contact"
       data-nav="Contact"
-      className="relative min-h-[100svh] w-full px-6 sm:px-12 md:px-16 pt-24 pb-8 bg-[#0B0B0A] text-[#00D4FF] flex flex-col justify-between z-20 select-none overflow-hidden"
+      className="relative min-h-[100svh] w-full px-4 sm:px-12 md:px-16 pt-20 sm:pt-24 pb-6 sm:pb-8 bg-[#0B0B0A] text-[#00D4FF] flex flex-col justify-between z-20 select-none overflow-x-clip"
       style={{
         background: "radial-gradient(1100px 500px at 50% 0%, rgba(0, 212, 255, 0.16), transparent 75%), #0B0B0A",
       }}
     >
       <div>
         {/* Top Header Strip: Left Category + Right Time */}
-        <div className="flex items-center justify-between font-mono text-xs text-[#00D4FF] mb-8">
+        <div className="flex items-center justify-between font-mono text-xs text-[#00D4FF] mb-6 sm:mb-8">
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 bg-[#00D4FF]" />
             <span className="uppercase tracking-wider">Contact</span>
@@ -60,21 +60,21 @@ export const ContactStory: React.FC = () => {
         </div>
 
         {/* Large Headline */}
-        <h2 className="font-grotesk text-[clamp(48px,8vw,130px)] font-medium leading-[0.92] text-[#00D4FF] tracking-tight max-w-4xl">
+        <h2 className="font-grotesk text-[clamp(38px,8vw,130px)] font-medium leading-[0.92] text-[#00D4FF] tracking-tight max-w-4xl">
           A project<br />in mind?
         </h2>
 
         {/* Full-width Horizontal Hairline Divider */}
-        <div className="w-full border-t border-[#00D4FF]/30 my-8 sm:my-10" />
+        <div className="w-full border-t border-[#00D4FF]/30 my-6 sm:my-10" />
 
         {/* 3-Column Content Grid: Exactly matching reference layout */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 text-[#00D4FF]">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 text-[#00D4FF]">
           
           {/* Column 1 (Left): Email & Start Project */}
-          <div className="md:col-span-5 space-y-3">
+          <div className="md:col-span-5 space-y-2 sm:space-y-3">
             <a
               href={`mailto:${PROFILE.email}`}
-              className="text-[clamp(22px,2.6vw,40px)] font-grotesk font-semibold text-[#00D4FF] hover:text-white underline decoration-[#00D4FF]/40 hover:decoration-white transition-colors duration-200 block truncate"
+              className="text-[clamp(19px,2.6vw,40px)] font-grotesk font-semibold text-[#00D4FF] hover:text-white underline decoration-[#00D4FF]/40 hover:decoration-white transition-colors duration-200 block truncate"
             >
               {PROFILE.email}
             </a>
@@ -91,42 +91,42 @@ export const ContactStory: React.FC = () => {
           {/* Column 2 (Middle): Vertical Navigation Links */}
           <div className="md:col-span-3 space-y-1.5 text-sm sm:text-base font-grotesk">
             <div>
-              <Link href="#hero" className="text-[#00D4FF] hover:text-white transition-colors inline-block">
+              <Link href="#hero" className="text-[#00D4FF] hover:text-white transition-colors inline-block py-0.5">
                 Home
               </Link>
             </div>
             <div>
-              <Link href="#studio" className="text-[#00D4FF] hover:text-white transition-colors inline-block">
+              <Link href="#studio" className="text-[#00D4FF] hover:text-white transition-colors inline-block py-0.5">
                 Studio
               </Link>
             </div>
             <div>
-              <Link href="#work" className="text-[#00D4FF] hover:text-white transition-colors inline-block">
+              <Link href="#work" className="text-[#00D4FF] hover:text-white transition-colors inline-block py-0.5">
                 Work
               </Link>
             </div>
             <div>
-              <Link href="#contact" className="text-[#00D4FF] hover:text-white transition-colors inline-block">
+              <Link href="#contact" className="text-[#00D4FF] hover:text-white transition-colors inline-block py-0.5">
                 Contact
               </Link>
             </div>
           </div>
 
           {/* Column 3 (Right): Address, Socials & Meta */}
-          <div className="md:col-span-4 space-y-4 font-mono text-xs text-[#00D4FF] leading-relaxed">
+          <div className="md:col-span-4 space-y-3 sm:space-y-4 font-mono text-xs text-[#00D4FF] leading-relaxed">
             <div>
               <div>Gorakhpur, UP, India</div>
               <div>Open to Remote / Hybrid</div>
               <div>+91 7317368358</div>
             </div>
 
-            <div className="space-y-1 pt-2">
+            <div className="space-y-1 pt-1 sm:pt-2">
               <div>
                 <a
                   href={PROFILE.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-white transition-colors inline-block py-0.5"
                 >
                   GitHub · @PotatoTummy ↗
                 </a>
@@ -136,7 +136,7 @@ export const ContactStory: React.FC = () => {
                   href={PROFILE.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-white transition-colors inline-block py-0.5"
                 >
                   LinkedIn Profile ↗
                 </a>
@@ -148,16 +148,16 @@ export const ContactStory: React.FC = () => {
       </div>
 
       {/* Bottom Row: Giant Greeting (Left) & Back to Top + Copyright (Right) */}
-      <div className="pt-10 flex items-end justify-between border-t border-[#00D4FF]/25 mt-8">
+      <div className="pt-6 sm:pt-10 flex flex-col sm:flex-row items-start sm:items-end justify-between border-t border-[#00D4FF]/25 mt-6 sm:mt-8 gap-4">
         {/* Giant Left Typography (Hello.) */}
-        <div className="overflow-hidden font-grotesk font-semibold text-[clamp(60px,13vw,210px)] leading-[0.84] text-[#00D4FF] tracking-tight">
+        <div className="overflow-hidden font-grotesk font-semibold text-[clamp(48px,13vw,210px)] leading-[0.84] text-[#00D4FF] tracking-tight">
           <span key={greetingIndex} className="block animate-[greetingSlide_0.6s_cubic-bezier(0.16,1,0.3,1)]">
             {GREETINGS[greetingIndex]}
           </span>
         </div>
 
         {/* Bottom Right Controls */}
-        <div className="font-mono text-xs text-[#00D4FF] text-right space-y-2 pb-2">
+        <div className="font-mono text-xs text-[#00D4FF] flex sm:flex-col items-center sm:items-end justify-between w-full sm:w-auto gap-2 pb-1 sm:pb-2">
           <button
             onClick={scrollToTop}
             className="hover:text-white transition-colors inline-flex items-center gap-1.5 cursor-pointer font-medium"

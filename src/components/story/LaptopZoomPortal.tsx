@@ -69,10 +69,10 @@ export const LaptopZoomPortal: React.FC<LaptopZoomPortalProps> = ({ progress = 0
         
         {/* Top Editorial Status Strip */}
         <div
-          className="relative z-30 max-w-7xl mx-auto w-full px-6 sm:px-12 md:px-16 pt-20 pb-3 flex items-center justify-between border-b border-[#121211]/15 transition-opacity duration-200"
+          className="relative z-30 max-w-7xl mx-auto w-full px-4 sm:px-12 md:px-16 pt-16 sm:pt-20 pb-2.5 sm:pb-3 flex items-center justify-between border-b border-[#121211]/15 transition-opacity duration-200"
           style={{ opacity: contentFadeOut }}
         >
-          <div className="flex items-center gap-2 font-mono text-xs text-[#0284C7] font-semibold">
+          <div className="flex items-center gap-2 font-mono text-[11px] sm:text-xs text-[#0284C7] font-semibold">
             <span className="w-2 h-2 rounded-full bg-[#0284C7] animate-pulse" />
             <span className="uppercase tracking-wider">03 / Engineering & Approach</span>
           </div>
@@ -121,7 +121,7 @@ export const LaptopZoomPortal: React.FC<LaptopZoomPortalProps> = ({ progress = 0
         {/* Absolute Centered Straight MacBook Pro Rig */}
         <div className="absolute inset-0 z-20 flex items-center justify-center overflow-hidden pointer-events-none">
           <div
-            className="relative w-[min(90vw,780px)] transition-transform duration-75 origin-[center_44%] will-change-transform flex items-center justify-center pointer-events-auto"
+            className="relative w-[min(88vw,440px)] sm:w-[min(90vw,780px)] transition-transform duration-75 origin-[center_44%] will-change-transform flex items-center justify-center pointer-events-auto"
             style={{
               transform: `scale(${currentScale}) translateY(${zoomEased * 2}%)`,
               opacity: currentOpacity,
@@ -131,7 +131,7 @@ export const LaptopZoomPortal: React.FC<LaptopZoomPortalProps> = ({ progress = 0
               projectName="Samad Kausar · Craft Terminal"
               scrollProgress={1.0}
               straight={true}
-              className="drop-shadow-[0_25px_60px_rgba(0,0,0,0.18)]"
+              className="drop-shadow-[0_20px_50px_rgba(0,0,0,0.18)]"
             >
               <ApproachScreenUI phase={activePhase} />
             </MacBookProMockup>
@@ -140,29 +140,29 @@ export const LaptopZoomPortal: React.FC<LaptopZoomPortalProps> = ({ progress = 0
 
         {/* Narrative Craft Caption & Step Prompt (Positioned cleanly under the laptop) */}
         <div
-          className="relative z-30 max-w-xl mx-auto text-center px-4 mb-16 transition-opacity duration-300 pointer-events-none"
+          className="relative z-30 max-w-xl mx-auto text-center px-4 mb-3 sm:mb-16 transition-opacity duration-300 pointer-events-none"
           style={{ opacity: contentFadeOut }}
         >
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/70 border border-[#121211]/10 font-mono text-[11px] font-semibold text-slate-800 shadow-xs mb-2">
+          <div className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full bg-white/80 border border-[#121211]/10 font-mono text-[10px] sm:text-[11px] font-semibold text-slate-800 shadow-xs mb-1 sm:mb-2">
             <CheckCircle2 className="h-3 w-3 text-emerald-600" />
             <span>{currentPhaseData.headline}</span>
           </div>
-          <p className="text-xs sm:text-sm text-[#121211]/75 font-sans leading-relaxed">
+          <p className="text-[11px] sm:text-sm text-[#121211]/75 font-sans leading-relaxed max-w-md mx-auto line-clamp-2 sm:line-clamp-none">
             {currentPhaseData.detail}
           </p>
-          <div className="mt-2.5 inline-flex items-center gap-2 font-mono text-xs text-[#0284C7]">
-            <ArrowDown className="h-3.5 w-3.5 animate-bounce" />
+          <div className="mt-1.5 sm:mt-2.5 inline-flex items-center gap-1.5 sm:gap-2 font-mono text-[11px] sm:text-xs text-[#0284C7]">
+            <ArrowDown className="h-3 w-3 sm:h-3.5 sm:w-3.5 animate-bounce" />
             <span>Scroll down to advance phase & zoom</span>
           </div>
         </div>
 
         {/* Footer Bar */}
         <div
-          className="relative z-30 max-w-7xl mx-auto w-full px-6 sm:px-12 md:px-16 pb-6 pt-3 flex items-center justify-between border-t border-[#121211]/15 font-mono text-xs text-[#121211]/70 transition-opacity duration-200"
+          className="relative z-30 max-w-7xl mx-auto w-full px-4 sm:px-12 md:px-16 pb-3 sm:pb-6 pt-2 sm:pt-3 flex items-center justify-between border-t border-[#121211]/15 font-mono text-[11px] sm:text-xs text-[#121211]/70 transition-opacity duration-200"
           style={{ opacity: contentFadeOut }}
         >
           <span>Fig. 03 · Engineering Approach</span>
-          <span>Next: 04 Selected Work Gallery</span>
+          <span>Next: 04 Selected Work</span>
         </div>
       </div>
     </section>

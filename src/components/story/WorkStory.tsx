@@ -227,17 +227,17 @@ export const WorkStory: React.FC<WorkStoryProps> = ({ progress = 0 }) => {
                 />
 
                 {/* Slide Inner Viewport Layout */}
-                <div className="relative z-10 h-full w-full max-w-7xl mx-auto px-6 sm:px-12 md:px-16 pt-20 pb-6 flex flex-col justify-between">
+                <div className="relative z-10 h-full w-full max-w-7xl mx-auto px-4 sm:px-12 md:px-16 pt-14 sm:pt-20 pb-3 sm:pb-6 flex flex-col justify-between">
                   
                   {/* Top Editorial Status Strip */}
                   <div
-                    className="flex items-center justify-between pb-3 border-b"
+                    className="flex items-center justify-between pb-2 sm:pb-3 border-b"
                     style={{ borderColor: theme.dividerColor }}
                   >
                     {/* Project Counter */}
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-2 sm:gap-3">
                       <span
-                        className="font-mono text-base font-bold tracking-wider"
+                        className="font-mono text-sm sm:text-base font-bold tracking-wider"
                         style={{ color: theme.titleColor }}
                       >
                         0{idx + 1}
@@ -250,7 +250,7 @@ export const WorkStory: React.FC<WorkStoryProps> = ({ progress = 0 }) => {
                       />
 
                       <span
-                        className="px-3 py-0.5 rounded-full text-xs font-mono font-semibold border backdrop-blur-md"
+                        className="px-2.5 sm:px-3 py-0.5 rounded-full text-[10px] sm:text-xs font-mono font-semibold border backdrop-blur-md truncate max-w-[140px] sm:max-w-none"
                         style={{
                           borderColor: theme.badgeBorder,
                           backgroundColor: theme.badgeBg,
@@ -261,7 +261,26 @@ export const WorkStory: React.FC<WorkStoryProps> = ({ progress = 0 }) => {
                       </span>
                     </div>
 
-                    {/* Quick Project Switcher Pills */}
+                    {/* Quick Project Switcher Pills: Mobile Dots / Numbers */}
+                    <div className="flex md:hidden items-center gap-1 p-0.5 rounded-lg bg-white/70 border border-slate-200/80 shadow-xs backdrop-blur-md font-mono text-[10px]">
+                      {FEATURED_PROJECTS.map((p, pIdx) => (
+                        <button
+                          key={p.id}
+                          type="button"
+                          onClick={() => scrollToProject(pIdx)}
+                          className={`w-5 h-5 flex items-center justify-center rounded transition-all cursor-pointer ${
+                            pIdx === activeIndex
+                              ? "bg-slate-900 text-white font-bold"
+                              : "text-slate-600 hover:bg-slate-100"
+                          }`}
+                          aria-label={`Jump to ${p.title}`}
+                        >
+                          {pIdx + 1}
+                        </button>
+                      ))}
+                    </div>
+
+                    {/* Quick Project Switcher Pills: Desktop */}
                     <div className="hidden md:flex items-center gap-1.5 p-1 rounded-xl bg-white/70 border border-slate-200/80 shadow-xs backdrop-blur-md font-mono text-xs">
                       {FEATURED_PROJECTS.map((p, pIdx) => (
                         <button
@@ -289,13 +308,13 @@ export const WorkStory: React.FC<WorkStoryProps> = ({ progress = 0 }) => {
                   </div>
 
                   {/* Main Two-Column Stage */}
-                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center my-auto">
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 sm:gap-8 lg:gap-12 items-center my-auto">
                     
                     {/* Left Column: Minimal Project Story & Action */}
-                    <div className="lg:col-span-6 space-y-4">
+                    <div className="lg:col-span-6 space-y-2 sm:space-y-4">
                       {/* Project Title */}
                       <h3
-                        className="font-grotesk text-[clamp(34px,4.2vw,64px)] font-medium leading-[0.96] tracking-tight transition-transform duration-100"
+                        className="font-grotesk text-[clamp(24px,5.5vw,64px)] font-medium leading-[0.96] tracking-tight transition-transform duration-100"
                         style={{
                           color: theme.titleColor,
                           transform: `translateY(${(1 - reveal) * 30}px)`,
@@ -306,18 +325,18 @@ export const WorkStory: React.FC<WorkStoryProps> = ({ progress = 0 }) => {
 
                       {/* Minimal 1-Sentence Summary */}
                       <p
-                        className="text-base sm:text-lg font-sans font-normal leading-relaxed max-w-lg"
+                        className="text-xs sm:text-lg font-sans font-normal leading-relaxed max-w-lg line-clamp-2 sm:line-clamp-none"
                         style={{ color: theme.taglineColor }}
                       >
                         {project.tagline}
                       </p>
 
                       {/* Tech Stack Badges */}
-                      <div className="flex flex-wrap gap-2 pt-1 pb-2">
+                      <div className="flex flex-wrap gap-1.5 sm:gap-2 pt-0.5 pb-1 sm:pt-1 sm:pb-2">
                         {project.techStack.slice(0, 4).map((tech, tIdx) => (
                           <span
                             key={tIdx}
-                            className="px-3 py-1 rounded-md bg-white/80 border border-slate-200/90 text-xs font-mono font-medium text-slate-800 shadow-xs"
+                            className="px-2 sm:px-3 py-0.5 sm:py-1 rounded-md bg-white/80 border border-slate-200/90 text-[10px] sm:text-xs font-mono font-medium text-slate-800 shadow-xs"
                           >
                             {tech}
                           </span>
@@ -325,12 +344,12 @@ export const WorkStory: React.FC<WorkStoryProps> = ({ progress = 0 }) => {
                       </div>
 
                       {/* Action CTAs with Magnetic Liquid Button */}
-                      <div className="pt-2 flex items-center gap-4">
+                      <div className="pt-1 sm:pt-2 flex items-center gap-3 sm:gap-4">
                         <LiquidButton
                           href={`/projects/${project.slug}`}
                           variant="accent"
                           accentColor={project.accentColor}
-                          className="px-6 py-3 text-sm shadow-md"
+                          className="px-4 sm:px-6 py-2 sm:py-3 text-xs sm:text-sm shadow-md"
                         >
                           View Project Case Study
                         </LiquidButton>
@@ -340,7 +359,7 @@ export const WorkStory: React.FC<WorkStoryProps> = ({ progress = 0 }) => {
                             href={project.liveUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="font-mono text-xs font-semibold text-slate-800 hover:text-black transition-colors underline decoration-slate-400 underline-offset-4"
+                            className="font-mono text-[11px] sm:text-xs font-semibold text-slate-800 hover:text-black transition-colors underline decoration-slate-400 underline-offset-4"
                           >
                             Live Site ↗
                           </a>
@@ -356,12 +375,12 @@ export const WorkStory: React.FC<WorkStoryProps> = ({ progress = 0 }) => {
 
                   {/* Bottom Strip: Role & Scroll Cue */}
                   <div
-                    className="flex items-center justify-between border-t pt-2 font-mono text-[11px]"
+                    className="flex items-center justify-between border-t pt-1.5 sm:pt-2 font-mono text-[10px] sm:text-[11px]"
                     style={{ borderColor: theme.dividerColor, color: theme.footerText }}
                   >
-                    <span>Role: {project.role}</span>
-                    <span className="flex items-center gap-1.5 opacity-80">
-                      <span>{idx === totalProjects - 1 ? "Scroll down to contact" : "Scroll to next project"}</span>
+                    <span className="truncate max-w-[180px] sm:max-w-none">Role: {project.role}</span>
+                    <span className="flex items-center gap-1.5 opacity-80 shrink-0">
+                      <span>{idx === totalProjects - 1 ? "Scroll to contact" : "Next project"}</span>
                       <ArrowDown className="h-3 w-3 animate-bounce" />
                     </span>
                   </div>

@@ -113,11 +113,11 @@ export const StudioStory: React.FC<StudioStoryProps> = ({ progress = 0 }) => {
       data-nav="Studio"
       className="relative min-h-[220vh] w-full bg-[#EFEAE4] text-[#121211] select-none z-10 transition-colors"
     >
-      <div className="sticky top-0 h-[100svh] overflow-hidden px-6 sm:px-12 md:px-16 pt-20 sm:pt-22 pb-4 sm:pb-6 flex flex-col justify-between max-w-7xl mx-auto">
+      <div className="sticky top-0 h-[100svh] overflow-hidden px-4 sm:px-12 md:px-16 pt-16 sm:pt-22 pb-3 sm:pb-6 flex flex-col justify-between max-w-7xl mx-auto">
         
         {/* Top Header Badge & Meta Status */}
-        <div className="flex items-center justify-between border-b border-[#121211]/15 pb-3">
-          <span className="font-mono text-xs uppercase tracking-wider text-[#121211]/85 flex items-center gap-2">
+        <div className="flex items-center justify-between border-b border-[#121211]/15 pb-2.5 sm:pb-3">
+          <span className="font-mono text-[11px] sm:text-xs uppercase tracking-wider text-[#121211]/85 flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-[#0284C7] animate-pulse" />
             <span className="font-bold text-[#0284C7]">02 / Philosophy & Studio</span>
           </span>
@@ -127,11 +127,122 @@ export const StudioStory: React.FC<StudioStoryProps> = ({ progress = 0 }) => {
           </span>
         </div>
 
-        {/* Main Content Stage: Shifted comfortably upwards */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-6 lg:gap-12 items-start mt-2 sm:mt-4 mb-auto">
+        {/* Mobile View: Responsive Principle Tabs + Active Card + Live Reel Player (< lg) */}
+        <div className="flex lg:hidden flex-col gap-2.5 my-auto overflow-hidden">
+          {/* Quick Principle Switcher Tabs */}
+          <div className="flex items-center gap-1.5 p-1 rounded-xl bg-white/70 border border-[#121211]/10 shadow-xs">
+            {principles.map((p, idx) => (
+              <button
+                key={p.id}
+                type="button"
+                onClick={() => setManualStep(idx)}
+                className={`flex-1 py-1.5 px-2 rounded-lg text-[10px] font-mono font-bold transition-all cursor-pointer truncate ${
+                  idx === activeStep
+                    ? "bg-[#0284C7] text-white shadow-xs"
+                    : "text-[#121211]/70 hover:bg-black/5"
+                }`}
+              >
+                0{idx + 1} · {p.lead.split(" ")[0]}
+              </button>
+            ))}
+          </div>
+
+          {/* Active Principle Card */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={principles[activeStep].id}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.2 }}
+              className="p-3.5 sm:p-4 rounded-xl bg-white/95 border border-[#0284C7]/40 shadow-xs space-y-1"
+            >
+              <div className="flex items-center justify-between">
+                <span className="font-mono text-[10px] font-bold text-[#0284C7] uppercase tracking-wider">
+                  Principle 0{activeStep + 1} · {principles[activeStep].lead}
+                </span>
+                <span className="text-[9px] font-mono font-semibold px-2 py-0.5 rounded-full bg-[#0284C7]/10 text-[#0284C7]">
+                  Reel 0{activeStep + 1}/03
+                </span>
+              </div>
+              <h3 className="font-grotesk text-base sm:text-lg font-bold tracking-tight text-[#121211]">
+                {principles[activeStep].highlight}
+              </h3>
+              <p className="text-xs text-[#121211]/80 font-sans leading-relaxed line-clamp-2 sm:line-clamp-none">
+                {principles[activeStep].detail}
+              </p>
+            </motion.div>
+          </AnimatePresence>
+
+          {/* Mobile Video Reel Player */}
+          <div className="relative h-[200px] xs:h-[230px] rounded-2xl overflow-hidden bg-black shadow-lg border border-black/80">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentReel.id}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.25 }}
+                className="relative w-full h-full text-white"
+              >
+                {mounted ? (
+                  <video
+                    key={currentReel.videoSrc}
+                    src={currentReel.videoSrc}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    suppressHydrationWarning
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                ) : (
+                  <div className="absolute inset-0 bg-black" />
+                )}
+
+                {/* Scrim */}
+                <div
+                  className="absolute inset-0 pointer-events-none"
+                  style={{
+                    background:
+                      "linear-gradient(180deg, rgba(0,0,0,0.3) 0%, transparent 35%, rgba(0,0,0,0.8) 100%)",
+                  }}
+                />
+
+                {/* Top Pill */}
+                <div className="absolute top-2.5 left-2.5 z-10 flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-black/60 backdrop-blur-md border border-white/10 text-[9px] font-mono text-white/90">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#0284C7] animate-pulse" />
+                  <span>Swipe or scroll to switch</span>
+                </div>
+
+                {/* Right Likes */}
+                <div className="absolute right-2.5 bottom-10 z-10 flex flex-col items-center gap-1">
+                  <div className="w-6 h-6 rounded-full bg-black/50 backdrop-blur-md border border-white/20 flex items-center justify-center">
+                    <Heart className="w-3 h-3 text-red-500 fill-red-500" />
+                  </div>
+                  <span className="text-[8px] font-mono text-white/90">{currentReel.likes}</span>
+                </div>
+
+                {/* Bottom Info */}
+                <div className="absolute left-2.5 right-12 bottom-2 z-10 space-y-0.5">
+                  <div className="flex items-center gap-1.5 text-[10px] font-bold">
+                    <span>@{currentReel.handle}</span>
+                    <span className="text-[8px] font-mono px-1 rounded bg-white/20 text-white/90">
+                      {currentReel.tag}
+                    </span>
+                  </div>
+                  <p className="text-[9px] text-white/90 line-clamp-1">{currentReel.caption}</p>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        </div>
+
+        {/* Desktop View: Dual Column Layout (>= lg) */}
+        <div className="hidden lg:grid grid-cols-[1.2fr_0.8fr] gap-12 items-start mt-4 mb-auto">
           
           {/* Left Column: Clean, High-Contrast Principles */}
-          <div className="space-y-3 sm:space-y-3.5 max-w-2xl">
+          <div className="space-y-3.5 max-w-2xl">
             {principles.map((p, idx) => {
               const isActive = idx === activeStep;
               const Icon = p.icon;
@@ -144,7 +255,7 @@ export const StudioStory: React.FC<StudioStoryProps> = ({ progress = 0 }) => {
                     x: isActive ? 4 : 0,
                   }}
                   transition={{ type: "spring", stiffness: 300, damping: 25 }}
-                  className={`p-4 sm:p-5 rounded-xl border transition-all duration-300 cursor-pointer ${
+                  className={`p-5 rounded-xl border transition-all duration-300 cursor-pointer ${
                     isActive
                       ? "bg-white/95 border-[#0284C7]/50 shadow-[0_12px_28px_rgba(2,132,199,0.12)]"
                       : "bg-white/40 border-[#121211]/10 opacity-75 hover:opacity-95"
@@ -168,7 +279,7 @@ export const StudioStory: React.FC<StudioStoryProps> = ({ progress = 0 }) => {
                     {p.highlight}
                   </h3>
 
-                  <p className="mt-1 text-xs sm:text-sm text-[#121211]/80 font-sans leading-relaxed">
+                  <p className="mt-1 text-sm text-[#121211]/80 font-sans leading-relaxed">
                     {p.detail}
                   </p>
                 </motion.div>
@@ -177,7 +288,7 @@ export const StudioStory: React.FC<StudioStoryProps> = ({ progress = 0 }) => {
           </div>
 
           {/* Right Column: 3D Phone Mockup with Dynamic Scroll-Driven Video Reels */}
-          <div className="hidden lg:flex flex-col items-center justify-center relative pt-2">
+          <div className="flex flex-col items-center justify-center relative pt-2">
             
             {/* Ambient Soft Glow */}
             <div
@@ -313,9 +424,10 @@ export const StudioStory: React.FC<StudioStoryProps> = ({ progress = 0 }) => {
         </div>
 
         {/* Footer Meta Strip with generous margin from the 3rd principle */}
-        <div className="flex items-center justify-between border-t border-[#121211]/15 pt-3 font-mono text-xs text-[#121211]/70 mt-2">
+        <div className="flex items-center justify-between border-t border-[#121211]/15 pt-2.5 sm:pt-3 font-mono text-[11px] sm:text-xs text-[#121211]/70 mt-1 sm:mt-2">
           <span>Fig. 02 · Studio Principles</span>
-          <span>Core Stack: Next.js · React 19 · TypeScript · Tailwind CSS</span>
+          <span className="hidden sm:inline">Core Stack: Next.js · React 19 · TypeScript · Tailwind CSS</span>
+          <span className="sm:hidden">Next.js · React 19</span>
         </div>
       </div>
     </section>
