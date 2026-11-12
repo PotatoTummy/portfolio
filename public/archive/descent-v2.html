@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Samad Kausar — Frontend-heavy full stack engineer (Descent v2)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;600&family=Geist+Mono&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0B0B0A;--fg:#F3F3EE;--ac:#FF5533;--mut:rgba(243,243,238,.6);--line:rgba(243,243,238,.16);--serif:"Instrument Serif",Georgia,serif;--sans:"Geist",system-ui,sans-serif;--mono:"Geist Mono",ui-monospace,monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--bg);color:var(--fg);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+body{overflow-x:clip}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--ac);outline-offset:3px}
+#gl{position:fixed;inset:0;width:100%;height:100%;z-index:0;display:block}
+.grain{position:fixed;inset:-10%;z-index:5;pointer-events:none;opacity:.05;mix-blend-mode:screen;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");animation:gr .6s steps(3) infinite}
+@keyframes gr{33%{transform:translate(-3%,2%)}66%{transform:translate(2%,-3%)}}
+#bar{position:fixed;top:0;left:0;height:2px;width:100%;background:var(--ac);transform-origin:0 50%;transform:scaleX(0);z-index:20}
+.brand{position:fixed;top:22px;left:clamp(20px,5vw,60px);z-index:20;font:13px var(--mono);display:flex;gap:18px;color:var(--mut)}
+.brand b{color:var(--fg);font-weight:400}.brand a{text-decoration:none;color:var(--ac);display:none}
+body.case .brand a{display:inline}body.case #cur{display:none}
+.dots{position:fixed;right:clamp(14px,3vw,34px);top:50%;transform:translateY(-50%);z-index:20;display:grid;gap:14px}
+body.case .dots{display:none}
+.dots button{width:9px;height:9px;border-radius:50%;border:1px solid var(--mut);background:none;cursor:pointer;padding:0;transition:.4s}
+.dots button.on{background:var(--ac);border-color:var(--ac);transform:scale(1.5)}
+main,#case{position:relative;z-index:10}
+body.case main{display:none}#case{display:none}body.case #case{display:block}
+h1,h2,h3{font-family:var(--serif);font-weight:400;letter-spacing:-.025em;line-height:.9}
+em{font-style:italic;color:var(--ac)}
+/* story */
+.ch{position:relative;height:300vh}.ch.hero{height:240vh}.ch.end{height:160vh}
+.pin{position:sticky;top:0;height:100svh;display:flex;align-items:center;padding:0 clamp(20px,5vw,60px);pointer-events:none}
+.txt{pointer-events:auto;will-change:transform,opacity;width:min(540px,88vw);padding:26px 28px;border-radius:16px;background:linear-gradient(120deg,rgba(11,11,10,.78),rgba(11,11,10,.45));backdrop-filter:blur(12px);border:1px solid var(--line)}
+.kind{font:12px var(--mono);color:var(--ac);margin-bottom:14px}
+.txt h2{font-size:clamp(52px,6.6vw,104px);margin-bottom:16px}
+.sum{font-size:clamp(15px,1.25vw,17px);line-height:1.55;color:var(--fg);opacity:.88}
+.facts{list-style:none;margin:18px 0;display:grid;gap:9px;font-size:14px;color:var(--mut)}
+.facts li{padding-left:14px;border-left:2px solid var(--ac)}
+.tech{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:22px}
+.tech span{font:11.5px var(--mono);padding:5px 10px;border:1px solid var(--line);border-radius:99px}
+.more{display:inline-flex;gap:10px;align-items:center;text-decoration:none;background:var(--ac);color:var(--bg);font-weight:600;font-size:15px;padding:13px 24px;border-radius:99px;transition:transform .3s,gap .3s}
+.more:hover{transform:scale(1.05);gap:16px}
+.hero .pin{align-items:flex-start;justify-content:center;padding-top:15vh;text-align:center}
+.hero .txt,.end .txt{background:none;border:0;backdrop-filter:none;width:auto;padding:0}
+h1{font-size:clamp(64px,10vw,170px)}
+.hl{display:inline-block;overflow:hidden;padding:.04em 0;margin:0 .1em}
+.hl span{display:inline-block;transform:translateY(110%) rotate(6deg);opacity:0;animation:up 1.2s cubic-bezier(.2,.9,.2,1) forwards;animation-delay:calc(var(--i)*55ms + .4s)}
+@keyframes up{to{transform:none;opacity:1}}
+.line{font-size:clamp(16px,1.6vw,21px);margin-top:16px;color:var(--mut)}
+.hero .line{opacity:0;animation:fi 1s 2s forwards}@keyframes fi{to{opacity:1}}
+.end .pin{align-items:center;justify-content:center;text-align:center}
+.end h2{font-size:clamp(60px,11vw,180px)}
+.cta{display:inline-block;margin-top:34px;text-decoration:none;background:var(--ac);color:var(--bg);font-weight:600;padding:18px 34px;border-radius:99px;transition:transform .3s}
+.cta:hover{transform:scale(1.07) rotate(-2deg)}
+/* case study */
+.case-in{width:min(620px,100%);padding:15vh clamp(20px,5vw,60px) 22vh;animation:ci .9s .15s both cubic-bezier(.2,.8,.2,1)}
+@keyframes ci{from{opacity:0;transform:translateY(40px)}}
+.case-in h1{font-size:clamp(64px,8.4vw,128px);margin:10px 0 20px}
+.lead{font-size:clamp(17px,1.5vw,20px);line-height:1.55}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:18px;margin:28px 0 0;padding-top:22px;border-top:1px solid var(--line)}
+.meta dt{font:12px var(--mono);color:var(--mut);margin-bottom:5px}.meta dd{font-size:15px}
+.blk{margin-top:14vh}
+.blk h3{font-size:clamp(34px,3.6vw,52px);margin-bottom:22px}
+.feat{list-style:none;display:grid;gap:22px}
+.feat li{padding:18px 20px;border:1px solid var(--line);border-radius:14px;background:rgba(11,11,10,.62);backdrop-filter:blur(10px)}
+.feat b{display:block;font-weight:600;margin-bottom:6px}.feat span{color:var(--mut);font-size:15px;line-height:1.55}
+.flow{list-style:none;position:relative;padding-left:34px;display:grid;gap:26px}
+.flow::before{content:"";position:absolute;left:5px;top:8px;bottom:8px;width:1px;background:var(--line)}
+.flow li{position:relative;opacity:.2;transition:opacity .7s,transform .7s;transform:translateX(-12px)}
+.flow li::before{content:"";position:absolute;left:-34px;top:5px;width:11px;height:11px;border-radius:50%;background:var(--bg);border:1px solid var(--mut);transition:.5s}
+.flow li.in{opacity:1;transform:none}.flow li.in::before{background:var(--ac);border-color:var(--ac);box-shadow:0 0 0 6px rgba(255,85,51,.18)}
+.flow b{display:block;font-weight:600}.flow span{color:var(--mut);font-size:15px}
+.stack{display:flex;flex-wrap:wrap;gap:9px}.stack span{font:13px var(--mono);padding:8px 14px;border:1px solid var(--line);border-radius:99px;background:rgba(11,11,10,.62)}
+.next{display:block;margin-top:16vh;text-decoration:none}
+.next small{display:block;font:12px var(--mono);color:var(--mut);margin-bottom:8px}
+.next b{font:400 clamp(44px,6vw,88px)/.95 var(--serif);transition:color .3s}.next:hover b{color:var(--ac)}
+@media(max-width:820px){.dots{display:none}.pin{align-items:flex-end;padding-bottom:50px}.txt{padding:18px 20px}.facts{display:none}.hero .pin{align-items:flex-start}.hl{display:block;margin:0}.case-in{padding-top:56vh}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.hl span,.hero .line{opacity:1;transform:none}.flow li{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<canvas id="gl" aria-hidden="true"></canvas><div class="grain" aria-hidden="true"></div><div id="bar"></div>
+<div class="brand"><b>Samad Kausar</b><span id="cur">Opening</span><a href="#/">Back to the story</a></div>
+<nav class="dots" id="dots" aria-label="Chapters"></nav>
+<main id="main"></main><div id="case"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+const $=s=>document.querySelector(s),clamp=(v,a=0,b=1)=>Math.min(b,Math.max(a,v));
+/* ================= CONTENT ================= */
+const P=[
+{id:"nestys",n:"Nestys",kind:"Enterprise web platform",role:"Built the three web portals",access:"Behind client login",
+ sum:"Three web portals on one NestJS microservices backend: Seller Central for orders and inventory, Eureka for recruitment and listings, and a Super Admin console for moderation.",
+ facts:["Order pipelines and a real-time inventory matrix","Reel moderation with HLS.js adaptive streaming","BullMQ queues, Redis caching, Prisma on AWS RDS"],tech:["NestJS","BullMQ","Prisma","HLS.js"],
+ feats:[["Seller Central","Order pipelines, a real-time inventory matrix, and TipTap rich-text publishing for sellers."],["Super Admin","A moderation console for short reels, streamed with HLS.js adaptive video."],["Eureka","The recruitment and listings portal, on the same shared backend."]],
+ flow:[["Three portals","Seller Central, Eureka and Super Admin."],["NestJS microservices","One resilient backend behind all portals."],["BullMQ and Redis","Queue workers and caching take heavy work off requests."],["Prisma on AWS RDS","Durable storage, with ElastiCache in front."]],
+ stack:["NestJS","Prisma","BullMQ","Redis","AWS RDS","ElastiCache","TipTap","HLS.js"]},
+{id:"scrollr",n:"Scrollr",kind:"Android-first mobile app and API",role:"Designed and built the app and its API",access:"Android app",
+ sum:"A vertical video player with no feed algorithm: private, editorial and fully yours, backed by its own streaming API.",
+ facts:["Virtualized gallery of 2,500+ items at 60fps","Fisher-Yates shuffle engine, all in memory","Fastify proxy with byte-range streaming and SSRF defense"],tech:["Expo","React Native","Fastify","yt-dlp"],
+ feats:[["Algorithm-free feed","A custom Fisher-Yates shuffle engine keeps the order random, private and in memory."],["Smooth at scale","A virtualized gallery holds 2,500+ items and stays at 60fps."],["Hardened streaming API","Rate limiting, two-tier caching and SSRF defense protect the resolver."]],
+ flow:[["Expo app","Expo SDK 54 on React Native 0.81."],["Fastify API","Rate limited and guarded against SSRF."],["yt-dlp resolver","Finds the playable source for each clip."],["Two-tier cache","Resolved sources come back fast."],["Byte-range proxy","Seekable streaming at /api/v1/stream."]],
+ stack:["Expo SDK 54","React Native 0.81","Fastify","yt-dlp"]},
+{id:"wokataa",n:"WoKataa",kind:"Real-time multiplayer game",role:"Built the mobile client and real-time backend",access:"Mobile game",
+ sum:"A competitive mobile game where two players swipe tokens head to head, with state kept in sync in real time.",
+ facts:["Reanimated 3 swipeable token deck","Express, Socket.IO and Ably pub/sub","BullMQ workers for streaks and leaderboards"],tech:["Socket.IO","Ably","BullMQ"],
+ feats:[["Swipeable deck","A Reanimated 3 token deck with scoreboards drawn from each player's perspective."],["Low-latency sync","A hybrid of Socket.IO and Ably Cloud pub/sub keeps both players in step."],["Background scoring","BullMQ queues calculate streaks and leaderboards off the hot path."]],
+ flow:[["Mobile client","React Native 0.74 with Kotlin entrypoints."],["Socket.IO and Ably","Real-time channels for match state."],["Express backend","Match rules and coordination."],["BullMQ workers","Streaks and leaderboards."]],
+ stack:["React Native 0.74","Kotlin","Reanimated 3","Express","Socket.IO","Ably","BullMQ"]},
+{id:"earth-air",n:"Earth Air",kind:"Live client website",role:"Built the theme, dashboard and deploy pipeline",access:"Public website",
+ sum:"A commercial HVAC website rebuilt from a heavy page builder into a lightweight custom theme, with its own admin dashboard and automated deploys.",
+ facts:["95+ Core Web Vitals score","GitHub Actions deploys over FTPS","MCP bridge with PKCE OAuth2 for AI content management"],tech:["95+ Web Vitals","GitHub Actions","MCP"],
+ feats:[["Fast by design","A custom theme replaced the page builder and reached a 95+ Core Web Vitals score."],["Admin dashboard","A custom management dashboard for the client's content."],["AI-ready content","A Model Context Protocol bridge with PKCE OAuth2 lets AI assistants manage content."]],
+ flow:[["Push to Git","Code lands on the main branch."],["GitHub Actions","Builds and verifies."],["FTPS deploy","Automated, with no manual uploads."],["Live site","Served by the custom theme."]],
+ stack:["Custom theme","GitHub Actions","FTPS","MCP","OAuth2 PKCE"]},
+{id:"servotech",n:"Servotech",kind:"Internal enterprise tools",role:"Frontend engineer at W3villa Technologies",access:"Internal company tools",
+ sum:"Internal tools built at W3villa Technologies for daily operations: a PM board, HRMS, asset management and an ATS.",
+ facts:["Four connected internal products","High-throughput dashboards","Built for everyday operational scale"],tech:["PM board","HRMS","ATS"],
+ feats:[["PM board","Project boards and workflows for teams."],["HRMS","People and HR operations."],["Asset management","Tracking and allocating company assets."],["ATS","The applicant tracking pipeline for hiring."]],
+ flow:[["PM board","Plan and track work."],["HRMS","Manage people."],["Asset management","Track equipment."],["ATS","Run hiring."]],
+ stack:["Enterprise dashboards","Internal tooling"]}];
+const S=[{n:"Opening",cls:"hero"},...P.map(p=>({n:p.n,p})),{n:"Credits",cls:"end"}];
+let k=0;
+$("#main").innerHTML=S.map(s=>`<section class="ch ${s.cls||""}" data-n="${s.n}"><div class="pin"><div class="txt">${
+ s.cls==="hero"?`<h1 aria-label="Samad Kausar">${["Samad","Kausar"].map(w=>`<span class="hl" aria-hidden="true">${[...w].map(c=>`<span style="--i:${k++}">${c}</span>`).join("")}</span>`).join("")}</h1><p class="line">Frontend-heavy full stack engineer. I build interfaces that feel finished.</p>`
+ :s.cls==="end"?`<h2>Let's build<br>the <em>next</em> one.</h2><a class="cta" href="mailto:samadkausar786@gmail.com">Say hello</a>`
+ :`<p class="kind">${s.p.kind}</p><h2>${s.p.n}</h2><p class="sum">${s.p.sum}</p><ul class="facts">${s.p.facts.map(f=>`<li>${f}</li>`).join("")}</ul><div class="tech">${s.p.tech.map(c=>`<span>${c}</span>`).join("")}</div><a class="more" href="#/${s.p.id}">Know more <span aria-hidden="true">&rarr;</span></a>`}</div></div></section>`).join("");
+$("#dots").innerHTML=S.map((s,i)=>`<button aria-label="${s.n}" data-i="${i}"></button>`).join("");
+const secs=[...document.querySelectorAll(".ch")],dots=[...document.querySelectorAll(".dots button")];
+dots.forEach(b=>b.onclick=()=>{const el=secs[+b.dataset.i];scrollTo({top:el.offsetTop+(el.offsetHeight-innerHeight)*.5,behavior:"smooth"})});
+
+/* ================= THREE ================= */
+const T=THREE,reduce=matchMedia("(prefers-reduced-motion:reduce)").matches;
+let ren;try{ren=new T.WebGLRenderer({canvas:$("#gl"),antialias:true,alpha:true})}catch(e){ren=null}
+let caseIdx=-1,caseP=0,storyY=0,tf=0,scrollCalc=()=>{};
+if(ren){
+ren.outputEncoding=T.sRGBEncoding;
+const SP=10,AC=0xff5533,FG=0xf3f3ee,ease=x=>x*x*(3-2*x);
+const scene=new T.Scene();scene.fog=new T.FogExp2(0x0b0b0a,.03);
+const cam=new T.PerspectiveCamera(45,1,.1,120);scene.add(cam);
+const rim=new T.PointLight(AC,2.2,34);rim.position.set(3,2,4);cam.add(rim);
+const dl=new T.DirectionalLight(0xffffff,1.1);dl.position.set(-4,6,5);const dl2=new T.DirectionalLight(0xffeedd,.6);dl2.position.set(5,-2,-4);
+scene.add(dl,dl2,new T.AmbientLight(0xffffff,.55));
+{const n=1200,p=new Float32Array(n*3);for(let i=0;i<n;i++){p[i*3]=(Math.random()-.5)*44;p[i*3+1]=Math.random()*-80+8;p[i*3+2]=(Math.random()-.5)*30-8}
+const g=new T.BufferGeometry();g.setAttribute("position",new T.BufferAttribute(p,3));scene.add(new T.Points(g,new T.PointsMaterial({size:.05,color:FG,transparent:true,opacity:.5,depthWrite:false})))}
+/* ---- screen textures (canvas 2D, drawn live) ---- */
+const rr=(c,x,y,w,h,r)=>{c.beginPath();c.roundRect?c.roundRect(x,y,w,h,r):c.rect(x,y,w,h)};
+const PAL=[["#ff5533","#7a1d0c"],["#2b6cff","#0b1f66"],["#18c38a","#064a36"],["#f5b700","#6b4a00"],["#b04dff","#34105e"]];
+const F="Geist, system-ui, sans-serif";
+function mkScr(w,h,round,draw){const cv=document.createElement("canvas");cv.width=w;cv.height=h;const c=cv.getContext("2d"),tex=new T.CanvasTexture(cv);tex.encoding=T.sRGBEncoding;tex.anisotropy=8;
+ return{tex,draw(p,t){c.clearRect(0,0,w,h);c.save();rr(c,0,0,w,h,round);c.clip();draw(c,w,h,p,t);c.restore();tex.needsUpdate=true}}}
+const notch=(c,w)=>{c.fillStyle="#000";rr(c,w/2-36,12,72,22,11);c.fill()};
+const D={
+dash:(c,w,h,p,t)=>{c.fillStyle="#0d0d0c";c.fillRect(0,0,w,h);c.fillStyle="#161615";c.fillRect(0,0,w*.17,h);
+ for(let i=0;i<6;i++){c.fillStyle=i?"#ffffff22":"#ff5533";rr(c,14,60+i*30,w*.17-28,12,5);c.fill()}
+ c.fillStyle="#f3f3ee";c.font=`600 17px ${F}`;c.fillText("Seller Central",w*.2,36);
+ for(let i=0;i<3;i++){const x=w*.2+i*(w*.265);c.fillStyle="#1b1b1a";rr(c,x,54,w*.25,58,9);c.fill();c.fillStyle="#ffffff40";rr(c,x+12,68,w*.1,8,4);c.fill();c.fillStyle=i?"#f3f3ee":"#ff5533";rr(c,x+12,86,w*.15,12,5);c.fill()}
+ const base=h-82,n=11,bw=(w*.77-24)/n;for(let i=0;i<n;i++){const v=(.3+.65*Math.abs(Math.sin(i*1.3+t*.5)))*Math.min(1,.35+p);c.fillStyle=i%4===1?"#ff5533":"#ff553366";rr(c,w*.2+i*bw,base-v*118,bw-7,v*118,3);c.fill()}
+ for(let i=0;i<3;i++){c.fillStyle="#ffffff14";rr(c,w*.2,h-66+i*20,w*.77*(1-i*.18),11,4);c.fill()}},
+reel:(c,w,h,p,t,v=0)=>{const pos=t*.28+p*3+v*1.7,i0=Math.floor(pos),f=pos-i0,e=f<.65?0:ease((f-.65)/.35);
+ for(let j=0;j<2;j++){const g=PAL[(i0+j+v)%5],y=(j-e)*h,gr=c.createLinearGradient(0,y,w*.6,y+h);gr.addColorStop(0,g[0]);gr.addColorStop(1,g[1]);c.fillStyle=gr;c.fillRect(0,y,w,h);
+  c.fillStyle="#ffffff30";c.beginPath();c.arc(w/2,y+h*.45,34,0,6.3);c.fill();c.fillStyle="#fff";c.beginPath();c.moveTo(w/2-9,y+h*.45-15);c.lineTo(w/2+16,y+h*.45);c.lineTo(w/2-9,y+h*.45+15);c.fill();
+  c.fillStyle="#ffffffcc";rr(c,18,y+h-96,w*.5,10,5);c.fill();c.fillStyle="#ffffff66";rr(c,18,y+h-74,w*.34,8,4);c.fill();
+  for(let q=0;q<3;q++){c.fillStyle="#ffffffd0";c.beginPath();c.arc(w-30,y+h-150+q*40,13,0,6.3);c.fill()}}
+ notch(c,w)},
+game:(c,w,h,p,t,v=0)=>{c.fillStyle="#0d0d0c";c.fillRect(0,0,w,h);notch(c,w);c.fillStyle="#ffffff22";rr(c,20,56,w-40,10,5);c.fill();
+ const s=.5+.5*Math.sin(t*.9+v*2);c.fillStyle="#ff5533";rr(c,20,56,(w-40)*(.15+.8*s),10,5);c.fill();
+ const cd=(x,y,r,a,b,l)=>{c.save();c.translate(x,y);c.rotate(r);const g=c.createLinearGradient(-60,-90,60,90);g.addColorStop(0,a);g.addColorStop(1,b);c.fillStyle=g;rr(c,-82,-120,164,240,22);c.fill();c.fillStyle="#fff";c.font=`italic 84px "Instrument Serif", serif`;c.textAlign="center";c.fillText(l,0,28);c.restore()};
+ cd(w/2,h*.55,0,"#2b6cff","#0b1f66",v?"W":"K");const sw=Math.sin(t*1.1+v*2);cd(w/2+sw*w*.55,h*.55-Math.abs(sw)*10,sw*.35,"#ff5533","#7a1d0c",v?"K":"W");
+ c.fillStyle="#ffffff22";rr(c,w/2-50,h-60,100,8,4);c.fill()},
+web:(c,w,h,p,t)=>{const off=(.5+.5*Math.sin(t*.35)+p)*.5*(h*1.25);c.fillStyle="#0d0d0c";c.fillRect(0,0,w,h);c.save();c.translate(0,-off);
+ const g=c.createLinearGradient(0,0,0,h*.7);g.addColorStop(0,"#0e4a78");g.addColorStop(1,"#0d0d0c");c.fillStyle=g;c.fillRect(0,0,w,h*.7);
+ c.fillStyle="#ffffffdd";rr(c,w*.1,h*.22,w*.5,26,6);c.fill();rr(c,w*.1,h*.22+36,w*.38,26,6);c.fill();c.fillStyle="#ff5533";rr(c,w*.1,h*.22+86,110,32,16);c.fill();
+ for(let i=0;i<3;i++){c.fillStyle="#ffffff12";rr(c,w*.08+i*w*.3,h*.78,w*.27,h*.3,10);c.fill();c.fillStyle="#ffffff30";rr(c,w*.1+i*w*.3,h*.78+16,w*.14,10,4);c.fill()}
+ const cx=w/2,cy=h*1.38;c.lineWidth=11;c.strokeStyle="#ffffff18";c.beginPath();c.arc(cx,cy,48,0,6.3);c.stroke();c.strokeStyle="#2fd27a";c.lineCap="round";c.beginPath();c.arc(cx,cy,48,-1.57,-1.57+6.28*.98);c.stroke();
+ c.fillStyle="#2fd27a";c.font=`600 34px ${F}`;c.textAlign="center";c.fillText("98",cx,cy+12);c.restore();c.fillStyle="#0d0d0cdd";c.fillRect(0,0,w,34);c.fillStyle="#f3f3ee";c.font=`600 13px ${F}`;c.textAlign="left";c.fillText("Earth Air Condition",16,22)},
+kan:(c,w,h,p,t)=>{c.fillStyle="#0d0d0c";c.fillRect(0,0,w,h);c.fillStyle="#f3f3ee";c.font=`600 16px ${F}`;c.fillText("PM Board",20,34);const cw=(w-64)/3;
+ for(let i=0;i<3;i++){c.fillStyle="#ffffff0c";rr(c,16+i*(cw+16),52,cw,h-70,10);c.fill();for(let j=0;j<(i===1?3:i?2:4);j++){c.fillStyle="#ffffff1a";rr(c,24+i*(cw+16),64+j*52,cw-16,42,7);c.fill();c.fillStyle="#ffffff30";rr(c,32+i*(cw+16),74+j*52,cw*.5,7,3);c.fill()}}
+ const ph=(t*.4+p*2)%3,a=Math.floor(ph),e=ease(clamp((ph-a-.3)/.5));const x=16+(a+e)*(cw+16)+8,y=64+220*.0+30*Math.sin(e*3.14);c.fillStyle="#ff5533";c.shadowColor="#000";c.shadowBlur=18;rr(c,x,y+110,cw-16,42,7);c.fill();c.shadowBlur=0;c.fillStyle="#0b0b0a";rr(c,x+8,y+121,cw*.45,7,3);c.fill()}};
+/* ---- 3D devices ---- */
+const metal=(c=0x2b2b29)=>new T.MeshStandardMaterial({color:c,metalness:.85,roughness:.3});
+function Phone(draw){const w=1.1,h=2.3,d=.1,r=.22,s=new T.Shape();
+ s.moveTo(-w/2+r,-h/2);s.lineTo(w/2-r,-h/2);s.quadraticCurveTo(w/2,-h/2,w/2,-h/2+r);s.lineTo(w/2,h/2-r);s.quadraticCurveTo(w/2,h/2,w/2-r,h/2);s.lineTo(-w/2+r,h/2);s.quadraticCurveTo(-w/2,h/2,-w/2,h/2-r);s.lineTo(-w/2,-h/2+r);s.quadraticCurveTo(-w/2,-h/2,-w/2+r,-h/2);
+ const geo=new T.ExtrudeGeometry(s,{depth:d,bevelEnabled:true,bevelSize:.025,bevelThickness:.025,bevelSegments:5,curveSegments:16});geo.translate(0,0,-d/2);
+ const g=new T.Group(),sc=mkScr(256,560,44,draw);g.add(new T.Mesh(geo,metal()));
+ const scr=new T.Mesh(new T.PlaneGeometry(w-.09,h-.09),new T.MeshBasicMaterial({map:sc.tex,transparent:true,toneMapped:false}));scr.position.z=d/2+.028;g.add(scr);
+ [[-.27,.88],[-.27,.6]].forEach(q=>{const l=new T.Mesh(new T.CylinderGeometry(.1,.1,.04,28),metal(0x0c0c0b));l.rotation.x=Math.PI/2;l.position.set(q[0],q[1],-d/2-.04);g.add(l)});
+ return{g,sc:[sc]}}
+function Laptop(draw){const g=new T.Group(),sc=mkScr(600,360,10,draw);
+ const base=new T.Mesh(new T.BoxGeometry(2.9,.09,1.95),metal());g.add(base);
+ const kc=document.createElement("canvas");kc.width=520;kc.height=240;const k=kc.getContext("2d");k.fillStyle="#1a1a18";k.fillRect(0,0,520,240);k.fillStyle="#2c2c2a";
+ for(let r=0;r<5;r++)for(let q=0;q<14;q++){rr(k,8+q*36.5,8+r*30,32,26,4);k.fill()}k.fillStyle="#242422";rr(k,190,172,140,60,6);k.fill();
+ const kt=new T.CanvasTexture(kc);kt.encoding=T.sRGBEncoding;const deck=new T.Mesh(new T.PlaneGeometry(2.6,1.2),new T.MeshStandardMaterial({map:kt,roughness:.6,metalness:.3}));deck.rotation.x=-Math.PI/2;deck.position.set(0,.047,.25);g.add(deck);
+ const hinge=new T.Group();hinge.position.set(0,.045,-.97);g.add(hinge);
+ const lg=new T.BoxGeometry(2.9,1.85,.07);lg.translate(0,.925,0);hinge.add(new T.Mesh(lg,metal()));
+ const scr=new T.Mesh(new T.PlaneGeometry(2.7,1.62),new T.MeshBasicMaterial({map:sc.tex,transparent:true,toneMapped:false}));scr.position.set(0,.93,.037);hinge.add(scr);
+ return{g,sc:[sc],open:v=>{hinge.rotation.x=Math.PI/2+(-.22-Math.PI/2)*ease(clamp(v))}}}
+/* ---- scenes ---- */
+const scenes=[];
+const rigScene=(parts,o={})=>{const g=new T.Group(),inner=new T.Group();g.add(inner);const screens=[],laps=[];
+ parts.forEach(([d,x,y,z,ry,sc])=>{d.g.position.set(x,y,z);d.g.rotation.y=ry;d.g.scale.setScalar(sc||1);inner.add(d.g);screens.push(...d.sc);if(d.open)laps.push(d)});
+ scenes.push({g,screens,hero:o.hero,y0:o.y0||0,u:(lp,t,cs,dr)=>{const spin=cs?(lp*Math.PI*2):(lp-.5)*1.1;
+  inner.rotation.y=(o.base||-.35)+spin+Math.sin(t*.5)*.06;inner.rotation.x=.06+my*.18;inner.rotation.z=mx*.04;inner.position.y=Math.sin(t*.9)*.07;
+  laps.forEach(l=>l.open(cs?1:lp*4));if(dr)screens.forEach(s=>s.draw(lp,t))}})};
+rigScene([[Laptop((c,w,h,p,t)=>D.dash(c,w,h,p,t)),-.4,-.5,0,0,1.05],[Phone((c,w,h,p,t)=>D.reel(c,w,h,p,t,0)),1.9,-.3,.9,-.35,.8]],{hero:1,y0:-.9,base:-.2});
+rigScene([[Laptop((c,w,h,p,t)=>D.dash(c,w,h,p,t)),0,-.6,0,0,1.15]],{base:-.4});
+rigScene([[Phone((c,w,h,p,t)=>D.reel(c,w,h,p,t,0)),-.75,0,.4,.15,1],[Phone((c,w,h,p,t)=>D.reel(c,w,h,p,t,2)),.95,-.15,-.6,-.2,1]],{base:-.3});
+rigScene([[Phone((c,w,h,p,t)=>D.game(c,w,h,p,t,0)),-.95,0,0,.35,1],[Phone((c,w,h,p,t)=>D.game(c,w,h,p,t,1)),.95,0,0,-.35,1]],{base:0});
+rigScene([[Laptop((c,w,h,p,t)=>D.web(c,w,h,p,t)),0,-.6,0,0,1.15]],{base:-.4});
+rigScene([[Laptop((c,w,h,p,t)=>D.kan(c,w,h,p,t)),0,-.6,0,0,1.15]],{base:-.4});
+rigScene([[Laptop((c,w,h,p,t)=>D.web(c,w,h,p,t)),-.4,-.5,0,0,1.05],[Phone((c,w,h,p,t)=>D.game(c,w,h,p,t,0)),1.9,-.3,.9,-.35,.8]],{hero:1,y0:-.5,base:-.2});
+scenes.forEach((s,i)=>{s.g.position.y=-i*SP;scene.add(s.g)});
+let W,H,desk,mx=0,my=0;
+function size(){W=innerWidth;H=innerHeight;desk=W>820;ren.setPixelRatio(Math.min(devicePixelRatio,2));ren.setSize(W,H,false);cam.aspect=W/H;cam.updateProjectionMatrix();
+ scenes.forEach((s,i)=>{const c=i===0||i===scenes.length-1;s.g.position.x=desk&&!c?2.5:0;s.g.scale.setScalar(desk?1:(c?.7:.62));s.off=(c?s.y0:0)+(desk?0:(c?-.2:1.5))})}
+addEventListener("resize",size);size();
+addEventListener("pointermove",e=>{mx=e.clientX/W-.5;my=e.clientY/H-.5},{passive:true});
+let cf=0,t=0,last=performance.now(),act=-1,zoom=0,zt=0,frame=0;
+scrollCalc=function(){if(caseIdx>=0){caseP=clamp(scrollY/Math.max(1,document.documentElement.scrollHeight-H));$("#bar").style.transform=`scaleX(${caseP})`;return}
+ $("#bar").style.transform=`scaleX(${clamp(scrollY/Math.max(1,document.documentElement.scrollHeight-H))})`;
+ let idx=0;secs.forEach((el,i)=>{const r=el.getBoundingClientRect();if(r.top<=1)idx=i;
+  const sp=clamp(-r.top/(r.height-H)),tx=el.querySelector(".txt"),o=clamp(1.9-Math.abs(sp-.5)*4.2);tx.style.opacity=o;tx.style.transform=`translateY(${(.5-sp)*60}px)`;tx.style.pointerEvents=o>.25?"auto":"none";
+  if(i===idx)tf=clamp(i-.5+sp,0,S.length-1)});
+ if(idx!==act){act=idx;$("#cur").textContent=S[idx].n;dots.forEach((d,j)=>d.classList.toggle("on",j===idx))}};
+addEventListener("scroll",()=>scrollCalc(),{passive:true});
+/* ---- routing ---- */
+function renderCase(i){const p=P[i],nx=P[(i+1)%P.length];
+ $("#case").innerHTML=`<article class="case-in"><p class="kind">${p.kind}</p><h1>${p.n}</h1><p class="lead">${p.sum}</p>
+ <dl class="meta"><div><dt>My role</dt><dd>${p.role}</dd></div><div><dt>Where to see it</dt><dd>${p.access}</dd></div></dl>
+ <section class="blk"><h3>What it does</h3><ul class="feat">${p.feats.map(f=>`<li><b>${f[0]}</b><span>${f[1]}</span></li>`).join("")}</ul></section>
+ <section class="blk"><h3>How it fits together</h3><ol class="flow">${p.flow.map(f=>`<li><b>${f[0]}</b><span>${f[1]}</span></li>`).join("")}</ol></section>
+ <section class="blk"><h3>Built with</h3><div class="stack">${p.stack.map(s=>`<span>${s}</span>`).join("")}</div></section>
+ <a class="next" href="#/${nx.id}"><small>Next project</small><b>${nx.n} &rarr;</b></a></article>`;
+ const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.6});
+ document.querySelectorAll(".flow li").forEach(l=>io.observe(l))}
+function route(){const m=location.hash.match(/^#\/(.+)/),i=m?P.findIndex(p=>p.id===m[1]):-1;
+ if(i>=0){if(caseIdx<0)storyY=scrollY;caseIdx=i;document.body.classList.add("case");renderCase(i);scrollTo(0,0);zt=1;scrollCalc()}
+ else if(caseIdx>=0){caseIdx=-1;document.body.classList.remove("case");zt=0;scrollTo(0,storyY);scrollCalc()}}
+addEventListener("hashchange",route);addEventListener("keydown",e=>{if(e.key==="Escape"&&caseIdx>=0)location.hash="#/"});
+route();scrollCalc();
+(function loop(now){requestAnimationFrame(loop);const dt=reduce?0:Math.min(.05,(now-last)/1000);last=now;t+=dt;frame++;
+ if(caseIdx>=0)tf=caseIdx+1;cf+=(tf-cf)*(reduce?1:.075);zoom+=(zt-zoom)*.06;
+ cam.position.x+=(mx*1.2-cam.position.x)*.05;cam.position.y=-cf*SP-my*.6+.2;cam.position.z=9.5-zoom*2.3;cam.lookAt(0,-cf*SP,0);
+ scenes.forEach((s,i)=>{const near=Math.abs(cf-i)<1.3;s.g.visible=near;if(near){s.g.position.y=-i*SP+s.off;
+  const cs=caseIdx>=0&&i===caseIdx+1;s.u(cs?caseP:clamp(cf-i+.5),t,cs,frame%2===0);}});
+ ren.render(scene,cam)})(last);
+}
+</script>
+</body>
+</html>
+

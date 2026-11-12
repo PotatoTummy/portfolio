@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Samad Kausar — Frontend-heavy full stack engineer (Descent v1)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;600&family=Geist+Mono&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0B0B0A;--fg:#F3F3EE;--ac:#FF5533;--mut:rgba(243,243,238,.55);--line:rgba(243,243,238,.16);--serif:"Instrument Serif",Georgia,serif;--sans:"Geist",system-ui,sans-serif;--mono:"Geist Mono",ui-monospace,monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--bg);color:var(--fg);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+body{overflow-x:clip}
+:focus-visible{outline:2px solid var(--ac);outline-offset:3px}
+#gl{position:fixed;inset:0;width:100%;height:100%;z-index:0;display:block}
+.grain{position:fixed;inset:-10%;z-index:5;pointer-events:none;opacity:.05;mix-blend-mode:screen;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");animation:gr .6s steps(3) infinite}
+@keyframes gr{33%{transform:translate(-3%,2%)}66%{transform:translate(2%,-3%)}}
+#bar{position:fixed;top:0;left:0;height:2px;width:100%;background:var(--ac);transform-origin:0 50%;transform:scaleX(0);z-index:20}
+.brand{position:fixed;top:22px;left:clamp(20px,5vw,60px);z-index:20;font:13px var(--mono);display:flex;gap:18px;color:var(--mut)}
+.brand b{color:var(--fg);font-weight:400}
+.dots{position:fixed;right:clamp(14px,3vw,34px);top:50%;transform:translateY(-50%);z-index:20;display:grid;gap:14px}
+.dots button{width:9px;height:9px;border-radius:50%;border:1px solid var(--mut);background:none;cursor:pointer;padding:0;transition:.4s}
+.dots button.on{background:var(--ac);border-color:var(--ac);transform:scale(1.5)}
+main{position:relative;z-index:10}
+.ch{position:relative;height:280vh}
+.ch.hero{height:240vh}.ch.end{height:160vh}
+.pin{position:sticky;top:0;height:100svh;display:flex;align-items:flex-end;padding:0 clamp(20px,5vw,60px) clamp(40px,9vh,90px);pointer-events:none}
+.pin>*{pointer-events:auto}
+.txt{will-change:transform,opacity;max-width:min(560px,86vw)}
+h1,h2{font-family:var(--serif);font-weight:400;letter-spacing:-.025em;line-height:.88}
+h2{font-size:clamp(64px,10.5vw,170px)}
+em{font-style:italic;color:var(--ac)}
+.line{font-size:clamp(17px,1.7vw,22px);margin-top:18px;color:var(--mut)}
+.tech{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.tech span{font:12px var(--mono);padding:6px 11px;border:1px solid var(--line);border-radius:99px;background:rgba(11,11,10,.55);backdrop-filter:blur(8px)}
+/* hero */
+.hero .pin{align-items:center;justify-content:center;text-align:center}
+.hero .txt{max-width:none}
+h1{font-size:clamp(72px,16vw,250px)}
+.hl{display:block;overflow:hidden;padding:.04em 0}
+.hl span{display:inline-block;transform:translateY(110%) rotate(6deg);opacity:0;animation:up 1.2s cubic-bezier(.2,.9,.2,1) forwards;animation-delay:calc(var(--i)*55ms + .4s)}
+@keyframes up{to{transform:none;opacity:1}}
+.hero .line{opacity:0;animation:fi 1s 2s forwards}
+@keyframes fi{to{opacity:1}}
+.cue{position:absolute;bottom:4vh;left:50%;width:1px;height:46px;background:linear-gradient(var(--ac),transparent);transform-origin:top;animation:dr 2s 2.4s infinite;opacity:0}
+@keyframes dr{0%{transform:scaleY(0);opacity:1}60%{transform:scaleY(1);opacity:1}100%{opacity:0}}
+.end .pin{align-items:center;justify-content:center;text-align:center}
+.end .txt{max-width:none}
+.cta{display:inline-block;margin-top:36px;text-decoration:none;background:var(--ac);color:var(--bg);font-weight:600;padding:18px 34px;border-radius:99px;transition:transform .3s}
+.cta:hover{transform:scale(1.07) rotate(-2deg)}
+@media(max-width:820px){.pin{padding-bottom:70px}.dots{display:none}h2{font-size:clamp(56px,17vw,100px)}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.hl span,.hero .line{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<canvas id="gl" aria-hidden="true"></canvas><div class="grain" aria-hidden="true"></div><div id="bar"></div>
+<div class="brand"><b>Samad Kausar</b><span id="cur">Opening</span></div>
+<nav class="dots" id="dots" aria-label="Chapters"></nav>
+<main id="main"></main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+const $=s=>document.querySelector(s),clamp=(v,a=0,b=1)=>Math.min(b,Math.max(a,v));
+const S=[
+{n:"Opening",cls:"hero"},
+{n:"Nestys",t:"Nestys",l:"Three portals, one resilient backend.",c:["NestJS","BullMQ","Prisma","HLS.js"]},
+{n:"Scrollr",t:"Scrollr",l:"Short video with no algorithm.",c:["Expo","Fastify","60fps","2,500+ items"]},
+{n:"WoKataa",t:"WoKataa",l:"Real-time, head to head.",c:["Socket.IO","Ably","BullMQ"]},
+{n:"Earth Air",t:"Earth Air",l:"A commercial site rebuilt for speed.",c:["95+ Web Vitals","GitHub Actions","MCP"]},
+{n:"Servotech",t:"Servotech",l:"Internal tools at operational scale.",c:["PM board","HRMS","ATS"]},
+{n:"Credits",cls:"end"}];
+let k=0;
+$("#main").innerHTML=S.map((s,i)=>`<section class="ch ${s.cls||""}" data-n="${s.n}"><div class="pin"><div class="txt">${
+ s.cls==="hero"?`<h1 aria-label="Samad Kausar">${["Samad","Kausar"].map(w=>`<span class="hl" aria-hidden="true">${[...w].map(c=>`<span style="--i:${k++}">${c}</span>`).join("")}</span>`).join("")}</h1><p class="line">Frontend-heavy full stack engineer</p>`
+ :s.cls==="end"?`<h2>Let's build<br>the <em>next</em> one.</h2><a class="cta" href="mailto:samadkausar786@gmail.com">Say hello</a>`
+ :`<h2>${s.t}</h2><p class="line">${s.l}</p><div class="tech">${s.c.map(c=>`<span>${c}</span>`).join("")}</div>`}</div>${s.cls==="hero"?'<div class="cue"></div>':""}</div></section>`).join("");
+$("#dots").innerHTML=S.map((s,i)=>`<button aria-label="${s.n}" data-i="${i}"></button>`).join("");
+const secs=[...document.querySelectorAll(".ch")],dots=[...document.querySelectorAll(".dots button")];
+dots.forEach(b=>b.onclick=()=>{const el=secs[+b.dataset.i];scrollTo({top:el.offsetTop+(el.offsetHeight-innerHeight)*.5,behavior:"smooth"})});
+
+/* ---------- THREE ---------- */
+const T=THREE,reduce=matchMedia("(prefers-reduced-motion:reduce)").matches;
+let ren;try{ren=new T.WebGLRenderer({canvas:$("#gl"),antialias:true,alpha:true})}catch(e){ren=null}
+if(ren){
+const SP=10,AC=0xff5533,FG=0xf3f3ee;
+const scene=new T.Scene();scene.fog=new T.FogExp2(0x0b0b0a,.035);
+const cam=new T.PerspectiveCamera(45,1,.1,120);scene.add(cam);
+cam.add(new T.PointLight(AC,2.4,34));cam.children[0].position.set(3,2,4);
+const dl=new T.DirectionalLight(0xffffff,.9);dl.position.set(-4,6,5);scene.add(dl,new T.AmbientLight(0xffffff,.35));
+const std=(c,m=.7,r=.3)=>new T.MeshStandardMaterial({color:c,metalness:m,roughness:r});
+const wire=(c,o=.3)=>new T.MeshBasicMaterial({color:c,wireframe:true,transparent:true,opacity:o});
+const line=(c,o)=>new T.LineBasicMaterial({color:c,transparent:true,opacity:o});
+/* star field spanning the whole descent */
+{const n=1400,p=new Float32Array(n*3);for(let i=0;i<n;i++){p[i*3]=(Math.random()-.5)*40;p[i*3+1]=Math.random()*-78+8;p[i*3+2]=(Math.random()-.5)*30-6}
+const g=new T.BufferGeometry();g.setAttribute("position",new T.BufferAttribute(p,3));scene.add(new T.Points(g,new T.PointsMaterial({size:.05,color:FG,transparent:true,opacity:.55,depthWrite:false})))}
+const ease=x=>x*x*(3-2*x);
+const scenes=[];
+/* 0 hero: solid knot wrapped in wireframe */
+{const g=new T.Group(),a=new T.Mesh(new T.TorusKnotGeometry(1.5,.42,220,28,2,3),std(0x1a1a18,.9,.25)),b=new T.Mesh(a.geometry,wire(AC,.55));b.scale.setScalar(1.015);g.add(a,b);
+scenes.push({g,hero:1,u:(lp,t)=>{g.rotation.set(t*.18+lp*2.4,t*.26+lp*1.6,0)}})}
+/* 1 nestys: service graph */
+{const g=new T.Group(),N=15,R=2.3,pts=[];for(let i=0;i<N;i++){const y=1-i/(N-1)*2,r=Math.sqrt(1-y*y),th=i*2.39996;pts.push(new T.Vector3(Math.cos(th)*r,y,Math.sin(th)*r).multiplyScalar(R))}
+const nodes=pts.map(p=>{const m=new T.Mesh(new T.SphereGeometry(.13,20,20),std(FG,.2,.4));m.position.copy(p);g.add(m);return m});
+const lp2=[];pts.forEach((a,i)=>pts.forEach((b,j)=>{if(j>i&&a.distanceTo(b)<2.5)lp2.push(a,b)}));
+g.add(new T.LineSegments(new T.BufferGeometry().setFromPoints(lp2),line(FG,.28)));
+const core=new T.Mesh(new T.IcosahedronGeometry(.55,1),std(AC,.5,.3));g.add(core);
+scenes.push({g,u:(lp,t)=>{g.rotation.y=t*.12+lp*5;g.rotation.x=.3;core.rotation.y=t;
+ nodes.forEach((m,i)=>{const on=lp*1.5*N>i,s=on?1.7+Math.sin(t*3+i)*.25:1;m.scale.setScalar(s);m.material.color.setHex(on?AC:FG)})}})}
+/* 2 scrollr: helix of film frames */
+{const g=new T.Group(),F=9,fr=[],pal=[0xff5533,0x2b6cff,0x18c38a,0xf5b700,0xb04dff],geo=new T.PlaneGeometry(1.1,1.95),eg=new T.EdgesGeometry(geo);
+for(let i=0;i<F;i++){const m=new T.Mesh(geo,new T.MeshBasicMaterial({color:pal[i%5],transparent:true,opacity:.78,side:T.DoubleSide}));m.add(new T.LineSegments(eg,line(FG,.8)));g.add(m);fr.push(m)}
+scenes.push({g,u:(lp,t)=>{fr.forEach((m,i)=>{const a=i*.72+lp*Math.PI*3+t*.1;m.position.set(Math.cos(a)*2.3,(i-(F-1)/2)*.62,Math.sin(a)*2.3);m.rotation.y=-a+Math.PI/2;m.rotation.z=Math.sin(a)*.12})}})}
+/* 3 wokataa: interlocked rings and two tokens */
+{const g=new T.Group(),r1=new T.Mesh(new T.TorusGeometry(2,.05,16,140),std(FG,.6,.3)),r2=new T.Mesh(new T.TorusGeometry(2,.05,16,140),std(AC,.6,.3)),r3=new T.Mesh(new T.TorusGeometry(1.2,.03,16,100),std(FG,.6,.3)),
+ a=new T.Mesh(new T.SphereGeometry(.28,28,28),std(AC,.3,.2)),b=new T.Mesh(new T.SphereGeometry(.28,28,28),std(FG,.3,.2));g.add(r1,r2,r3,a,b);
+scenes.push({g,u:(lp,t)=>{r1.rotation.set(lp*Math.PI*2+t*.2,0,0);r2.rotation.set(0,lp*Math.PI*2+t*.2,Math.PI/2);r3.rotation.set(t*.3,t*.2,lp*6);
+ const q=lp*Math.PI*4;a.position.set(Math.cos(q)*2,Math.sin(q)*2,0);b.position.set(-Math.cos(q)*2,0,Math.sin(q)*2)}})}
+/* 4 earth air: airflow vortex */
+{const g=new T.Group(),n=1800,p=new Float32Array(n*3),d=Array.from({length:n},()=>({a:Math.random()*6.283,r:.5+Math.random()*2.6,h:(Math.random()-.5)*4.4,s:.3+Math.random()*.9})),bg=new T.BufferGeometry();
+bg.setAttribute("position",new T.BufferAttribute(p,3));g.add(new T.Points(bg,new T.PointsMaterial({size:.05,color:0xbfe9ff,transparent:true,opacity:.9,depthWrite:false,blending:T.AdditiveBlending})));
+const core=new T.Mesh(new T.CylinderGeometry(.35,.35,.1,40),std(AC,.6,.3));core.rotation.x=Math.PI/2;g.add(core);
+scenes.push({g,u:(lp,t)=>{const sp=.3+lp*2.2;d.forEach((o,i)=>{const a=o.a+t*o.s*sp,r=o.r*(.55+.45*Math.sin(o.h*.7+t*.4)),y=o.h;p[i*3]=Math.cos(a)*r;p[i*3+1]=y+Math.sin(a*2)*.15;p[i*3+2]=Math.sin(a)*r-o.h*.2});bg.attributes.position.needsUpdate=true;g.rotation.x=.9;core.rotation.z=t*4}})}
+/* 5 servotech: board of rising blocks */
+{const g=new T.Group(),G=6,bx=[],geo=new T.BoxGeometry(.62,1,.62);
+for(let x=0;x<G;x++)for(let z=0;z<G;z++){const hot=(x*7+z*3)%11===0,m=new T.Mesh(geo,std(hot?AC:0x2a2a28,hot?.4:.8,.35));m.userData={x,z,h:.5+((x*5+z*3)%7)*.28};m.add(new T.LineSegments(new T.EdgesGeometry(geo),line(FG,.25)));g.add(m);bx.push(m)}
+scenes.push({g,u:(lp,t)=>{bx.forEach(m=>{const {x,z,h}=m.userData,s=Math.max(.02,ease(clamp(lp*2.2-(x+z)/10))*(h+Math.sin(t+x+z)*.12));m.scale.y=s;m.position.set((x-2.5)*.75,s/2-1.2,(z-2.5)*.75)});g.rotation.set(.45,.7+lp*1.4,0)}})}
+/* 6 credits: concentric rings to fly through */
+{const g=new T.Group(),rs=[1.4,2.1,2.8].map((r,i)=>{const m=new T.Mesh(new T.TorusGeometry(r,.035,16,160),std(i?FG:AC,.6,.3));g.add(m);return m});
+scenes.push({g,end:1,u:(lp,t)=>rs.forEach((m,i)=>m.rotation.set(t*.2*(i+1)+lp*2,t*.15*(3-i),0))})}
+scenes.forEach((s,i)=>{s.g.position.y=-i*SP;scene.add(s.g)});
+let W,H,desk,mx=0,my=0;
+function size(){W=innerWidth;H=innerHeight;desk=W>820;ren.setPixelRatio(Math.min(devicePixelRatio,2));ren.setSize(W,H,false);cam.aspect=W/H;cam.updateProjectionMatrix();
+ scenes.forEach((s,i)=>{const c=s.hero||s.end;s.g.position.x=desk&&!c?2.6:0;s.g.position.z=0;s.g.scale.setScalar(desk?1:.72);s.off=desk||c?0:1.5})}
+addEventListener("resize",size);size();
+addEventListener("pointermove",e=>{mx=e.clientX/W-.5;my=e.clientY/H-.5},{passive:true});
+let tf=0,cf=0,t=0,last=performance.now(),act=-1;
+function scrollCalc(){const y=scrollY;$("#bar").style.transform=`scaleX(${clamp(y/(document.documentElement.scrollHeight-H))})`;
+ let idx=0;secs.forEach((el,i)=>{const r=el.getBoundingClientRect();if(r.top<=1)idx=i;
+  const sp=clamp(-r.top/(r.height-H)),tx=el.querySelector(".txt"),o=clamp(1.9-Math.abs(sp-.5)*4.2);tx.style.opacity=o;tx.style.transform=`translateY(${(.5-sp)*60}px)`;
+  if(i===idx||r.top<=1&&i===idx)tf=clamp(i-.5+sp,0,S.length-1)});
+ if(idx!==act){act=idx;$("#cur").textContent=S[idx].n;dots.forEach((d,j)=>d.classList.toggle("on",j===idx))}}
+addEventListener("scroll",scrollCalc,{passive:true});scrollCalc();
+(function loop(now){requestAnimationFrame(loop);const dt=reduce?0:Math.min(.05,(now-last)/1000);last=now;t+=dt;cf+=(tf-cf)*(reduce?1:.075);
+ cam.position.x+=((mx*1.4)-cam.position.x)*.05;cam.position.y=-cf*SP-my*.7+.2;cam.position.z=9.5+Math.sin(cf*Math.PI)*-.6;cam.lookAt(0,-cf*SP,0);
+ scenes.forEach((s,i)=>{const near=Math.abs(cf-i)<1.3;s.g.visible=near;if(near){s.g.position.y=-i*SP+s.off;s.u(clamp(cf-i+.5),t)}});
+ /* the final scene is flown through: pull camera forward over the last chapter */
+ if(cf>5.5)cam.position.z=9.5-(cf-5.5)*14;
+ ren.render(scene,cam)})(last);
+}
+</script>
+</body>
+</html>
+

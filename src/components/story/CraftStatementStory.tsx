@@ -8,26 +8,26 @@ import { ArrowUpRight } from "lucide-react";
 const STATEMENTS = [
   {
     tag: "01 / 04",
-    word: "One developer.",
-    lead: "Design, development, and motion under one roof.",
+    word: "One engineer.",
+    lead: "Interface design, distributed architecture, and motion under one roof.",
     color: "#0F172A",
   },
   {
     tag: "02 / 04",
-    word: "Design.",
-    lead: "Thoughtful visual systems crafted for clarity and conversion.",
+    word: "Interfaces.",
+    lead: "Thoughtful visual systems with fluid gesture physics and zero layout shifts.",
     color: "#0284C7",
   },
   {
     tag: "03 / 04",
-    word: "Development.",
-    lead: "Clean typed code, robust APIs, and scalable PostgreSQL architectures.",
+    word: "Systems.",
+    lead: "Distributed NestJS microservices, BullMQ queue workers, and Redis caching.",
     color: "#059669",
   },
   {
     tag: "04 / 04",
-    word: "Motion.",
-    lead: "Sub-second load times and delightful 60fps tactile micro-interactions.",
+    word: "Receipts.",
+    lead: "2,500+ items at 60fps, 95+ Core Web Vitals, and sub-40ms realtime sync.",
     color: "#D97706",
   },
 ];

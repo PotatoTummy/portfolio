@@ -1,23 +1,23 @@
 "use client";
 
 import React from "react";
-import { Zap, Search, Bell, CheckCircle2, ArrowUpRight } from "lucide-react";
+import { Zap, Search, Bell, CheckCircle2, ArrowUpRight, Activity, ShieldCheck, Cpu } from "lucide-react";
 
 export const HeroDashboardUI: React.FC = () => {
   return (
     <div className="w-full h-full bg-[#FFFFFF] text-[#0F172A] flex flex-col font-sans select-none overflow-hidden text-[11px]">
-      {/* Top Application Bar (Pure Web App, No Browser Chrome) */}
+      {/* Top Application Bar */}
       <div className="h-8 sm:h-11 border-b border-slate-100 bg-white px-2.5 sm:px-4 flex items-center justify-between shrink-0">
         <div className="flex items-center gap-2 sm:gap-3">
           <div className="flex items-center gap-1.5 sm:gap-2 font-bold tracking-tight text-slate-900">
             <span className="h-4 w-4 sm:h-5 sm:w-5 rounded-md sm:rounded-lg bg-gradient-to-tr from-[#0284C7] to-[#00D4FF] flex items-center justify-center text-[9px] sm:text-[10px] text-white font-extrabold shadow-xs">
               ◆
             </span>
-            <span className="text-[11px] sm:text-xs font-grotesk font-semibold">Pulse Analytics</span>
+            <span className="text-[11px] sm:text-xs font-grotesk font-semibold">Production Systems Monitor</span>
           </div>
           <span className="hidden sm:inline-flex items-center gap-1.5 text-[9px] font-mono px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-600 border border-emerald-200">
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-            99.98% Healthy
+            Active Mesh · 5 Services
           </span>
         </div>
 
@@ -25,7 +25,7 @@ export const HeroDashboardUI: React.FC = () => {
         <div className="flex items-center gap-1.5 sm:gap-2.5">
           <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-50 border border-slate-200 text-slate-400 text-[10px] w-48">
             <Search className="h-3 w-3" />
-            <span>Search transactions...</span>
+            <span>Search service logs...</span>
           </div>
           <div className="h-5 w-5 sm:h-6 sm:w-6 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-600">
             <Bell className="h-2.5 w-2.5 sm:h-3 sm:w-3" />
@@ -38,50 +38,60 @@ export const HeroDashboardUI: React.FC = () => {
 
       {/* Main Dashboard Stage */}
       <div className="flex-1 p-2 sm:p-4 bg-slate-50/50 flex flex-col gap-2 sm:gap-3 overflow-hidden">
-        {/* KPI Stat Cards Row */}
+        {/* Real Engineering KPIs Row */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5 sm:gap-2.5 shrink-0">
           <div className="p-1.5 sm:p-2.5 rounded-lg sm:rounded-xl bg-white border border-slate-200/80 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
             <div className="flex items-center justify-between text-slate-500 text-[8px] sm:text-[9px] font-mono">
-              <span className="truncate">Volume</span>
-              <span className="text-emerald-600 flex items-center font-bold">
-                <ArrowUpRight className="h-2 w-2 sm:h-2.5 sm:w-2.5" /> +18.4%
-              </span>
+              <span className="truncate">Feed Frame Rate</span>
+              <span className="text-emerald-600 flex items-center font-bold">Verified</span>
             </div>
             <div className="text-xs sm:text-base font-bold font-grotesk text-slate-900 mt-0.5">
-              $148,290
+              60 FPS
+            </div>
+            <div className="text-[8px] font-mono text-slate-400 mt-0.5 truncate">
+              2,500+ Items Virtualized
             </div>
           </div>
 
           <div className="p-1.5 sm:p-2.5 rounded-lg sm:rounded-xl bg-white border border-slate-200/80 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
             <div className="flex items-center justify-between text-slate-500 text-[8px] sm:text-[9px] font-mono">
-              <span className="truncate">Users</span>
+              <span className="truncate">Web Vitals</span>
               <span className="text-emerald-600 flex items-center font-bold">
-                <ArrowUpRight className="h-2 w-2 sm:h-2.5 sm:w-2.5" /> +8.2%
+                <ArrowUpRight className="h-2 w-2 sm:h-2.5 sm:w-2.5" /> 98 / 100
               </span>
             </div>
             <div className="text-xs sm:text-base font-bold font-grotesk text-slate-900 mt-0.5">
-              24,800
+              0.8s LCP
+            </div>
+            <div className="text-[8px] font-mono text-slate-400 mt-0.5 truncate">
+              Zero Cumulative Shift
             </div>
           </div>
 
           <div className="p-1.5 sm:p-2.5 rounded-lg sm:rounded-xl bg-white border border-slate-200/80 shadow-[0_1px_3px_rgba(0,0,0,0.04)] hidden xs:block">
             <div className="flex items-center justify-between text-slate-500 text-[8px] sm:text-[9px] font-mono">
-              <span>Conversion</span>
-              <span className="text-sky-600 font-bold">30d Avg</span>
+              <span>Sync Latency</span>
+              <span className="text-sky-600 font-bold">P99</span>
             </div>
             <div className="text-xs sm:text-base font-bold font-grotesk text-slate-900 mt-0.5">
-              4.82%
+              &lt; 40ms
+            </div>
+            <div className="text-[8px] font-mono text-slate-400 mt-0.5 truncate">
+              Socket.IO + Ably Cloud
             </div>
           </div>
 
           <div className="p-1.5 sm:p-2.5 rounded-lg sm:rounded-xl bg-white border border-slate-200/80 shadow-[0_1px_3px_rgba(0,0,0,0.04)] hidden xs:block">
             <div className="flex items-center justify-between text-slate-500 text-[8px] sm:text-[9px] font-mono">
-              <span>API Latency</span>
-              <span className="text-emerald-600 font-bold">Edge</span>
+              <span>Media Stream</span>
+              <span className="text-emerald-600 font-bold">Fastify</span>
             </div>
             <div className="text-xs sm:text-base font-bold font-grotesk text-emerald-600 mt-0.5 flex items-center gap-1">
               <Zap className="h-2.5 w-2.5 sm:h-3 sm:w-3 fill-emerald-500" />
-              18ms
+              18ms Edge
+            </div>
+            <div className="text-[8px] font-mono text-slate-400 mt-0.5 truncate">
+              SSRF Guard Active
             </div>
           </div>
         </div>
@@ -92,13 +102,13 @@ export const HeroDashboardUI: React.FC = () => {
           <div className="col-span-12 sm:col-span-8 p-2 sm:p-3 rounded-lg sm:rounded-xl bg-white border border-slate-200/80 shadow-[0_1px_3px_rgba(0,0,0,0.04)] flex flex-col justify-between">
             <div className="flex items-center justify-between shrink-0 mb-1">
               <div>
-                <span className="font-bold text-slate-900 text-xs">Revenue Velocity</span>
-                <span className="text-[9px] font-mono text-slate-400 ml-2">Live WebSocket Feed</span>
+                <span className="font-bold text-slate-900 text-xs">Throughput & Frame Budget</span>
+                <span className="text-[9px] font-mono text-slate-400 ml-2">16.6ms / frame</span>
               </div>
               <div className="flex items-center gap-1 font-mono text-[9px]">
-                <span className="px-1.5 py-0.5 rounded bg-slate-100 text-slate-600 font-semibold">1D</span>
-                <span className="px-1.5 py-0.5 rounded bg-[#0284C7] text-white font-semibold">1W</span>
-                <span className="px-1.5 py-0.5 rounded bg-slate-100 text-slate-600 font-semibold">1M</span>
+                <span className="px-1.5 py-0.5 rounded bg-slate-100 text-slate-600 font-semibold">FPS</span>
+                <span className="px-1.5 py-0.5 rounded bg-[#0284C7] text-white font-semibold">Live</span>
+                <span className="px-1.5 py-0.5 rounded bg-slate-100 text-slate-600 font-semibold">P99</span>
               </div>
             </div>
 
@@ -135,19 +145,18 @@ export const HeroDashboardUI: React.FC = () => {
 
             {/* X-Axis Labels */}
             <div className="flex items-center justify-between text-[8px] font-mono text-slate-400 pt-1 shrink-0">
-              <span>Mon</span>
-              <span>Tue</span>
-              <span>Wed</span>
-              <span>Thu</span>
-              <span>Fri</span>
-              <span>Sat</span>
-              <span>Sun</span>
+              <span>0ms</span>
+              <span>3.3ms</span>
+              <span>6.6ms</span>
+              <span>10ms</span>
+              <span>13.3ms</span>
+              <span>16.6ms (60fps)</span>
             </div>
           </div>
 
-          {/* Right Distribution & Live Orders */}
+          {/* Right Architecture Breakdown */}
           <div className="hidden sm:flex sm:col-span-4 p-3 rounded-xl bg-white border border-slate-200/80 shadow-[0_1px_3px_rgba(0,0,0,0.04)] flex-col justify-between">
-            <div className="font-bold text-slate-900 text-xs shrink-0">Distribution</div>
+            <div className="font-bold text-slate-900 text-xs shrink-0">Stack Distribution</div>
             
             {/* Donut Chart Simulation */}
             <div className="flex items-center justify-center gap-3 my-auto py-1">
@@ -161,7 +170,7 @@ export const HeroDashboardUI: React.FC = () => {
                     fill="none"
                     stroke="#0284C7"
                     strokeWidth="5"
-                    strokeDasharray="64 36"
+                    strokeDasharray="60 40"
                     strokeDashoffset="0"
                   />
                   <circle
@@ -171,34 +180,34 @@ export const HeroDashboardUI: React.FC = () => {
                     fill="none"
                     stroke="#00D4FF"
                     strokeWidth="5"
-                    strokeDasharray="24 76"
-                    strokeDashoffset="-64"
+                    strokeDasharray="40 60"
+                    strokeDashoffset="-60"
                   />
                 </svg>
                 <div className="absolute inset-0 flex items-center justify-center font-bold text-[9px] text-slate-800">
-                  64%
+                  Full
                 </div>
               </div>
 
               <div className="space-y-1 text-[8px] font-mono">
                 <div className="flex items-center gap-1.5 text-slate-600">
                   <span className="w-2 h-2 rounded-full bg-[#0284C7]" />
-                  <span>Enterprise</span>
+                  <span>Frontend / Apps (60%)</span>
                 </div>
                 <div className="flex items-center gap-1.5 text-slate-600">
                   <span className="w-2 h-2 rounded-full bg-[#00D4FF]" />
-                  <span>Growth</span>
+                  <span>Backend &amp; Queues (40%)</span>
                 </div>
               </div>
             </div>
 
             {/* Live Feed Pill */}
             <div className="pt-1.5 border-t border-slate-100 flex items-center justify-between text-[8px] font-mono text-slate-500 shrink-0">
-              <span className="flex items-center gap-1 text-emerald-600 font-semibold">
-                <CheckCircle2 className="h-2.5 w-2.5" />
-                Settled $3,420
+              <span className="flex items-center gap-1 text-emerald-600 font-semibold truncate">
+                <CheckCircle2 className="h-2.5 w-2.5 shrink-0" />
+                NestJS BullMQ Queue: Healthy
               </span>
-              <span>2s ago</span>
+              <span className="shrink-0 text-slate-400">Live</span>
             </div>
           </div>
         </div>

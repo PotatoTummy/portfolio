@@ -59,10 +59,10 @@ export const HeroStory: React.FC<HeroStoryProps> = () => {
           >
             <span className="w-2 h-2 rounded-full bg-[#00D4FF] animate-pulse shrink-0" />
             <span className="truncate">
-              <span className="hidden sm:inline">Frontend & </span>Full Stack Developer
+              Frontend-Heavy Full Stack Engineer
             </span>
             <span className="text-zinc-600 shrink-0">•</span>
-            <span className="text-zinc-400 shrink-0">Available for hire</span>
+            <span className="text-zinc-400 shrink-0">Open to Roles &amp; Contracts</span>
           </motion.div>
 
           {/* Large Grotesk Headline */}
@@ -73,7 +73,7 @@ export const HeroStory: React.FC<HeroStoryProps> = () => {
               transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
               className="block"
             >
-              Thoughtful design.
+              Pixels move.
             </motion.span>
             <motion.span
               initial={{ opacity: 0, y: 20 }}
@@ -81,21 +81,21 @@ export const HeroStory: React.FC<HeroStoryProps> = () => {
               transition={{ duration: 0.8, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
               className="block text-[#00D4FF] pt-1"
             >
-              High-performance code.
+              Systems hold.
             </motion.span>
           </h1>
 
-          {/* Human, Jargon-Free Bio Paragraph */}
+          {/* Direct, Evidence-Backed Bio Paragraph */}
           <motion.p
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
             className="text-sm sm:text-lg text-zinc-300 max-w-xl font-sans leading-relaxed"
           >
-            I&apos;m Samad Kausar — a frontend-leaning developer crafting responsive websites and digital products. I combine clean visual design with fluid motion and reliable, scalable engineering.
+            I&apos;m Samad Kausar — an engineer who designs and builds interfaces that feel finished, on backends that don&apos;t flinch. 2,500+ items at 60fps, 95+ Core Web Vitals, and resilient distributed microservices.
           </motion.p>
 
-          {/* Dual Action CTAs with Liquid Fill Animation */}
+          {/* Action CTAs */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
@@ -106,8 +106,18 @@ export const HeroStory: React.FC<HeroStoryProps> = () => {
               View Selected Work
             </LiquidButton>
 
+            <a
+              href="/cv.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-4 sm:px-5 py-2.5 sm:py-3 text-xs sm:text-sm font-mono rounded-lg border border-white/20 text-zinc-200 hover:text-white hover:border-white/50 transition-colors inline-flex items-center gap-1.5"
+            >
+              <span>Resume / CV</span>
+              <span className="text-zinc-500">↗</span>
+            </a>
+
             <LiquidButton href="#contact" variant="outline" icon={false} className="px-4 sm:px-5 py-2.5 sm:py-3 text-xs sm:text-sm">
-              Start a Project →
+              Contact →
             </LiquidButton>
           </motion.div>
         </motion.div>

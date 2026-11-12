@@ -9,7 +9,8 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Samad Kausar — Full Stack Developer (Frontend Heavy)",
+  metadataBase: new URL("https://samad-portfolio.vercel.app"),
+  title: "Samad Kausar — Frontend-Heavy Full Stack Engineer",
   description:
     "Portfolio of Samad Kausar. Architecting high-scale React enterprise portals, mobile video and gaming engines, and distributed NestJS microservices.",
   keywords: [
@@ -30,8 +31,16 @@ export const metadata: Metadata = {
     description:
       "Architecting high-scale React enterprise portals, mobile video and gaming engines, and distributed NestJS microservices.",
     type: "website",
-    url: "https://samadkausar.dev"
-  }
+    url: "https://samad-portfolio.vercel.app",
+    images: ["/og-image.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Samad Kausar — Full Stack Developer (Frontend Heavy)",
+    description:
+      "Architecting high-scale React enterprise portals, mobile video and gaming engines, and distributed NestJS microservices.",
+    creator: "@samadkausar",
+  },
 };
 
 export default function RootLayout({

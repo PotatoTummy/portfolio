@@ -70,7 +70,6 @@ export const FEATURED_PROJECTS: Project[] = [
     timeline: "2026 – Present",
     accentColor: "#00D4FF",
     mockupType: "laptop",
-    liveUrl: "https://staging.nestys.com/admin/login",
     overview: "Built a unified three-portal web application for an enterprise client. Created an intuitive Seller Dashboard for tracking daily orders and inventory, a candidate listings portal for recruiters, and an admin moderation console.",
     metrics: [
       { label: "Portals Built", value: "3 Web Consoles" },

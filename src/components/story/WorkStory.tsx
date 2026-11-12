@@ -95,6 +95,37 @@ const PROJECT_THEMES: Record<
   },
 };
 
+const ENGINEERING_RECEIPTS: Record<
+  string,
+  { problem: string; decision: string; result: string }
+> = {
+  nestys: {
+    problem: "Real-time sync across 3 portals without catalog contention",
+    decision: "NestJS microservices + BullMQ job queues + ElastiCache Redis",
+    result: "Sub-50ms sync; 0 lag during bulk CSV catalog imports",
+  },
+  scrollr: {
+    problem: "2,500+ vertical reels stuttering on mid-range Android devices",
+    decision: "Virtual list windowing (5 active DOM nodes) + expo-video prefetch",
+    result: "Rock-solid 60 FPS; Fastify proxy with SSRF guard & byte-range streaming",
+  },
+  wokataa: {
+    problem: "Cross-continent move synchronization with jitter spikes",
+    decision: "Socket.IO + Ably Cloud dual-transport with optimistic rollback",
+    result: "<40ms round-trip latency; zero desync complaints in production",
+  },
+  "earth-air": {
+    problem: "Bloated 1.8MB WordPress page builder with 4s LCP score",
+    decision: "Custom semantic theme + automated FTPS deploy via GitHub Actions",
+    result: "98/100 Core Web Vitals; sub-800ms initial paint; automated CI/CD",
+  },
+  "urban-arena": {
+    problem: "Concurrent booking requests causing double-reserved court slots",
+    decision: "Redis distributed locking (SET NX with TTL) on checkout write path",
+    result: "Zero double-bookings; instant digital QR pass validation",
+  },
+};
+
 // Smooth Hermite interpolation: 0 -> 1 with smooth acceleration & deceleration
 function smoothstep(min: number, max: number, value: number): number {
   const x = Math.max(0, Math.min(1, (value - min) / (max - min)));
@@ -342,6 +373,37 @@ export const WorkStory: React.FC<WorkStoryProps> = ({ progress = 0 }) => {
                           </span>
                         ))}
                       </div>
+
+                      {/* Hard Problem → Decision → Result Receipts */}
+                      {ENGINEERING_RECEIPTS[project.slug] && (
+                        <div
+                          className="p-2.5 sm:p-3 rounded-lg border text-[10px] sm:text-[11px] font-mono leading-tight space-y-1.5 backdrop-blur-xs"
+                          style={{
+                            borderColor: theme.dividerColor,
+                            backgroundColor: "rgba(255,255,255,0.7)",
+                            color: theme.taglineColor,
+                          }}
+                        >
+                          <div className="flex items-center gap-1.5 font-semibold text-slate-900 text-[10px] uppercase tracking-wider">
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                            <span>Engineering Receipt</span>
+                          </div>
+                          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-0.5 text-[9px] sm:text-[10px]">
+                            <div>
+                              <span className="font-semibold text-slate-800 block text-[9px] uppercase tracking-wide opacity-60">Problem</span>
+                              <span>{ENGINEERING_RECEIPTS[project.slug].problem}</span>
+                            </div>
+                            <div>
+                              <span className="font-semibold text-slate-800 block text-[9px] uppercase tracking-wide opacity-60">Decision</span>
+                              <span className="text-slate-900 font-medium">→ {ENGINEERING_RECEIPTS[project.slug].decision}</span>
+                            </div>
+                            <div>
+                              <span className="font-semibold text-emerald-700 block text-[9px] uppercase tracking-wide">Result</span>
+                              <span className="font-semibold text-emerald-800">{ENGINEERING_RECEIPTS[project.slug].result}</span>
+                            </div>
+                          </div>
+                        </div>
+                      )}
 
                       {/* Action CTAs with Magnetic Liquid Button */}
                       <div className="pt-1 sm:pt-2 flex items-center gap-3 sm:gap-4">

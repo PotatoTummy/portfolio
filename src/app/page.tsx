@@ -11,6 +11,7 @@ import { CraftStatementStory } from "@/components/story/CraftStatementStory";
 import { ContactStory } from "@/components/story/ContactStory";
 import { CommandPalette } from "@/components/CommandPalette";
 import { CursorSpotlight } from "@/components/ui/CursorSpotlight";
+import { useEasterEggs, PerfHUD, EggCounter } from "@/components/EasterEggs";
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState("Intro");
@@ -20,6 +21,15 @@ export default function Home() {
   const [portalProg, setPortalProg] = useState(0);
   const [workProg, setWorkProg] = useState(0);
   const [pageProg, setPageProg] = useState(0);
+
+  const { foundEggs, perfMode, setPerfMode, handleHelloClick } = useEasterEggs();
+
+  // Listen for perf command from CommandPalette custom event
+  useEffect(() => {
+    const handler = () => setPerfMode(p => !p);
+    window.addEventListener("sk:perf", handler);
+    return () => window.removeEventListener("sk:perf", handler);
+  }, [setPerfMode]);
 
   // Command Palette Keyboard Listener
   useEffect(() => {
@@ -113,7 +123,7 @@ export default function Home() {
         <CraftStatementStory />
 
         {/* 6. Contact: Clean, high-contrast, effortless contact section */}
-        <ContactStory />
+        <ContactStory onHelloClick={handleHelloClick} />
       </main>
 
       {/* Command Palette (Cmd + K) */}
@@ -121,6 +131,10 @@ export default function Home() {
         isOpen={isCmdKOpen}
         onClose={() => setIsCmdKOpen(false)}
       />
+
+      {/* Easter Egg Overlays */}
+      {perfMode && <PerfHUD onClose={() => setPerfMode(false)} />}
+      <EggCounter foundSet={foundEggs} />
     </div>
   );
 }

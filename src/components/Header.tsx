@@ -12,7 +12,8 @@ interface HeaderProps {
 }
 
 export const Header: React.FC<HeaderProps> = ({ activeSection = "Intro", onOpenCmdK }) => {
-  const [timeStr, setTimeStr] = useState<string>("IST 16:00");
+  const [timeStr, setTimeStr] = useState<string>("");
+  const [isOnline, setIsOnline] = useState(false);
 
   useEffect(() => {
     const updateTime = () => {
@@ -23,12 +24,14 @@ export const Header: React.FC<HeaderProps> = ({ activeSection = "Intro", onOpenC
           minute: "2-digit",
         });
         setTimeStr(`IST ${time}`);
+        const hourIST = new Date().toLocaleTimeString("en-GB", { timeZone: "Asia/Kolkata", hour: "2-digit", hour12: false }).slice(0, 2);
+        setIsOnline(Number(hourIST) >= 9 && Number(hourIST) < 23);
       } catch {
-        setTimeStr("IST 16:00");
+        setTimeStr("");
       }
     };
     updateTime();
-    const timer = setInterval(updateTime, 10000);
+    const timer = setInterval(updateTime, 60000);
     return () => clearInterval(timer);
   }, []);
 
@@ -54,8 +57,19 @@ export const Header: React.FC<HeaderProps> = ({ activeSection = "Intro", onOpenC
 
       {/* Clock & Action CTA */}
       <div className="flex items-center gap-2 sm:gap-6 pointer-events-auto">
-        <span className="hidden md:inline-block text-zinc-300 font-mono tracking-wide">
-          {timeStr}
+        <span className="hidden md:inline-flex items-center gap-2 text-zinc-300 font-mono tracking-wide">
+          {timeStr && (
+            <>
+              <span
+                className={`w-1.5 h-1.5 rounded-full ${isOnline ? "bg-emerald-400 animate-pulse" : "bg-zinc-500"}`}
+              />
+              <span>{timeStr}</span>
+              <span className="text-zinc-500">·</span>
+              <span className={isOnline ? "text-emerald-400" : "text-zinc-500"}>
+                {isOnline ? "online" : "likely asleep"}
+              </span>
+            </>
+          )}
         </span>
 
         {onOpenCmdK && (
@@ -82,6 +96,16 @@ export const Header: React.FC<HeaderProps> = ({ activeSection = "Intro", onOpenC
             </button>
           </>
         )}
+
+        <a
+          href="/cv.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hidden md:inline-flex items-center gap-1 px-2.5 py-1 text-[11px] rounded border border-white/20 text-zinc-300 hover:text-white hover:border-white/50 transition-colors"
+        >
+          <span>CV</span>
+          <span className="text-[10px] opacity-60">↗</span>
+        </a>
 
         <LiquidButton
           href="#contact"

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, useSpring } from "framer-motion";
 import { MacBookProMockup } from "@/components/devices/MacBookProMockup";
@@ -8,6 +8,7 @@ import { IPhoneMockup } from "@/components/devices/IPhoneMockup";
 import { WoKataaBattleScreen } from "@/components/story/WoKataaBattleScreen";
 import { ScrollrReelsScreen } from "@/components/story/ScrollrReelsScreen";
 import { Project } from "@/data/portfolioData";
+import { Layers, Network, X } from "lucide-react";
 
 interface InteractiveProjectStageProps {
   project: Project;
@@ -25,6 +26,25 @@ const SCREEN_IMAGES: Record<string, string> = {
 export const InteractiveProjectStage: React.FC<InteractiveProjectStageProps> = ({ project }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
+  const [showArch, setShowArch] = useState(false);
+
+  // Keyboard shortcut: Press "D" to toggle Architecture Diagram
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
+      if (e.key === "d" || e.key === "D") {
+        setShowArch((prev) => {
+          const next = !prev;
+          if (next) {
+            window.dispatchEvent(new CustomEvent("sk:egg", { detail: "diagram" }));
+          }
+          return next;
+        });
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   // Smooth mouse tilt spring physics
   const rotateX = useSpring(0, { stiffness: 220, damping: 25 });
@@ -63,6 +83,65 @@ export const InteractiveProjectStage: React.FC<InteractiveProjectStageProps> = (
   };
 
   const renderScreenContent = () => {
+    if (showArch) {
+      return (
+        <div className="relative w-full h-full bg-[#0B0B0A] text-[#F3F3EE] p-4 sm:p-6 overflow-y-auto font-mono text-left select-text">
+          <div className="flex items-center justify-between border-b border-white/[0.1] pb-2 mb-3">
+            <div className="flex items-center gap-2">
+              <Network className="w-3.5 h-3.5 text-[#00D4FF]" />
+              <span className="text-[11px] font-bold text-white uppercase tracking-wider">
+                System Architecture
+              </span>
+            </div>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setShowArch(false);
+              }}
+              className="text-zinc-500 hover:text-white p-1"
+              title="Close Diagram"
+            >
+              <X className="w-3.5 h-3.5" />
+            </button>
+          </div>
+
+          <p className="text-[10px] text-zinc-400 mb-3 leading-relaxed">
+            {project.architecture.overview}
+          </p>
+
+          <div className="space-y-2 mb-3">
+            <div className="text-[9px] uppercase tracking-wider text-[#00D4FF] font-semibold">
+              Topology Nodes
+            </div>
+            {project.architecture.nodes.map((node, i) => (
+              <div
+                key={i}
+                className="p-2 rounded-lg bg-white/[0.04] border border-white/[0.08] text-[10px]"
+              >
+                <div className="font-bold text-white flex items-center justify-between">
+                  <span>{node.name}</span>
+                  <span className="text-[9px] text-[#00D4FF] font-normal">{node.tech}</span>
+                </div>
+                <div className="text-zinc-400 text-[9px] mt-0.5">{node.role}</div>
+              </div>
+            ))}
+          </div>
+
+          <div className="space-y-1.5 pt-2 border-t border-white/[0.08]">
+            <div className="text-[9px] uppercase tracking-wider text-zinc-500 font-semibold">
+              Data Flow Sequence
+            </div>
+            {project.architecture.dataFlow.map((flow, i) => (
+              <div key={i} className="text-[9px] text-zinc-400 flex items-start gap-1.5 leading-snug">
+                <span className="text-[#00D4FF] font-bold shrink-0">{i + 1}.</span>
+                <span>{flow}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+    }
+
     if (project.slug === "wokataa") {
       return <WoKataaBattleScreen />;
     }
@@ -98,7 +177,7 @@ export const InteractiveProjectStage: React.FC<InteractiveProjectStageProps> = (
       onMouseEnter={() => setIsHovered(true)}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative w-full flex items-center justify-center py-1 sm:py-6 perspective-1000"
+      className="relative w-full flex items-center justify-center py-1 sm:py-6 perspective-1000 group"
     >
       {/* Ambient Depth Radial Spotlight behind device */}
       <div
@@ -153,19 +232,29 @@ export const InteractiveProjectStage: React.FC<InteractiveProjectStageProps> = (
           </div>
         )}
 
-        {/* Floating Feature Chip Pill */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.2 }}
-          className="absolute -bottom-2 sm:-bottom-3 right-0.5 sm:right-6 font-mono text-[9px] sm:text-[11px] px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full bg-black/85 backdrop-blur-md border border-white/20 text-white flex items-center gap-1.5 sm:gap-2 shadow-xl z-20 pointer-events-none"
-        >
-          <span
-            className="w-1.5 sm:w-2 h-1.5 sm:h-2 rounded-full animate-pulse"
-            style={{ backgroundColor: project.accentColor }}
-          />
-          <span>Interactive Preview</span>
-        </motion.div>
+        {/* Floating Feature & Architecture Toggle Pill */}
+        <div className="absolute -bottom-2 sm:-bottom-3 right-0.5 sm:right-6 font-mono text-[9px] sm:text-[11px] flex items-center gap-2 z-20">
+          <button
+            type="button"
+            onClick={() => {
+              setShowArch((prev) => {
+                const next = !prev;
+                if (next) {
+                  window.dispatchEvent(new CustomEvent("sk:egg", { detail: "diagram" }));
+                }
+                return next;
+              });
+            }}
+            className="px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full bg-black/90 backdrop-blur-md border border-white/20 text-white hover:border-[#00D4FF] hover:text-[#00D4FF] flex items-center gap-1.5 sm:gap-2 shadow-xl transition-all cursor-pointer"
+            title="Press 'D' key to toggle Architecture Diagram"
+          >
+            <span
+              className="w-1.5 sm:w-2 h-1.5 sm:h-2 rounded-full"
+              style={{ backgroundColor: showArch ? "#00D4FF" : project.accentColor }}
+            />
+            <span>{showArch ? "Show UI Preview" : "Architecture [D]"}</span>
+          </button>
+        </div>
       </motion.div>
     </div>
   );

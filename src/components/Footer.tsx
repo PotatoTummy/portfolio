@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Mail, Phone } from "lucide-react";
+import { Mail } from "lucide-react";
 import { GithubIcon } from "@/components/icons/GithubIcon";
 import { PROFILE } from "@/data/portfolioData";
 
@@ -37,15 +37,6 @@ export const Footer: React.FC = () => {
                 >
                   <Mail className="h-3.5 w-3.5 text-zinc-500" />
                   {PROFILE.email}
-                </a>
-              </li>
-              <li>
-                <a
-                  href={`tel:${PROFILE.phone}`}
-                  className="hover:text-amber-400 transition-colors flex items-center gap-2"
-                >
-                  <Phone className="h-3.5 w-3.5 text-zinc-500" />
-                  {PROFILE.phone}
                 </a>
               </li>
               <li>

@@ -213,6 +213,41 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
               </div>
               <ArrowRight className="h-3 w-3 text-zinc-500" />
             </a>
+
+            <button
+              onClick={() => { onClose(); window.dispatchEvent(new CustomEvent("sk:perf")); }}
+              className="w-full flex items-center justify-between rounded-lg px-3 py-2 text-left hover:bg-white/[0.06] text-zinc-300 hover:text-white"
+            >
+              <div className="flex items-center gap-2.5">
+                <span className="text-[#00D4FF] text-sm">⚡</span>
+                <span>Live Web Vitals HUD (perf)</span>
+              </div>
+              <span className="text-[10px] text-zinc-500">Easter egg</span>
+            </button>
+
+            <a
+              href="/archive"
+              onClick={onClose}
+              className="w-full flex items-center justify-between rounded-lg px-3 py-2 text-left hover:bg-white/[0.06] text-zinc-300 hover:text-white"
+            >
+              <div className="flex items-center gap-2.5">
+                <span className="text-[#00D4FF] text-sm">🗂</span>
+                <span>Cutting Room Floor — archive</span>
+              </div>
+              <span className="text-[10px] text-zinc-500">Hidden</span>
+            </a>
+
+            <a
+              href="/404"
+              onClick={onClose}
+              className="w-full flex items-center justify-between rounded-lg px-3 py-2 text-left hover:bg-white/[0.06] text-zinc-300 hover:text-white"
+            >
+              <div className="flex items-center gap-2.5">
+                <span className="text-[#FF5533] text-sm font-mono font-bold">404</span>
+                <span>Terminal Stack Trace (404 Not Found)</span>
+              </div>
+              <span className="text-[10px] text-zinc-500">Error page</span>
+            </a>
           </div>
         </div>
       </div>

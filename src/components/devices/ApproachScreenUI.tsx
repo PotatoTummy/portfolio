@@ -44,8 +44,8 @@ export const ApproachScreenUI: React.FC<ApproachScreenUIProps> = ({ phase }) => 
                   <Layers className="h-2.5 w-2.5 sm:h-3 sm:w-3" />
                   <span>UI System</span>
                 </div>
-                <div className="font-bold text-slate-900 text-[10px] sm:text-xs truncate">Tailwind & Radix</div>
-                <div className="text-[7px] sm:text-[9px] text-slate-500 truncate">Design tokens</div>
+                <div className="font-bold text-slate-900 text-[10px] sm:text-xs truncate">React 19 &amp; Next.js</div>
+                <div className="text-[7px] sm:text-[9px] text-slate-500 truncate">Component systems</div>
               </div>
 
               <div className="p-1.5 sm:p-3 rounded-lg sm:rounded-xl bg-white border border-slate-200/90 shadow-xs space-y-0.5 sm:space-y-1">
@@ -53,8 +53,8 @@ export const ApproachScreenUI: React.FC<ApproachScreenUIProps> = ({ phase }) => 
                   <Cpu className="h-2.5 w-2.5 sm:h-3 sm:w-3" />
                   <span>State Mesh</span>
                 </div>
-                <div className="font-bold text-slate-900 text-[10px] sm:text-xs truncate">Zustand & TanStack</div>
-                <div className="text-[7px] sm:text-[9px] text-slate-500 truncate">Client data</div>
+                <div className="font-bold text-slate-900 text-[10px] sm:text-xs truncate">Redux &amp; Zustand</div>
+                <div className="text-[7px] sm:text-[9px] text-slate-500 truncate">Store &amp; cache</div>
               </div>
 
               <div className="p-1.5 sm:p-3 rounded-lg sm:rounded-xl bg-white border border-slate-200/90 shadow-xs space-y-0.5 sm:space-y-1">
@@ -62,8 +62,8 @@ export const ApproachScreenUI: React.FC<ApproachScreenUIProps> = ({ phase }) => 
                   <Zap className="h-2.5 w-2.5 sm:h-3 sm:w-3" />
                   <span>Fluid Motion</span>
                 </div>
-                <div className="font-bold text-slate-900 text-[10px] sm:text-xs truncate">Framer Motion</div>
-                <div className="text-[7px] sm:text-[9px] text-slate-500 truncate">Physical springs</div>
+                <div className="font-bold text-slate-900 text-[10px] sm:text-xs truncate">Reanimated &amp; Motion</div>
+                <div className="text-[7px] sm:text-[9px] text-slate-500 truncate">60fps gesture physics</div>
               </div>
             </div>
 

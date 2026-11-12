@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Samad Kausar — CSS-3D Visual (Draft 03)</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;600&family=Geist+Mono&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0B0B0A;--fg:#F3F3EE;--ac:#00D4FF;--mut:rgba(243,243,238,.55);--serif:"Instrument Serif",Georgia,serif;--sans:"Geist",system-ui,sans-serif;--mono:"Geist Mono",ui-monospace,monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--bg);color:var(--fg);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow:hidden}
+.scene{perspective:900px;perspective-origin:50% 45%;position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+.ring{position:relative;width:600px;height:600px;transform-style:preserve-3d;animation:spin 22s linear infinite}
+@keyframes spin{to{transform:rotateY(360deg)}}
+@media(prefers-reduced-motion:reduce){.ring{animation:none}}
+.phone{position:absolute;left:50%;top:50%;transform-style:preserve-3d;width:90px;height:168px;margin:-84px -45px}
+.phone-body{position:absolute;inset:0;background:linear-gradient(145deg,#1a1a18,#2c2c2a);border-radius:18px;border:1.5px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.screen{position:absolute;inset:5px;border-radius:14px;background:#000;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.chip{position:absolute;padding:4px 10px;border-radius:99px;border:1px solid rgba(0,212,255,.4);font:11px var(--mono);color:var(--ac);white-space:nowrap;animation:fl 3s ease-in-out infinite alternate}
+@keyframes fl{from{transform:translateY(0) translateZ(0)}to{transform:translateY(-12px) translateZ(20px)}}
+.hero-txt{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);text-align:center;z-index:10;pointer-events:none}
+h1{font:400 clamp(52px,8vw,120px)/.9 var(--serif);letter-spacing:-.025em}
+.sub{font-size:clamp(14px,1.4vw,18px);color:var(--mut);margin-top:14px}
+.note{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);font:12px var(--mono);color:rgba(243,243,238,.3);text-align:center}
+.grain{position:fixed;inset:-10%;z-index:5;pointer-events:none;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");animation:gr .6s steps(3) infinite;mix-blend-mode:screen}
+@keyframes gr{33%{transform:translate(-3%,2%)}66%{transform:translate(2%,-3%)}}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+<div class="scene">
+  <div class="ring" id="ring"></div>
+</div>
+<div class="hero-txt">
+  <h1>Samad<br>Kausar</h1>
+  <p class="sub">Frontend-heavy full stack engineer</p>
+</div>
+<div class="note">Draft 03 · CSS-3D Visual · Orbit rings and floating tech chips</div>
+<script>
+const ring=document.getElementById("ring");
+const projects=["Nestys","Scrollr","WoKataa","Earth Air","UrbanArena","Servotech"];
+const colors=["#00D4FF","#2B6CFF","#18C38A","#F5B700","#A855F7","#FF5533"];
+const n=6;
+for(let i=0;i<n;i++){
+  const el=document.createElement("div");el.className="phone";
+  const a=(i/n)*360;const r=240;
+  el.style.transform=`rotateY(${a}deg) translateZ(${r}px)`;
+  el.innerHTML=`<div class="phone-body"><div class="screen" style="background:linear-gradient(135deg,${colors[i]}22,#000)"><span style="font:600 13px 'Geist',sans-serif;color:${colors[i]}">${projects[i]}</span></div></div>`;
+  ring.appendChild(el);
+}
+// Floating chips
+const chips=["React 19","NestJS","TypeScript","Framer Motion","React Native","PostgreSQL","Redis","Fastify"];
+chips.forEach((c,i)=>{
+  const el=document.createElement("div");el.className="chip";
+  el.textContent=c;el.style.left=(10+Math.random()*80)+"%";el.style.top=(10+Math.random()*80)+"%";
+  el.style.animationDelay=(i*.4)+"s";el.style.animationDuration=(2.5+Math.random()*2)+"s";
+  document.body.appendChild(el);
+});
+</script>
+</body>
+</html>

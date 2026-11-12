@@ -102,6 +102,32 @@
   }
 }
 
+/* Blueprint mode overlay */
+html.blueprint-mode * {
+  outline: 1px solid rgba(0, 212, 255, 0.2) !important;
+}
+
+html.blueprint-mode section {
+  position: relative;
+  outline: 2px dashed rgba(0, 212, 255, 0.45) !important;
+}
+
+html.blueprint-mode section::before {
+  content: "<" attr(id) "> [token: pad-48] [60fps]";
+  position: absolute;
+  top: 8px;
+  left: 12px;
+  background: rgba(0, 212, 255, 0.95);
+  color: #0b0b0a;
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+  z-index: 9999;
+  pointer-events: none;
+}
+
 /* The cinematic layer should never make the site harder to use. */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

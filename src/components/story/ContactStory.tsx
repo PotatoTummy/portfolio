@@ -5,7 +5,7 @@ import Link from "next/link";
 import { PROFILE } from "@/data/portfolioData";
 import { ArrowUp } from "lucide-react";
 
-export const ContactStory: React.FC = () => {
+export const ContactStory: React.FC<{ onHelloClick?: () => void }> = ({ onHelloClick }) => {
   const [greetingIndex, setGreetingIndex] = useState(0);
   const [timeStr, setTimeStr] = useState("Gorakhpur 19:48");
 
@@ -117,7 +117,6 @@ export const ContactStory: React.FC = () => {
             <div>
               <div>Gorakhpur, UP, India</div>
               <div>Open to Remote / Hybrid</div>
-              <div>+91 7317368358</div>
             </div>
 
             <div className="space-y-1 pt-1 sm:pt-2">
@@ -145,12 +144,31 @@ export const ContactStory: React.FC = () => {
             </div>
           </div>
         </div>
+
+        {/* Experience strip */}
+        <div className="border-t border-[#00D4FF]/25 mt-6 sm:mt-8 pt-5 sm:pt-6 font-mono text-xs text-[#00D4FF]">
+          <div className="uppercase tracking-wider text-[#00D4FF]/60 mb-3 text-[11px]">Experience</div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <div className="font-semibold text-[#00D4FF]">Stack-IT Technologies</div>
+              <div className="text-[#00D4FF]/70">Full Stack Developer · April 2026 – Present</div>
+            </div>
+            <div>
+              <div className="font-semibold text-[#00D4FF]">W3villa Technologies</div>
+              <div className="text-[#00D4FF]/70">Frontend Engineer · 2024 – 2026</div>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Bottom Row: Giant Greeting (Left) & Back to Top + Copyright (Right) */}
       <div className="pt-6 sm:pt-10 flex flex-col sm:flex-row items-start sm:items-end justify-between border-t border-[#00D4FF]/25 mt-6 sm:mt-8 gap-4">
         {/* Giant Left Typography (Hello.) */}
-        <div className="overflow-hidden font-grotesk font-semibold text-[clamp(48px,13vw,210px)] leading-[0.84] text-[#00D4FF] tracking-tight">
+        <div
+          className="overflow-hidden font-grotesk font-semibold text-[clamp(48px,13vw,210px)] leading-[0.84] text-[#00D4FF] tracking-tight cursor-pointer"
+          onClick={onHelloClick}
+          title="Click 5 times to unlock something"
+        >
           <span key={greetingIndex} className="block animate-[greetingSlide_0.6s_cubic-bezier(0.16,1,0.3,1)]">
             {GREETINGS[greetingIndex]}
           </span>

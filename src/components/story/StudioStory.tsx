@@ -77,17 +77,17 @@ export const StudioStory: React.FC<StudioStoryProps> = ({ progress = 0 }) => {
       id: "02",
       icon: Zap,
       lead: "Speed & Fluidity",
-      highlight: "Fast, smooth, and delightful.",
+      highlight: "2,500 items. 60fps. Zero stutter.",
       detail:
-        "Instant page loads, smooth transitions, and tactile animations powered by Framer Motion. Every interaction is carefully tuned to feel natural across all devices.",
+        "Smart list windowing keeps 2,500+ videos playing at 60fps on a mid-range Android. No frame drops measured on-device — hardware acceleration plus a custom virtualization layer.",
     },
     {
       id: "03",
       icon: ShieldCheck,
       lead: "Modern Standards",
-      highlight: "Clean foundations built to last.",
+      highlight: "Typed end to end. Zero unverified `any`.",
       detail:
-        "Modern TypeScript, scalable architecture, and maintainable standards designed to grow with your product without slowing down.",
+        "Strict TypeScript across every layer — Zod-validated API contracts, Prisma-typed queries, end-to-end. No runtime surprises from silent `any` casts.",
     },
   ];
 
@@ -426,8 +426,8 @@ export const StudioStory: React.FC<StudioStoryProps> = ({ progress = 0 }) => {
         {/* Footer Meta Strip with generous margin from the 3rd principle */}
         <div className="flex items-center justify-between border-t border-[#121211]/15 pt-2.5 sm:pt-3 font-mono text-[11px] sm:text-xs text-[#121211]/70 mt-1 sm:mt-2">
           <span>Fig. 02 · Studio Principles</span>
-          <span className="hidden sm:inline">Core Stack: Next.js · React 19 · TypeScript · Tailwind CSS</span>
-          <span className="sm:hidden">Next.js · React 19</span>
+          <span className="hidden sm:inline">Core Stack: React 19 · NestJS · Prisma · React Native · Expo</span>
+          <span className="sm:hidden">React 19 · NestJS</span>
         </div>
       </div>
     </section>
