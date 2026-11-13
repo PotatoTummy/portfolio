@@ -16,6 +16,9 @@ export const SpatialCanvas: React.FC<SpatialCanvasProps> = ({
   const mountRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
+    // Disable on mobile/touch screens to preserve 60 FPS and battery
+    if (typeof window === "undefined" || window.innerWidth < 840) return;
+
     const canvas = mountRef.current;
     if (!canvas) return;
 

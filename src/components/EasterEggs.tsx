@@ -48,8 +48,83 @@ export function useEasterEggs(props?: EasterEggsProps) {
       }
     };
 
+    const handleCustomPerf = () => {
+      markFound("perf");
+      setPerfMode(prev => {
+        const next = !prev;
+        props?.onPerfMode?.(next);
+        return next;
+      });
+    };
+
+    const handleCustomBlueprint = () => {
+      markFound("blueprint");
+      setBlueprintMode(prev => {
+        const next = !prev;
+        props?.onBlueprintMode?.(next);
+        document.documentElement.classList.toggle("blueprint-mode", next);
+        return next;
+      });
+    };
+
+    const handleCustomArchive = () => {
+      markFound("archive");
+      window.location.href = "/archive";
+    };
+
+    const handleCustomKonami = () => {
+      markFound("konami");
+      window.location.href = "/archive";
+    };
+
     window.addEventListener("sk:egg", handleCustomEgg);
-    return () => window.removeEventListener("sk:egg", handleCustomEgg);
+    window.addEventListener("sk:perf", handleCustomPerf);
+    window.addEventListener("sk:blueprint", handleCustomBlueprint);
+    window.addEventListener("sk:archive", handleCustomArchive);
+    window.addEventListener("sk:konami", handleCustomKonami);
+
+    return () => {
+      window.removeEventListener("sk:egg", handleCustomEgg);
+      window.removeEventListener("sk:perf", handleCustomPerf);
+      window.removeEventListener("sk:blueprint", handleCustomBlueprint);
+      window.removeEventListener("sk:archive", handleCustomArchive);
+      window.removeEventListener("sk:konami", handleCustomKonami);
+    };
+  }, [markFound, props]);
+
+  // Mobile Device Shake detection for Web Vitals HUD
+  useEffect(() => {
+    if (typeof window === "undefined" || !("DeviceMotionEvent" in window)) return;
+    let lastX = 0, lastY = 0, lastZ = 0;
+    let lastTime = 0;
+    const SHAKE_THRESHOLD = 26;
+
+    const handleMotion = (e: DeviceMotionEvent) => {
+      const current = e.accelerationIncludingGravity;
+      if (!current) return;
+      const now = Date.now();
+      if (now - lastTime > 120) {
+        const diffTime = now - lastTime;
+        lastTime = now;
+        const x = current.x || 0;
+        const y = current.y || 0;
+        const z = current.z || 0;
+        const speed = (Math.abs(x + y + z - lastX - lastY - lastZ) / diffTime) * 10000;
+        if (speed > SHAKE_THRESHOLD) {
+          markFound("perf");
+          setPerfMode(p => !p);
+          if (typeof navigator !== "undefined" && navigator.vibrate) {
+            navigator.vibrate([40, 40, 40]);
+          }
+        }
+        lastX = x;
+        lastY = y;
+        lastZ = z;
+      }
+    };
+
+    window.addEventListener("devicemotion", handleMotion, { passive: true });
+    return () => window.removeEventListener("devicemotion", handleMotion);
   }, [markFound]);
 
   // Konami code listener
@@ -198,7 +273,8 @@ export const PerfHUD: React.FC<{ onClose: () => void }> = ({ onClose }) => {
         background: "rgba(11,11,10,0.95)", border: "1px solid rgba(243,243,238,0.15)",
         borderRadius: 14, padding: "16px 20px", fontFamily: "ui-monospace,monospace",
         fontSize: 12, color: "#F3F3EE", backdropFilter: "blur(16px)",
-        minWidth: 220, boxShadow: "0 8px 40px rgba(0,0,0,0.6)",
+        maxWidth: "calc(100vw - 32px)", width: 260,
+        boxShadow: "0 8px 40px rgba(0,0,0,0.6)",
       }}
     >
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
@@ -244,7 +320,7 @@ export const EggCounter: React.FC<{ found?: number; total?: number; foundSet?: S
   return (
     <>
       <div
-        className="fixed bottom-5 left-5 z-[9998] flex items-center gap-2 bg-[#0B0B0A]/90 border border-white/15 rounded-full px-3.5 py-1.5 font-mono text-xs text-zinc-300 backdrop-blur-md shadow-lg select-none cursor-pointer hover:border-[#00D4FF]/60 hover:text-white transition-all"
+        className="fixed bottom-5 left-5 z-[9998] hidden sm:flex items-center gap-2 bg-[#0B0B0A]/90 border border-white/15 rounded-full px-3.5 py-1.5 font-mono text-xs text-zinc-300 backdrop-blur-md shadow-lg select-none cursor-pointer hover:border-[#00D4FF]/60 hover:text-white transition-all"
         onClick={() => setShowHints((prev) => !prev)}
         title="Click to view Easter Egg hints"
       >
