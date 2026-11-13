@@ -9,9 +9,26 @@ interface MobileHeroMonitorProps {
 
 export const MobileHeroMonitor: React.FC<MobileHeroMonitorProps> = ({ onCoordsChange }) => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const lastTapRef = useRef<number>(0);
   const [inView, setInView] = useState(true);
   const [fpsHistory, setFpsHistory] = useState<number[]>([59, 60, 60, 58, 60, 59, 60, 60, 60, 59]);
   const [currentFps, setCurrentFps] = useState(60);
+
+  const handleChartDoubleTap = () => {
+    const now = Date.now();
+    if (now - lastTapRef.current < 400) {
+      if (typeof window !== "undefined") {
+        window.dispatchEvent(new CustomEvent("sk:egg", { detail: "perf" }));
+        window.dispatchEvent(new CustomEvent("sk:perf"));
+        if (typeof navigator !== "undefined" && navigator.vibrate) {
+          navigator.vibrate([30, 30]);
+        }
+      }
+      lastTapRef.current = 0;
+    } else {
+      lastTapRef.current = now;
+    }
+  };
 
   // IntersectionObserver to pause the 10fps loop when offscreen
   useEffect(() => {
@@ -119,12 +136,16 @@ export const MobileHeroMonitor: React.FC<MobileHeroMonitorProps> = ({ onCoordsCh
         </div>
       </div>
 
-      {/* Live Wave Chart (10fps SVG update) */}
-      <div className="p-2.5 rounded-xl bg-white/[0.03] border border-white/10 space-y-1.5">
+      {/* Live Wave Chart (10fps SVG update - 2x tap to open Web Vitals HUD) */}
+      <div
+        onClick={handleChartDoubleTap}
+        className="p-2.5 rounded-xl bg-white/[0.03] border border-white/10 space-y-1.5 cursor-pointer active:bg-white/[0.06] transition-colors"
+        title="Double-tap for Live Web Vitals HUD"
+      >
         <div className="flex items-center justify-between text-[10px] font-mono">
           <span className="font-bold text-zinc-300">Throughput &amp; Frame Budget</span>
           <div className="flex items-center gap-1 text-[9px]">
-            <span className="px-1.5 py-0.5 rounded bg-white/10 text-zinc-400">Live 10fps</span>
+            <span className="px-1.5 py-0.5 rounded bg-white/10 text-zinc-400">2x tap HUD</span>
             <span className="px-1.5 py-0.5 rounded bg-[#00D4FF]/20 text-[#00D4FF] font-bold">60 FPS</span>
           </div>
         </div>

@@ -92,41 +92,6 @@ export function useEasterEggs(props?: EasterEggsProps) {
     };
   }, [markFound, props]);
 
-  // Mobile Device Shake detection for Web Vitals HUD
-  useEffect(() => {
-    if (typeof window === "undefined" || !("DeviceMotionEvent" in window)) return;
-    let lastX = 0, lastY = 0, lastZ = 0;
-    let lastTime = 0;
-    const SHAKE_THRESHOLD = 26;
-
-    const handleMotion = (e: DeviceMotionEvent) => {
-      const current = e.accelerationIncludingGravity;
-      if (!current) return;
-      const now = Date.now();
-      if (now - lastTime > 120) {
-        const diffTime = now - lastTime;
-        lastTime = now;
-        const x = current.x || 0;
-        const y = current.y || 0;
-        const z = current.z || 0;
-        const speed = (Math.abs(x + y + z - lastX - lastY - lastZ) / diffTime) * 10000;
-        if (speed > SHAKE_THRESHOLD) {
-          markFound("perf");
-          setPerfMode(p => !p);
-          if (typeof navigator !== "undefined" && navigator.vibrate) {
-            navigator.vibrate([40, 40, 40]);
-          }
-        }
-        lastX = x;
-        lastY = y;
-        lastZ = z;
-      }
-    };
-
-    window.addEventListener("devicemotion", handleMotion, { passive: true });
-    return () => window.removeEventListener("devicemotion", handleMotion);
-  }, [markFound]);
-
   // Konami code listener
   useEffect(() => {
     let pos = 0;
@@ -279,7 +244,26 @@ export const PerfHUD: React.FC<{ onClose: () => void }> = ({ onClose }) => {
     >
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
         <span style={{ color: "#00D4FF", fontWeight: 600, fontSize: 11, letterSpacing: "0.08em" }}>⚡ LIVE WEB VITALS</span>
-        <button onClick={onClose} style={{ background: "none", border: "none", color: "#F3F3EE", cursor: "pointer", fontSize: 16, lineHeight: 1 }}>×</button>
+        <button
+          onClick={onClose}
+          aria-label="Close Web Vitals HUD"
+          style={{
+            background: "rgba(255,255,255,0.08)",
+            border: "1px solid rgba(255,255,255,0.15)",
+            borderRadius: 6,
+            color: "#F3F3EE",
+            cursor: "pointer",
+            width: 28,
+            height: 28,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontSize: 16,
+            lineHeight: 1,
+          }}
+        >
+          ×
+        </button>
       </div>
       {Object.keys(vitals).length === 0 ? (
         <div style={{ color: "rgba(243,243,238,0.5)" }}>Collecting…</div>

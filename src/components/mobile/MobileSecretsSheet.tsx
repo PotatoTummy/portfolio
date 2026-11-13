@@ -25,7 +25,7 @@ const MOBILE_HINTS = [
   {
     id: "perf",
     title: "Live Web Vitals HUD",
-    hint: "Double-tap the IST status pill in header, or shake device",
+    hint: "Double-tap the IST status pill in header or tap Hero FPS graph",
     actionLabel: "⚡ Toggle HUD",
     actionKey: "perf",
   },

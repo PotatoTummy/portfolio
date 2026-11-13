@@ -27,7 +27,7 @@
 | # | Secret ID | Desktop Trigger | **Mobile Touch Equivalent** | Feedback & Payoff |
 |---|---|---|---|---|
 | **01** | `konami` | Keyboard ↑↑↓↓←→←→BA | **Virtual Gamepad Modal / Swipe Pad:** Tap gamepad button in Secrets Hub or swipe combo | Unlocks `/archive` with haptic vibration `navigator.vibrate([60, 60, 120])` |
-| **02** | `perf` | Type "perf" / Cmd+K | **Device Shake or Double-Tap Status:** Double-tap IST Online pill or shake device | Slides up Live Web Vitals HUD |
+| **02** | `perf` | Type "perf" / Cmd+K | **Double-Tap Status / Hero FPS Chart:** Double-tap IST Online pill or Hero FPS graph | Slides up Live Web Vitals HUD |
 | **03** | `blueprint` | Type "blueprint" | **Long-Press on Brand Logo:** Hold "SK" logo for 500ms | Haptic buzz `navigator.vibrate(10)` & toggles layout bounds |
 | **04** | `diagram` | Press "D" on keyboard | **Triple-Tap on Project Card / Architecture [D] button** | Opens interactive System Architecture sheet |
 | **05** | `console` | DevTools Console (F12) | **In-App Mobile Dev Terminal:** Tap "Dev Terminal" in Secrets Hub | Interactive bash sheet with recruiter letter & ASCII art |
